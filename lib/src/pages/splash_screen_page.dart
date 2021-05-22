@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/pages/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key key}) : super(key: key);
