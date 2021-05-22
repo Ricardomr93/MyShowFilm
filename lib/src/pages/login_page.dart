@@ -18,7 +18,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   //  _formKey and _autoValidate
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +38,11 @@ class _LoginState extends State<Login> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         LogoAut(),
-        TextFieldGeneral(
+        TextFieldForm(
           hintText: 'email', //TODO onSaved
           validator: (val) => util.validateEmail(val),
         ),
-        TextFieldGeneral(
+        TextFieldForm(
           hintText: 'password',
           passtext: true,
           validator: (val) => util.validatePass(val),
