@@ -13,7 +13,7 @@ class TextBold extends StatelessWidget {
         style: TextStyle(
           color: textTheme.bodyText2.color,
           fontWeight: FontWeight.bold,
-          fontSize: 15,
+          fontSize: 16,
         ),
       ),
     );

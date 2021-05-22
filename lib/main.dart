@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/pages/login.dart';
-import 'package:myshowfilm/src/pages/splash_screen.dart';
+import 'package:myshowfilm/src/pages/login_page.dart';
+import 'package:myshowfilm/src/pages/sing_page.dart';
+import 'package:myshowfilm/src/pages/splash_screen_page.dart';
 import 'package:myshowfilm/src/theme/text_theme.dart';
 
 void main() => runApp(MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'splash': (BuildContext context) => SplashScreen(),
         'login': (BuildContext context) => Login(),
+        'sing': (BuildContext context) => SingUp(),
       },
       theme: ThemeData(
         textTheme: textTheme,

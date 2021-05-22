@@ -24,7 +24,7 @@ class TextFieldGeneral extends StatefulWidget {
 }
 
 class _TextFieldGeneralState extends State<TextFieldGeneral> {
-  bool _obscureText = false;
+  bool _obscureText = true;
   final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,6 @@ class _TextFieldGeneralState extends State<TextFieldGeneral> {
                         onPressed: () {
                           setState(() {
                             _obscureText = !_obscureText;
-                            print('object');
                           });
                         },
                       ),

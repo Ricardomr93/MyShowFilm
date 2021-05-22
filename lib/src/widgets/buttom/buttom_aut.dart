@@ -11,7 +11,7 @@ class ButtomAut extends StatelessWidget {
     return Container(
         width: double.infinity,
         height: 50,
-        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+        margin: EdgeInsets.only(right: 30, left: 30, top: 30),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             primary: myTheme.buttonColor,
