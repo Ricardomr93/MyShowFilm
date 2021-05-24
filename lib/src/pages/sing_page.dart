@@ -4,7 +4,6 @@ import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_back.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_text.dart';
 import 'package:myshowfilm/src/widgets/logo/logo_aut.dart';
-import 'package:myshowfilm/src/widgets/progress/circular_progress_wait.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,14 +11,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
 import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
 
-class SingUp extends StatefulWidget {
-  SingUp({Key key}) : super(key: key);
+class SingUpPage extends StatefulWidget {
+  SingUpPage({Key key}) : super(key: key);
 
   @override
-  _SingUpState createState() => _SingUpState();
+  _SingUpPageState createState() => _SingUpPageState();
 }
 
-class _SingUpState extends State<SingUp> {
+class _SingUpPageState extends State<SingUpPage> {
   //  _formKey and _autoValidate
   final _formKey = GlobalKey<FormState>();
   //auth
@@ -78,34 +77,6 @@ class _SingUpState extends State<SingUp> {
     );
   }
 
-  _onPressed() async {
-    if (!_formKey.currentState.validate()) {
-      return;
-    }
-    //crea un alertDialog para darle feedback al usuario de que está trabajando internamente
-    utilAlert.showLoadingIndicator(context, 'Registering user');
-    _formKey.currentState.save();
-    try {
-      await _auth
-          .createUserWithEmailAndPassword(
-              email: user.email, password: user.pass)
-          .then((value) {
-        utilAlert.hideLoadingIndicator(context);
-        utilAlert.showAlertDialogGeneral(context, 'Correct',
-            'User successfully registered', () => Navigator.pop(context));
-      });
-    } on FirebaseAuthException catch (e) {
-      //error controlado de duplicidad de email
-      if (e.code == 'email-already-in-use') {
-        utilAlert.hideLoadingIndicator(context);
-        utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
-      }
-    } catch (e) {
-      utilAlert.hideLoadingIndicator(context);
-      utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
-    }
-  }
-
   Widget _haveAccount() {
     return Container(
         child: Column(
@@ -131,5 +102,37 @@ class _SingUpState extends State<SingUp> {
         ),
       ],
     );
+  }
+
+  //Evento al pulsar el botón de registro
+  _onPressed() async {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    //crea un alertDialog para darle feedback al usuario de que está trabajando internamente
+    utilAlert.showLoadingIndicator(context, 'User trying to register');
+    _formKey.currentState.save();
+    try {
+      await _auth
+          .createUserWithEmailAndPassword(
+              email: user.email, password: user.pass)
+          .then((value) {
+        utilAlert.hideLoadingIndicator(context);
+        utilAlert.showAlertDialogGeneral(context, 'Correct',
+            'User successfully registered', () => Navigator.pop(context));
+      });
+    } on FirebaseAuthException catch (e) {
+      //error controlado de duplicidad de email
+      if (e.code == 'email-already-in-use') {
+        utilAlert.hideLoadingIndicator(context);
+        utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+      } else {
+        utilAlert.hideLoadingIndicator(context);
+        utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+      }
+    } catch (e) {
+      utilAlert.hideLoadingIndicator(context);
+      utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+    }
   }
 }

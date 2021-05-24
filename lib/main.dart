@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:myshowfilm/src/pages/home_page.dart';
 import 'package:myshowfilm/src/pages/login_page.dart';
 import 'package:myshowfilm/src/pages/sing_page.dart';
 import 'package:myshowfilm/src/pages/splash_screen_page.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
-import 'package:myshowfilm/src/theme/text_theme.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 
@@ -22,9 +22,10 @@ class MyApp extends StatelessWidget {
       title: 'MyShowFilm',
       initialRoute: 'splash', // pantalla inicial
       routes: {
-        'splash': (BuildContext context) => SplashScreen(),
-        'login': (BuildContext context) => Login(),
-        'sing': (BuildContext context) => SingUp(),
+        'splash': (BuildContext context) => SplashScreenPage(),
+        'login': (BuildContext context) => LoginPage(),
+        'sing': (BuildContext context) => SingUpPage(),
+        'home': (BuildContext context) => HomePage(),
       },
       theme: myTheme,
     );

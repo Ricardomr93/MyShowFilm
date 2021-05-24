@@ -9,18 +9,19 @@ import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
+import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
 
-class Login extends StatefulWidget {
-  const Login({Key key})
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key key})
       : super(
           key: key,
         );
 
   @override
-  _LoginState createState() => _LoginState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginPageState extends State<LoginPage> {
   //  _formKey and _autoValidate
   final _formKey = GlobalKey<FormState>();
   final _auth = FirebaseAuth.instance;
@@ -122,12 +123,38 @@ class _LoginState extends State<Login> {
     );
   }
 
+  //evento al pulsar el botón de login
   _onPressed() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (!_formKey.currentState.validate()) {
+      return;
     }
-    await _auth
-        .signInWithEmailAndPassword(email: user.email, password: user.pass)
-        .then((value) => null); //TODO llevar a home
+    utilAlert.showLoadingIndicator(context, 'User trying to login');
+    _formKey.currentState.save();
+    try {
+      await _auth
+          .signInWithEmailAndPassword(email: user.email, password: user.pass)
+          .then((value) {
+        utilAlert.hideLoadingIndicator(context);
+        Navigator.of(context).pushReplacementNamed('home');
+      });
+    } on FirebaseAuthException catch (e) {
+      //error controlado de email o contraseñas no correctas
+      if (e.code == 'user-not-found') {
+        utilAlert.hideLoadingIndicator(context);
+        utilAlert.showAlertDialogGeneral(
+            context, 'Error', 'The email or password isn\'t correct');
+      }
+      if (e.code == 'wrong-password') {
+        utilAlert.hideLoadingIndicator(context);
+        utilAlert.showAlertDialogGeneral(
+            context, 'Error', 'The email or password isn\'t correct');
+      } else {
+        utilAlert.hideLoadingIndicator(context);
+        utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+      }
+    } catch (e) {
+      utilAlert.hideLoadingIndicator(context);
+      utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+    }
   }
 }
