@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:myshowfilm/src/models/user.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
-import 'package:myshowfilm/src/widgets/buttom/buttom_aut.dart';
+import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_text.dart';
 import 'package:myshowfilm/src/widgets/logo/logo_aut.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
-import 'package:myshowfilm/src/widgets/text/textfield_general.dart';
-import 'package:myshowfilm/src/utils/util.dart' as util;
+import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:myshowfilm/src/utils/util_text.dart' as util;
 
 class Login extends StatefulWidget {
-  Login({Key key}) : super(key: key);
+  const Login({Key key})
+      : super(
+          key: key,
+        );
 
   @override
   _LoginState createState() => _LoginState();
@@ -18,6 +23,9 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   //  _formKey and _autoValidate
   final _formKey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance;
+  UserModel user = UserModel();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,17 +47,19 @@ class _LoginState extends State<Login> {
       children: [
         LogoAut(),
         TextFieldForm(
-          hintText: 'email', //TODO onSaved
+          hintText: 'email',
           validator: (val) => util.validateEmail(val),
+          keyboardType: TextInputType.emailAddress,
+          onSaved: (val) => user.email = val,
         ),
         TextFieldForm(
           hintText: 'password',
           passtext: true,
           validator: (val) => util.validatePass(val),
+          onSaved: (val) => user.pass = val,
         ),
-        ButtomAut(
+        ButtomAuth(
           text: 'LOGIN',
-          forKey: _formKey,
           onPressed: () => _onPressed(),
         ),
         _noAccount(),
@@ -112,9 +122,12 @@ class _LoginState extends State<Login> {
     );
   }
 
-  _onPressed() {
+  _onPressed() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
     }
+    await _auth
+        .signInWithEmailAndPassword(email: user.email, password: user.pass)
+        .then((value) => null); //TODO llevar a home
   }
 }

@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 
-class ButtomAut extends StatelessWidget {
+class ButtomAuth extends StatelessWidget {
   final text;
-  final forKey;
   final onPressed;
-  const ButtomAut(
-      {Key key, @required this.text, this.forKey, @required this.onPressed})
+  const ButtomAuth({Key key, @required this.text, @required this.onPressed})
       : super(key: key);
 
   @override

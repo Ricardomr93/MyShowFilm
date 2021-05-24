@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key key}) : super(key: key);
@@ -10,8 +11,18 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 3000),
-        () => Navigator.of(context).pushReplacementNamed('login'));
+    Future.delayed(Duration(milliseconds: 3000), () async {
+      //auth
+      final _auth = FirebaseAuth.instance;
+      //TODO IR A UNA PAGINA U OTRA SEGÚN SI ESTÁ CONECTADO O NO
+      if (_auth.currentUser == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+      // await _auth.signOut(); // TODO para cerrar sesión
+      Navigator.of(context).pushReplacementNamed('login');
+    });
     super.initState();
   }
 
