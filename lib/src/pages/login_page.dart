@@ -8,6 +8,7 @@ import 'package:myshowfilm/src/widgets/logo/logo_aut.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
 import 'package:myshowfilm/src/services/auth_service.dart' as authService;
 
@@ -103,13 +104,26 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 30),
+          padding: const EdgeInsets.all(15),
           child: ButtomRound(
-            image: 'assets/img/social/google.png',
+            icon: FontAwesomeIcons.google,
             onPressed: () => authService.signInWithGoogle(context),
           ),
         ),
-        ButtomRound(image: 'assets/img/social/twitter.png'),
+        Padding(
+          padding: const EdgeInsets.all(15),
+          child: ButtomRound(
+            icon: FontAwesomeIcons.twitter,
+            onPressed: () => authService.signInWithFacebook(context),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(15),
+          child: ButtomRound(
+            icon: FontAwesomeIcons.facebookF,
+            onPressed: () => authService.signInWithFacebook(context),
+          ),
+        ),
       ],
     );
   }
