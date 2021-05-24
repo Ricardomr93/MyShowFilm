@@ -8,8 +8,8 @@ import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:myshowfilm/src/services/auth_service.dart' as authService;
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
-import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
 
 class SingUpPage extends StatefulWidget {
   SingUpPage({Key key}) : super(key: key);
@@ -109,30 +109,7 @@ class _SingUpPageState extends State<SingUpPage> {
     if (!_formKey.currentState.validate()) {
       return;
     }
-    //crea un alertDialog para darle feedback al usuario de que está trabajando internamente
-    utilAlert.showLoadingIndicator(context, 'User trying to register');
     _formKey.currentState.save();
-    try {
-      await _auth
-          .createUserWithEmailAndPassword(
-              email: user.email, password: user.pass)
-          .then((value) {
-        utilAlert.hideLoadingIndicator(context);
-        utilAlert.showAlertDialogGeneral(context, 'Correct',
-            'User successfully registered', () => Navigator.pop(context));
-      });
-    } on FirebaseAuthException catch (e) {
-      //error controlado de duplicidad de email
-      if (e.code == 'email-already-in-use') {
-        utilAlert.hideLoadingIndicator(context);
-        utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
-      } else {
-        utilAlert.hideLoadingIndicator(context);
-        utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
-      }
-    } catch (e) {
-      utilAlert.hideLoadingIndicator(context);
-      utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
-    }
+    authService.createUserWithEmailAndPassword(context, user);
   }
 }

@@ -9,7 +9,7 @@ import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
-import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
+import 'package:myshowfilm/src/services/auth_service.dart' as authService;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key})
@@ -104,7 +104,10 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 30),
-          child: ButtomRound(image: 'assets/img/social/google.png'),
+          child: ButtomRound(
+            image: 'assets/img/social/google.png',
+            onPressed: () => authService.signInWithGoogle(context),
+          ),
         ),
         ButtomRound(image: 'assets/img/social/twitter.png'),
       ],
@@ -128,33 +131,7 @@ class _LoginPageState extends State<LoginPage> {
     if (!_formKey.currentState.validate()) {
       return;
     }
-    utilAlert.showLoadingIndicator(context, 'User trying to login');
     _formKey.currentState.save();
-    try {
-      await _auth
-          .signInWithEmailAndPassword(email: user.email, password: user.pass)
-          .then((value) {
-        utilAlert.hideLoadingIndicator(context);
-        Navigator.of(context).pushReplacementNamed('home');
-      });
-    } on FirebaseAuthException catch (e) {
-      //error controlado de email o contraseñas no correctas
-      if (e.code == 'user-not-found') {
-        utilAlert.hideLoadingIndicator(context);
-        utilAlert.showAlertDialogGeneral(
-            context, 'Error', 'The email or password isn\'t correct');
-      }
-      if (e.code == 'wrong-password') {
-        utilAlert.hideLoadingIndicator(context);
-        utilAlert.showAlertDialogGeneral(
-            context, 'Error', 'The email or password isn\'t correct');
-      } else {
-        utilAlert.hideLoadingIndicator(context);
-        utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
-      }
-    } catch (e) {
-      utilAlert.hideLoadingIndicator(context);
-      utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
-    }
+    authService.singInWithEmailAndPass(context, user);
   }
 }

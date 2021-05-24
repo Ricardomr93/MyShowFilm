@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
 
 class ButtomRound extends StatelessWidget {
-  const ButtomRound({Key key, this.image}) : super(key: key);
   final image;
+  final onPressed;
+  const ButtomRound({Key key, this.image, this.onPressed}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +20,7 @@ class ButtomRound extends StatelessWidget {
             '$image',
             height: 70,
           ),
-          onPressed: () {},
+          onPressed: () => onPressed(),
         ));
   }
 }
