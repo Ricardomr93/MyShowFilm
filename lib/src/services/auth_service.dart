@@ -3,7 +3,7 @@ import 'package:myshowfilm/src/models/user.dart';
 import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 final _auth = FirebaseAuth.instance;
 
@@ -27,43 +27,21 @@ signInWithGoogle(context) async {
 }
 
 signInWithFacebook(context) async {
-  utilAlert.showLoadingIndicator(context, 'Trying to login with Facebook');
-  // Create an instance of FacebookLogin
-  final fb = FacebookLogin();
-
-// Log in
-  final res = await fb.logIn(permissions: [
-    FacebookPermission.publicProfile,
-    FacebookPermission.email,
-  ]);
-
-// Check result status
-  switch (res.status) {
-    case FacebookLoginStatus.success:
-
-      // Send access token to server for validation and auth
-      final FacebookAccessToken accessToken = res.accessToken;
-      print('Access token: ${accessToken.token}');
-      // Get profile data
-      final profile = await fb.getUserProfile();
-      print('Hello, ${profile.name}! You ID: ${profile.userId}');
-      // Get user profile image url
-      final imageUrl = await fb.getProfileImageUrl(width: 100);
-      print('Your profile image: $imageUrl');
-      // Get email (since we request email permission)
-      final email = await fb.getUserEmail();
-      // But user can decline permission
-      if (email != null) print('And your email is $email');
+  try {
+    utilAlert.showLoadingIndicator(context, 'Trying to login with Facebook');
+    // Trigger the sign-in flow
+    final result = await FacebookAuth.instance.login();
+    // Create a credential from the access token
+    final facebookAuthCredential =
+        FacebookAuthProvider.credential('${result.accessToken.token}');
+    // Once signed in, return the UserCredential
+    await _auth.signInWithCredential(facebookAuthCredential).then((value) {
       utilAlert.hideLoadingIndicator(context);
       Navigator.of(context).pushReplacementNamed('home');
-      break;
-    case FacebookLoginStatus.cancel:
-      utilAlert.hideLoadingIndicator(context);
-      break;
-    case FacebookLoginStatus.error:
-      utilAlert.hideLoadingIndicator(context);
-      utilAlert.showAlertDialogGeneral(context, 'Error', '${res.error}');
-      break;
+    });
+  } catch (e) {
+    utilAlert.hideLoadingIndicator(context);
+    utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
   }
 }
 
