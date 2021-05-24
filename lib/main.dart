@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:myshowfilm/src/pages/home_page.dart';
 import 'package:myshowfilm/src/pages/login_page.dart';
 import 'package:myshowfilm/src/pages/sing_page.dart';
 import 'package:myshowfilm/src/pages/splash_screen_page.dart';
-import 'package:myshowfilm/src/theme/text_theme.dart';
+import 'package:myshowfilm/src/theme/my_theme.dart';
+// Import the firebase_core plugin
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  //importante para iniciar firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -14,19 +22,12 @@ class MyApp extends StatelessWidget {
       title: 'MyShowFilm',
       initialRoute: 'splash', // pantalla inicial
       routes: {
-        'splash': (BuildContext context) => SplashScreen(),
-        'login': (BuildContext context) => Login(),
-        'sing': (BuildContext context) => SingUp(),
+        'splash': (BuildContext context) => SplashScreenPage(),
+        'login': (BuildContext context) => LoginPage(),
+        'sing': (BuildContext context) => SingUpPage(),
+        'home': (BuildContext context) => HomePage(),
       },
-      theme: ThemeData(
-        textTheme: textTheme,
-        brightness: Brightness.dark,
-        fontFamily: 'Roboto',
-        backgroundColor: Color(0xff212121),
-        primaryColorLight: Color(0xff484848),
-        accentColor: Color(0xffd32f2f),
-        buttonColor: Color(0xffba000d),
-      ),
+      theme: myTheme,
     );
   }
 }
