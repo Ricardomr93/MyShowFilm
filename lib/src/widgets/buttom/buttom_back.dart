@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/widgets/text_bold.dart';
+import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 
 class ButtomBack extends StatelessWidget {
   const ButtomBack({Key key}) : super(key: key);

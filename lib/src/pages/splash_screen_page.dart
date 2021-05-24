@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key key}) : super(key: key);
+class SplashScreenPage extends StatefulWidget {
+  const SplashScreenPage({Key key}) : super(key: key);
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _SplashScreenPageState createState() => _SplashScreenPageState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 3000),
-        () => Navigator.of(context).pushReplacementNamed('login'));
+    Future.delayed(Duration(milliseconds: 3000), () async {
+      //auth
+      final _auth = FirebaseAuth.instance;
+      //IR A UNA PAGINA U OTRA SEGÚN SI ESTÁ CONECTADO O NO
+      if (_auth.currentUser == null) {
+        Navigator.of(context).pushReplacementNamed('login');
+      } else {
+        Navigator.of(context).pushReplacementNamed('home');
+      }
+    });
     super.initState();
   }
 

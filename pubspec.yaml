@@ -37,6 +37,13 @@ dev_dependencies:
   flutter_launcher_icons: ^0.7.4
   flutter_test:
     sdk: flutter
+  # Add the dependency for the Firebase Core Flutter SDK
+  firebase_core: ^1.2.0
+  firebase_analytics: ^8.1.0
+  firebase_auth: ^1.2.0
+  cloud_firestore: ^2.2.0
+  firebase_storage: ^8.1.0
+  google_sign_in: ^5.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
