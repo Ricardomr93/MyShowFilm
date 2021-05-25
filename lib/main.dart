@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MyShowFilm',
-      initialRoute: 'splash', // pantalla inicial
+      initialRoute: 'home', // pantalla inicial TODO cambiar despues de diseñar
       routes: {
         'splash': (BuildContext context) => SplashScreenPage(),
         'login': (BuildContext context) => LoginPage(),

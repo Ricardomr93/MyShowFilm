@@ -95,3 +95,11 @@ createUserWithEmailAndPassword(context, UserModel user) async {
     utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
   }
 }
+
+logOut(context) async {
+  utilAlert.showLoadingIndicator(context, 'User trying log out');
+  await _auth.signOut().then((value) {
+    utilAlert.hideLoadingIndicator(context);
+    Navigator.of(context).pushReplacementNamed('login');
+  });
+}
