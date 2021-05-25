@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/pages/login_page.dart';
-import 'package:myshowfilm/src/pages/sing_page.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
-import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:myshowfilm/src/pages/my_profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
 import 'package:myshowfilm/src/widgets/home.dart';
-import 'package:myshowfilm/src/services/auth_service.dart' as authService;
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -19,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _auth = FirebaseAuth.instance;
   int _currentIndex = 0;
-  final List _children = [Home(), LoginPage(), SingUpPage()];
+  final List _children = [Home(), LoginPage(), MyProfilePage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
