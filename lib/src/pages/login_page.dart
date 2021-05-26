@@ -7,7 +7,6 @@ import 'package:myshowfilm/src/widgets/buttom/buttom_text.dart';
 import 'package:myshowfilm/src/widgets/logo/logo_aut.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
 import 'package:myshowfilm/src/services/auth_service.dart' as authService;
@@ -25,7 +24,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   //  _formKey and _autoValidate
   final _formKey = GlobalKey<FormState>();
-  final _auth = FirebaseAuth.instance;
   UserModel user = UserModel();
 
   @override
