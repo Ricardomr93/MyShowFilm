@@ -3,6 +3,7 @@ import 'package:myshowfilm/src/models/user.dart';
 import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 final _auth = FirebaseAuth.instance;
 
@@ -16,6 +17,25 @@ signInWithGoogle(context) async {
       idToken: googleAuth.idToken,
     );
     await _auth.signInWithCredential(credential).then((value) {
+      utilAlert.hideLoadingIndicator(context);
+      Navigator.of(context).pushReplacementNamed('home');
+    });
+  } catch (e) {
+    utilAlert.hideLoadingIndicator(context);
+    utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+  }
+}
+
+signInWithFacebook(context) async {
+  try {
+    utilAlert.showLoadingIndicator(context, 'Trying to login with Facebook');
+    // Trigger the sign-in flow
+    final result = await FacebookAuth.instance.login();
+    // Create a credential from the access token
+    final facebookAuthCredential =
+        FacebookAuthProvider.credential('${result.accessToken.token}');
+    // Once signed in, return the UserCredential
+    await _auth.signInWithCredential(facebookAuthCredential).then((value) {
       utilAlert.hideLoadingIndicator(context);
       Navigator.of(context).pushReplacementNamed('home');
     });
@@ -74,4 +94,12 @@ createUserWithEmailAndPassword(context, UserModel user) async {
     utilAlert.hideLoadingIndicator(context);
     utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
   }
+}
+
+logOut(context) async {
+  utilAlert.showLoadingIndicator(context, 'User trying log out');
+  await _auth.signOut().then((value) {
+    utilAlert.hideLoadingIndicator(context);
+    Navigator.of(context).pushReplacementNamed('login');
+  });
 }

@@ -6,7 +6,6 @@ import 'package:myshowfilm/src/widgets/buttom/buttom_text.dart';
 import 'package:myshowfilm/src/widgets/logo/logo_aut.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:myshowfilm/src/services/auth_service.dart' as authService;
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
@@ -21,8 +20,6 @@ class SingUpPage extends StatefulWidget {
 class _SingUpPageState extends State<SingUpPage> {
   //  _formKey and _autoValidate
   final _formKey = GlobalKey<FormState>();
-  //auth
-  final _auth = FirebaseAuth.instance;
   UserModel user = UserModel();
   @override
   Widget build(BuildContext context) {

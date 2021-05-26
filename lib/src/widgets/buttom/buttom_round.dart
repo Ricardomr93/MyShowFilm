@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
 
 class ButtomRound extends StatelessWidget {
-  final image;
   final onPressed;
-  const ButtomRound({Key key, this.image, this.onPressed}) : super(key: key);
+  final icon;
+  const ButtomRound({Key key, this.onPressed, @required this.icon})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,9 +17,9 @@ class ButtomRound extends StatelessWidget {
             primary: myTheme.buttonColor,
             shape: CircleBorder(),
           ),
-          child: Image.asset(
-            '$image',
-            height: 70,
+          child: Icon(
+            icon,
+            size: 40,
           ),
           onPressed: () => onPressed(),
         ));
