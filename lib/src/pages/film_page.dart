@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/models/film_response.dart';
+import 'package:myshowfilm/src/widgets/list_film.dart';
 import 'package:myshowfilm/src/widgets/now_playing.dart';
 
 class FilmPage extends StatefulWidget {
@@ -18,6 +19,10 @@ class _FilmPageState extends State<FilmPage> {
     return ListView(
       children: [
         NowPlaying(
+          snapshot: widget.snapshot,
+          type: widget.type,
+        ),
+        ListFilm(
           snapshot: widget.snapshot,
           type: widget.type,
         ),

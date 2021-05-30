@@ -80,12 +80,6 @@ class _NowPlayingState extends State<NowPlaying> {
 
   Widget _buildHomeWidget(data, String type) {
     List films = data.films;
-    if (type == Constants.LABEL_FILMS) {
-      List<Film> films = data.films;
-    } else {
-      List<Serie> films = data.films;
-    }
-
     if (films.length == 0) {
       return Container(
         width: MediaQuery.of(context).size.width,
@@ -106,7 +100,7 @@ class _NowPlayingState extends State<NowPlaying> {
       );
     } else
       return Container(
-        height: 210.0,
+        height: 190.0,
         child: PageIndicatorContainer(
             align: IndicatorAlign.bottom,
             length: films.take(Constants.NUM_FILMS_NOW).length,
@@ -123,7 +117,7 @@ class _NowPlayingState extends State<NowPlaying> {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 220,
+                      height: MediaQuery.of(context).size.height,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         image: DecorationImage(
