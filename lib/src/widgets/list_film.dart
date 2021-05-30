@@ -3,11 +3,8 @@ import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
 import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/api_constants.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/models/Serie.dart';
-import 'package:myshowfilm/src/models/film.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 
 class ListFilm extends StatefulWidget {
@@ -112,20 +109,45 @@ class _ListFilmState extends State<ListFilm> {
             itemBuilder: (context, index) {
               return Stack(
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      shape: BoxShape.rectangle,
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "${ApiConstants.IMAGE_URL}${films[index].posterPath}"),
-                          fit: BoxFit.cover),
-                    ),
-                  ),
+                  films[index].posterPath == null
+                      ? Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          decoration: BoxDecoration(
+                            color: MyColors.whiteGrey,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 100.0),
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.image_not_supported_outlined,
+                                  color: Colors.white,
+                                  size: 60,
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      : Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            shape: BoxShape.rectangle,
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "${ApiConstants.IMAGE_URL}${films[index].posterPath}"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
                   Container(
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -153,64 +175,6 @@ class _ListFilmState extends State<ListFilm> {
                   )
                 ],
               );
-              /*return Padding(
-                padding: EdgeInsets.only(
-                  top: 10,
-                  bottom: 10,
-                  right: 10,
-                ),
-                child: Column(
-                    children: [
-                    films[index].posterPath == null
-                        ? Container(
-                            width: 120,
-                            height: 180,
-                            decoration: BoxDecoration(
-                              color: MyColors.whiteGrey,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(2),
-                              ),
-                              shape: BoxShape.rectangle,
-                            ),
-                            child: Column(
-                              children: [
-                                Icon(
-                                  EvaIcons.filmOutline,
-                                  color: Colors.white,
-                                  size: 60,
-                                )
-                              ],
-                            ),
-                          )
-                        : Container(
-                            width: 160,
-                            height: 250,
-                            decoration: BoxDecoration(
-                                color: MyColors.whiteGrey,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                                shape: BoxShape.rectangle,
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        "${ApiConstants.IMAGE_URL}${films[index].posterPath}"),
-                                    fit: BoxFit.cover)),
-                          ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: 100,
-                      child: TextBold(
-                        text: widget.type == Constants.LABEL_FILMS
-                            ? films[index].title
-                            : films[index].name,
-                      ),
-                    )
-                  ],
-                
-                    ),
-              );*/
             },
           ),
         ),

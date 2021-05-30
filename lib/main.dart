@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myshowfilm/src/pages/main_page.dart';
 import 'package:myshowfilm/src/pages/login_page.dart';
+import 'package:myshowfilm/src/pages/my_profile_page.dart';
 import 'package:myshowfilm/src/pages/sing_page.dart';
 import 'package:myshowfilm/src/pages/splash_screen_page.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         'login': (BuildContext context) => LoginPage(),
         'sing': (BuildContext context) => SingUpPage(),
         'home': (BuildContext context) => MainPage(),
+        'perfil': (BuildContext context) => MyProfilePage(),
       },
       theme: myTheme,
     );

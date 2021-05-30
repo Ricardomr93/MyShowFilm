@@ -3,8 +3,6 @@ import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
 import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/api_constants.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/models/Serie.dart';
-import 'package:myshowfilm/src/models/film.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';

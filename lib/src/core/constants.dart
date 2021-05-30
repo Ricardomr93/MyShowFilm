@@ -8,4 +8,9 @@ class Constants {
   //nombres
   static const String LABEL_FILMS = 'Films';
   static const String LABEL_SERIES = 'Series';
+
+  //profile
+  static const String LABEL_EDIT_PROFILE = 'Edit profile';
+  static const String LABEL_FRIENDS = 'Friends';
+  static const String LABEL_LOGOUT = 'Logut';
 }
