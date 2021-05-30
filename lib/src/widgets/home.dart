@@ -12,7 +12,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.square(120),
@@ -26,9 +26,6 @@ class _HomeState extends State<Home> {
                     ),
                     Tab(
                       child: TextBold(text: 'Series'),
-                    ),
-                    Tab(
-                      child: TextBold(text: 'Lists'),
                     )
                   ],
                 ),
