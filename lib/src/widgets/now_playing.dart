@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/bloc/get_now_playing_bloc.dart';
+import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
+import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/api_constants.dart';
 import 'package:myshowfilm/src/core/constants.dart';
+import 'package:myshowfilm/src/models/Serie.dart';
 import 'package:myshowfilm/src/models/film.dart';
-import 'package:myshowfilm/src/models/film_response.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:page_indicator/page_indicator.dart';
 
 class NowPlaying extends StatefulWidget {
-  NowPlaying({Key key}) : super(key: key);
+  final snapshot;
+  final type;
+
+  NowPlaying({Key key, @required this.snapshot, @required this.type})
+      : super(key: key);
 
   @override
   _NowPlayingState createState() => _NowPlayingState();
@@ -20,19 +25,25 @@ class _NowPlayingState extends State<NowPlaying> {
   @override
   void initState() {
     super.initState();
-    nowPlayingMoviesBloc.getFilms();
+    if (widget.type == Constants.LABEL_FILMS) {
+      nowPlayingFilmsBloc.getFilms();
+    } else {
+      nowPlayingSeriesBloc.getSeries();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: nowPlayingMoviesBloc.subject.stream,
-      builder: (context, AsyncSnapshot<FilmResponse> snapshot) {
+      stream: widget.type == Constants.LABEL_FILMS
+          ? nowPlayingFilmsBloc.subject.stream
+          : nowPlayingSeriesBloc.subject.stream,
+      builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
-          return _buildHomeWidget(snapshot.data);
+          return _buildHomeWidget(snapshot.data, widget.type);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
@@ -67,8 +78,14 @@ class _NowPlayingState extends State<NowPlaying> {
     ));
   }
 
-  Widget _buildHomeWidget(FilmResponse data) {
-    List<Film> films = data.films;
+  Widget _buildHomeWidget(data, String type) {
+    List films = data.films;
+    if (type == Constants.LABEL_FILMS) {
+      List<Film> films = data.films;
+    } else {
+      List<Serie> films = data.films;
+    }
+
     if (films.length == 0) {
       return Container(
         width: MediaQuery.of(context).size.width,
@@ -137,7 +154,13 @@ class _NowPlayingState extends State<NowPlaying> {
                           width: 250.0,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [TextBold(text: films[index].title)],
+                            children: [
+                              TextBold(
+                                text: widget.type == Constants.LABEL_FILMS
+                                    ? films[index].title
+                                    : films[index].name,
+                              )
+                            ],
                           ),
                         ))
                   ],
