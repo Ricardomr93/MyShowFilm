@@ -39,33 +39,14 @@ class Film {
     posterPath = json['poster_path'];
     id = json['id'];
     video = json['video'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'].toDouble();
     overview = json['overview'];
     releaseDate = json['release_date'];
     voteCount = json['vote_count'];
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     title = json['title'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     mediaType = json['media_type'];
-  }
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['genre_ids'] = this.genreIds;
-    data['original_language'] = this.originalLanguage;
-    data['original_title'] = this.originalTitle;
-    data['poster_path'] = this.posterPath;
-    data['id'] = this.id;
-    data['video'] = this.video;
-    data['vote_average'] = this.voteAverage;
-    data['overview'] = this.overview;
-    data['release_date'] = this.releaseDate;
-    data['vote_count'] = this.voteCount;
-    data['adult'] = this.adult;
-    data['backdrop_path'] = this.backdropPath;
-    data['title'] = this.title;
-    data['popularity'] = this.popularity;
-    data['media_type'] = this.mediaType;
-    return data;
   }
 }
