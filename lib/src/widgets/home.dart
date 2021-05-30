@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
+import 'package:myshowfilm/src/models/film_response.dart';
+import 'package:myshowfilm/src/models/serie_response.dart';
 import 'package:myshowfilm/src/pages/film_page.dart';
-import 'package:myshowfilm/src/pages/login_page.dart';
-import 'package:myshowfilm/src/pages/sing_page.dart';
-import 'package:myshowfilm/src/theme/my_colors.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
-import 'package:myshowfilm/src/widgets/now_playing.dart';
-import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 
 class HomeTabController extends StatefulWidget {
   HomeTabController({Key key}) : super(key: key);
@@ -41,6 +37,9 @@ class _HomeTabControllerState extends State<HomeTabController>
 
   @override
   Widget build(BuildContext context) {
+    AsyncSnapshot<FilmResponse> snapshotFilm;
+    AsyncSnapshot<SerieResponse> snapshotSerie;
+
     return Container(
       height: MediaQuery.of(context).size.height,
       child: DefaultTabController(
@@ -81,8 +80,14 @@ class _HomeTabControllerState extends State<HomeTabController>
               controller: _tabController,
               physics: NeverScrollableScrollPhysics(),
               children: [
-                FilmPage(),
-                Container(),
+                FilmPage(
+                  snapshot: snapshotFilm,
+                  type: Constants.LABEL_FILMS,
+                ),
+                FilmPage(
+                  snapshot: snapshotSerie,
+                  type: Constants.LABEL_SERIES,
+                )
               ],
             )),
       ),

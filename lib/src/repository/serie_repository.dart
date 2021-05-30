@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:myshowfilm/src/core/api_constants.dart';
-import 'package:myshowfilm/src/models/film_response.dart';
+import 'package:myshowfilm/src/models/serie_response.dart';
 
-class FilmRepository {
+class SerieRepository {
   Dio _dio = Dio();
-  var getPopularUrl = '${ApiConstants.BASE_URL}';
+  var getPopularUrl = '${ApiConstants.BASE_URL}${ApiConstants.POPULAR_SERIE}';
   var getFilmUrl = '${ApiConstants.BASE_URL}${ApiConstants.DISCOVER_FILM}';
-  var getPlayingUrl = '${ApiConstants.BASE_URL}${ApiConstants.POPULAR_FILM}';
+  var getPlayingUrl = '${ApiConstants.BASE_URL}${ApiConstants.POPULAR_SERIE}';
 
-  Future<FilmResponse> getFilms() async {
+  Future<SerieResponse> getSerie() async {
     var params = {
       "api_key": ApiConstants.API_KEY,
       "language": "en-US",
@@ -17,13 +17,13 @@ class FilmRepository {
     try {
       Response response =
           await _dio.get(getPopularUrl, queryParameters: params);
-      return FilmResponse.fromJson(response.data);
+      return SerieResponse.fromJson(response.data);
     } catch (error) {
-      return FilmResponse.withError("$error");
+      return SerieResponse.withError("$error");
     }
   }
 
-  Future<FilmResponse> getPlayingFilm() async {
+  Future<SerieResponse> getPlayingSerie() async {
     var params = {
       "api_key": ApiConstants.API_KEY,
       "language": "en-US",
@@ -32,9 +32,9 @@ class FilmRepository {
     try {
       Response response =
           await _dio.get(getPlayingUrl, queryParameters: params);
-      return FilmResponse.fromJson(response.data);
+      return SerieResponse.fromJson(response.data);
     } catch (error) {
-      return FilmResponse.withError("$error");
+      return SerieResponse.withError("$error");
     }
   }
 }
