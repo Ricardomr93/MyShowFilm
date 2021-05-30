@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/pages/home_page.dart';
+import 'package:flutter/services.dart';
+import 'package:myshowfilm/src/pages/main_page.dart';
 import 'package:myshowfilm/src/pages/login_page.dart';
 import 'package:myshowfilm/src/pages/sing_page.dart';
 import 'package:myshowfilm/src/pages/splash_screen_page.dart';
@@ -17,6 +18,11 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //evitar que se pueda girar la pantalla
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MyShowFilm',
@@ -25,7 +31,7 @@ class MyApp extends StatelessWidget {
         'splash': (BuildContext context) => SplashScreenPage(),
         'login': (BuildContext context) => LoginPage(),
         'sing': (BuildContext context) => SingUpPage(),
-        'home': (BuildContext context) => HomePage(),
+        'home': (BuildContext context) => MainPage(),
       },
       theme: myTheme,
     );

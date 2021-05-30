@@ -1,53 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:myshowfilm/src/core/constants.dart';
+import 'package:myshowfilm/src/pages/film_page.dart';
+import 'package:myshowfilm/src/pages/login_page.dart';
+import 'package:myshowfilm/src/pages/sing_page.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
+import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/widgets/now_playing.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 
-class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
+class HomeTabController extends StatefulWidget {
+  HomeTabController({Key key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _HomeTabControllerState createState() => _HomeTabControllerState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeTabControllerState extends State<HomeTabController>
+    with TickerProviderStateMixin {
+  static const List<Tab> _myTabs = <Tab>[
+    Tab(text: Constants.LABEL_FILMS),
+    Tab(text: Constants.LABEL_SERIES),
+  ];
+
+  TabController _tabController;
+
+  final List _children = [
+    HomeTabController(),
+  ];
+  @override
+  void initState() {
+    _tabController = TabController(length: _myTabs.length, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: DefaultTabController(
         length: 2,
         child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.square(120),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 11.0),
-              child: AppBar(
-                bottom: TabBar(
-                  tabs: [
-                    Tab(
-                      child: TextBold(text: 'Films'),
-                    ),
-                    Tab(
-                      child: TextBold(text: 'Series'),
-                    )
-                  ],
-                ),
-                backgroundColor: Color(0xff303030),
-                elevation: 0,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Image.asset(
-                      'assets/img/logo_v.png',
-                      height: 50,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.filter_list_outlined),
-                      iconSize: 40,
-                      onPressed: () {},
-                    )
-                  ],
+            backgroundColor: Color(0xff303030),
+            appBar: PreferredSize(
+              preferredSize: Size.square(120),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 11.0),
+                child: AppBar(
+                  backgroundColor: Color(0xff303030),
+                  bottom: TabBar(
+                    controller: _tabController,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicatorWeight: 5,
+                    tabs: _myTabs,
+                  ),
+                  elevation: 0,
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Image.asset(
+                        'assets/img/logo_v.png',
+                        height: 50,
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.filter_list_outlined),
+                        iconSize: 40,
+                        onPressed: () {},
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ));
+            body: TabBarView(
+              controller: _tabController,
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                FilmPage(),
+                Container(),
+              ],
+            )),
+      ),
+    );
   }
 }
