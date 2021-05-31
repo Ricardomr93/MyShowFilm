@@ -5,10 +5,11 @@ import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:myshowfilm/src/providers/auth_provider.dart';
 
 final _auth = FirebaseAuth.instance;
 
-signInWithGoogle(context) async {
+signInWithGoogle(context, AuthProvider authProvider) async {
   try {
     utilAlert.showLoadingIndicator(context, 'Trying to login with Google');
     final googleUser = await GoogleSignIn().signIn();
@@ -19,6 +20,7 @@ signInWithGoogle(context) async {
     );
     await _auth.signInWithCredential(credential).then((value) {
       utilAlert.hideLoadingIndicator(context);
+      authProvider.mitexto = Constants.PROVIDER_GOOGLE;
       Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     });
   } catch (e) {
@@ -27,7 +29,7 @@ signInWithGoogle(context) async {
   }
 }
 
-signInWithFacebook(context) async {
+signInWithFacebook(context, AuthProvider authProvider) async {
   try {
     utilAlert.showLoadingIndicator(context, 'Trying to login with Facebook');
     // Trigger the sign-in flow
@@ -38,6 +40,7 @@ signInWithFacebook(context) async {
     // Once signed in, return the UserCredential
     await _auth.signInWithCredential(facebookAuthCredential).then((value) {
       utilAlert.hideLoadingIndicator(context);
+      authProvider.mitexto = Constants.PROVIDER_FACE;
       Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     });
   } catch (e) {
@@ -46,7 +49,8 @@ signInWithFacebook(context) async {
   }
 }
 
-singInWithEmailAndPass(context, UserModel user) async {
+singInWithEmailAndPass(
+    context, UserModel user, AuthProvider authProvider) async {
   utilAlert.showLoadingIndicator(context, 'Trying to login');
   try {
     UserCredential result = await _auth.signInWithEmailAndPassword(
@@ -54,6 +58,7 @@ singInWithEmailAndPass(context, UserModel user) async {
     User u = result.user;
     u.updateProfile(displayName: user.userName).then((value) {
       utilAlert.hideLoadingIndicator(context);
+      authProvider.mitexto = Constants.PROVIDER_EMAIL;
       Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     }); //added this line
   } on FirebaseAuthException catch (e) {
@@ -98,10 +103,11 @@ createUserWithEmailAndPassword(context, UserModel user) async {
   }
 }
 
-logOut(context) async {
+logOut(context, AuthProvider authProvider) async {
   utilAlert.showLoadingIndicator(context, 'User trying log out');
   await _auth.signOut().then((value) {
     utilAlert.hideLoadingIndicator(context);
+    authProvider.mitexto = Constants.PROVIDER_LOGOUT;
     Navigator.of(context).pushReplacementNamed(Constants.ROUTE_LOGIN);
   });
 }

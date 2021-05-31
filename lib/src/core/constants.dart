@@ -5,7 +5,7 @@ class Constants {
 
   static const String NO_MORE_FILM = 'No more Films';
 
-  //nombres
+  //menu
   static const String LABEL_FILMS = 'Films';
   static const String LABEL_SERIES = 'Series';
 
@@ -30,4 +30,31 @@ class Constants {
   static const String BUTTOM_SING = 'SING UP';
   static const String BUTTOM_SAVE = 'SAVE';
   static const String BUTTOM_DELETE_AC = 'DELETE ACCOUNT';
+
+  //provider
+  static const String PROVIDER_GOOGLE = 'Google';
+  static const String PROVIDER_FACE = 'Facebook';
+  static const String PROVIDER_EMAIL = 'Email';
+  static const String PROVIDER_LOGOUT = 'Logout';
+
+  //textfield
+  static const String TEXT_NAME = 'User name';
+  static const String TEXT_EMAIL = 'Email';
+  static const String TEXT_PASS = 'Password';
+
+  //no / account
+  static const String MSJ_COUNT = 'Already have account?';
+  static const String MSJ_NO_COUNT = 'Do you no hace account?';
+
+  //login
+  static const String MSJ_OR = 'OR';
+  static const String MSJ_SING_USING = 'Sing in using';
+  static const String MSJ_SING_UP = 'Sing up';
+
+  //sing up
+  static const String MSJ_LOG_IN = 'Log in';
+
+  //navigation bottom
+  static const String NAV_HOME = 'Home';
+  static const String NAV_SEARCH = 'Search';
 }

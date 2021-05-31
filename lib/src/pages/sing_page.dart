@@ -42,19 +42,19 @@ class _SingUpPageState extends State<SingUpPage> {
         ButtomBack(),
         LogoAut(),
         TextFieldForm(
-          hintText: 'user name',
+          hintText: Constants.TEXT_NAME,
           validator: (val) => util.validateName(val),
           onSaved: (val) => user.userName = val,
           usertext: true,
         ),
         TextFieldForm(
-          hintText: 'email',
+          hintText: Constants.TEXT_EMAIL,
           validator: (val) => util.validateEmail(val),
           keyboardType: TextInputType.emailAddress,
           onSaved: (val) => user.email = val,
         ),
         TextFieldForm(
-          hintText: 'password',
+          hintText: Constants.TEXT_PASS,
           validator: (val) =>
               util.validatePass(val), //TODO encriptar contraseña
           passtext: true,
@@ -67,7 +67,7 @@ class _SingUpPageState extends State<SingUpPage> {
           onSaved: (val) => _pass2 = val,
         ),*/ //borrado temporal de la confirmacion del password
         ButtomAuth(
-          text: 'SING UP',
+          text: Constants.BUTTOM_SING,
           onPressed: () => _onPressed(),
         ),
         _haveAccount(),
@@ -93,9 +93,9 @@ class _SingUpPageState extends State<SingUpPage> {
   Widget _logIn() {
     return Row(
       children: [
-        TextBold(text: 'Already have account? '),
+        TextBold(text: Constants.MSJ_COUNT),
         ButtomText(
-          text: 'Log in',
+          text: Constants.MSJ_LOG_IN,
           navigateTo: Constants.ROUTE_LOGIN,
         ),
       ],

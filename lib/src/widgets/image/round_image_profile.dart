@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class RoundImageProfile extends StatelessWidget {
@@ -8,7 +7,6 @@ class RoundImageProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _auth = FirebaseAuth.instance;
     return Container(
         width: 160.0,
         height: 160.0,

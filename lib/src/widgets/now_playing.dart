@@ -5,6 +5,7 @@ import 'package:myshowfilm/src/core/api_constants.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:page_indicator/page_indicator.dart';
 
@@ -45,25 +46,10 @@ class _NowPlayingState extends State<NowPlaying> {
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
-          return _buildLoadingWidget(); //TODO cambiar por el propio
+          return ProgressSimple(); //TODO cambiar por el propio
         }
       },
     );
-  }
-
-  Widget _buildLoadingWidget() {
-    return Center(
-        heightFactor: 6,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(
-              valueColor:
-                  new AlwaysStoppedAnimation<Color>(myTheme.accentColor),
-              strokeWidth: 6,
-            ),
-          ],
-        ));
   }
 
   Widget _buildErrorWidget(String error) {

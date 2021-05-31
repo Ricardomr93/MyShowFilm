@@ -56,21 +56,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
           SizedBox(height: 20),
           TextFieldForm(
-            hintText: 'user name',
+            hintText: Constants.TEXT_NAME,
             validator: (val) => util.validateName(val),
             onSaved: (val) => user.userName = val,
             usertext: true,
             initialValue: _auth.currentUser.displayName,
           ),
           TextFieldForm(
-            hintText: 'email',
+            hintText: Constants.TEXT_EMAIL,
             validator: (val) => util.validateEmail(val),
             keyboardType: TextInputType.emailAddress,
             onSaved: (val) => user.email = val,
             initialValue: _auth.currentUser.email,
           ),
           TextFieldForm(
-            hintText: 'password',
+            hintText: Constants.TEXT_PASS,
             validator: (val) =>
                 util.validatePass(val), //TODO encriptar contraseña
             passtext: true,
@@ -123,8 +123,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
         Navigator.pop(context);
-      } else {
-        print('No image selected.');
       }
     });
   }
