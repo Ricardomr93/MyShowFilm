@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/user.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_back.dart';
@@ -95,7 +96,7 @@ class _SingUpPageState extends State<SingUpPage> {
         TextBold(text: 'Already have account? '),
         ButtomText(
           text: 'Log in',
-          navigateTo: 'login',
+          navigateTo: Constants.ROUTE_LOGIN,
         ),
       ],
     );

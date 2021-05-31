@@ -4,13 +4,16 @@ import 'package:myshowfilm/src/theme/my_theme.dart';
 class ButtomRound extends StatelessWidget {
   final onPressed;
   final icon;
-  const ButtomRound({Key key, this.onPressed, @required this.icon})
+  final size;
+  final iconSize;
+  const ButtomRound(
+      {Key key, this.onPressed, @required this.icon, this.size, this.iconSize})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 65,
-        height: 65,
+        width: size == null ? 65 : size.toDouble(),
+        height: size == null ? 65 : size.toDouble(),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.all(10),
@@ -19,7 +22,7 @@ class ButtomRound extends StatelessWidget {
           ),
           child: Icon(
             icon,
-            size: 40,
+            size: iconSize == null ? 40 : iconSize.toDouble(),
           ),
           onPressed: () => onPressed(),
         ));

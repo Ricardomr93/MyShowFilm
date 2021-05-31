@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/user.dart';
 import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
 import 'package:google_sign_in/google_sign_in.dart';
@@ -18,7 +19,7 @@ signInWithGoogle(context) async {
     );
     await _auth.signInWithCredential(credential).then((value) {
       utilAlert.hideLoadingIndicator(context);
-      Navigator.of(context).pushReplacementNamed('home');
+      Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     });
   } catch (e) {
     utilAlert.hideLoadingIndicator(context);
@@ -37,7 +38,7 @@ signInWithFacebook(context) async {
     // Once signed in, return the UserCredential
     await _auth.signInWithCredential(facebookAuthCredential).then((value) {
       utilAlert.hideLoadingIndicator(context);
-      Navigator.of(context).pushReplacementNamed('home');
+      Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     });
   } catch (e) {
     utilAlert.hideLoadingIndicator(context);
@@ -52,7 +53,7 @@ singInWithEmailAndPass(context, UserModel user) async {
         .signInWithEmailAndPassword(email: user.email, password: user.pass)
         .then((value) {
       utilAlert.hideLoadingIndicator(context);
-      Navigator.of(context).pushReplacementNamed('home');
+      Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     });
   } on FirebaseAuthException catch (e) {
     //error controlado de email o contraseñas no correctas
@@ -100,6 +101,6 @@ logOut(context) async {
   utilAlert.showLoadingIndicator(context, 'User trying log out');
   await _auth.signOut().then((value) {
     utilAlert.hideLoadingIndicator(context);
-    Navigator.of(context).pushReplacementNamed('login');
+    Navigator.of(context).pushReplacementNamed(Constants.ROUTE_LOGIN);
   });
 }

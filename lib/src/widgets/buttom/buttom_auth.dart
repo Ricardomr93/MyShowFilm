@@ -5,13 +5,15 @@ import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 class ButtomAuth extends StatelessWidget {
   final text;
   final onPressed;
-  const ButtomAuth({Key key, @required this.text, @required this.onPressed})
+  final width;
+  const ButtomAuth(
+      {Key key, @required this.text, @required this.onPressed, this.width})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: double.infinity,
+        width: width == null ? double.infinity : width.toDouble(),
         height: 50,
         margin: EdgeInsets.only(right: 30, left: 30, top: 30),
         child: ElevatedButton(

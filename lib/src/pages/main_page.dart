@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/pages/login_page.dart';
+import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/pages/my_profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/widgets/home.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  MainPage({Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends State<MainPage> {
   final _auth = FirebaseAuth.instance;
   int _currentIndex = 0;
-  final List _children = [Home(), LoginPage(), MyProfilePage()];
+  final List _children = [HomeTabController(), Container(), MyProfilePage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +28,9 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person),
-                label: _auth.currentUser != null
+                label: _auth.currentUser.displayName != null
                     ? '${_auth.currentUser.displayName}'
-                    : 'Usuario'),
+                    : Constants.NOM_USER_PRED),
           ],
         ));
   }

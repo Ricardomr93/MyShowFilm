@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
 
 class TextFieldForm extends StatefulWidget {
@@ -9,6 +10,7 @@ class TextFieldForm extends StatefulWidget {
   final onSaved;
   final validator;
   final keyboardType;
+  final initialValue;
 
   const TextFieldForm({
     Key key,
@@ -19,6 +21,7 @@ class TextFieldForm extends StatefulWidget {
     this.onSaved,
     this.keyboardType = TextInputType.name,
     this.usertext = false,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -35,6 +38,11 @@ class _TextFieldFormState extends State<TextFieldForm> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           child: TextFormField(
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(20),
+              ],
+              initialValue:
+                  widget.initialValue == null ? null : widget.initialValue,
               textCapitalization:
                   widget.usertext // si es un nombre de usuario capitaliza
                       ? TextCapitalization.sentences
