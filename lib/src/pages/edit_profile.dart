@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/user.dart';
@@ -6,8 +8,10 @@ import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_back.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
 import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
+import 'package:myshowfilm/src/widgets/simple_dialog.dart';
 import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
+import 'package:image_picker/image_picker.dart';
 
 class EditProfilePage extends StatefulWidget {
   EditProfilePage({Key key}) : super(key: key);
@@ -18,6 +22,8 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   UserModel user = UserModel();
+  File _image;
+  final picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +35,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ButtomBack(),
           Stack(
             children: [
-              RoundImageProfile(),
+              RoundImageProfile(
+                image: _image != null
+                    ? FileImage(_image)
+                    : _auth.currentUser.photoURL == null
+                        ? NetworkImage(Constants.IMAGE_PRED)
+                        : NetworkImage('${_auth.currentUser.photoURL}'),
+              ),
               Positioned(
                 top: 110,
                 left: 110,
                 child: ButtomRound(
+                  onPressed: () => getImage(),
                   icon: Icons.edit,
                   size: 50,
                   iconSize: 30,
@@ -70,5 +83,49 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ],
       ),
     );
+  }
+
+  getImage() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text('Select your device'),
+            children: [
+              SimpleDialogItem(
+                icon: Icons.collections,
+                text: 'Gallery',
+                onPressed: () => _toGallery(),
+              ),
+              SimpleDialogItem(
+                icon: Icons.camera_alt,
+                text: 'Camera',
+                onPressed: () => _toCamera(),
+              ),
+            ],
+          );
+        });
+  }
+
+  _toCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        Navigator.pop(context);
+      }
+    });
+  }
+
+  _toGallery() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        Navigator.pop(context);
+      } else {
+        print('No image selected.');
+      }
+    });
   }
 }

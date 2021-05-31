@@ -49,12 +49,13 @@ signInWithFacebook(context) async {
 singInWithEmailAndPass(context, UserModel user) async {
   utilAlert.showLoadingIndicator(context, 'Trying to login');
   try {
-    await _auth
-        .signInWithEmailAndPassword(email: user.email, password: user.pass)
-        .then((value) {
+    UserCredential result = await _auth.signInWithEmailAndPassword(
+        email: user.email, password: user.pass);
+    User u = result.user;
+    u.updateProfile(displayName: user.userName).then((value) {
       utilAlert.hideLoadingIndicator(context);
       Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
-    });
+    }); //added this line
   } on FirebaseAuthException catch (e) {
     //error controlado de email o contraseñas no correctas
     if (e.code == 'user-not-found' || e.code == 'wrong-password') {

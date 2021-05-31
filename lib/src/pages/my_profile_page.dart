@@ -18,7 +18,10 @@ class MyProfilePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          RoundImageProfile(),
+          RoundImageProfile(
+              image: _auth.currentUser.photoURL == null
+                  ? NetworkImage(Constants.IMAGE_PRED)
+                  : NetworkImage('${_auth.currentUser.photoURL}')),
           SizedBox(
             height: 10,
           ),
