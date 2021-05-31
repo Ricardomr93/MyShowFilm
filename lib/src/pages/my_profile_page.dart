@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/services/auth_service.dart' as authService;
+import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
 import 'package:myshowfilm/src/widgets/text/separator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,22 +18,14 @@ class MyProfilePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-              width: 160.0,
-              height: 160.0,
-              decoration: BoxDecoration(
-                  border: Border.all(width: 3.5, color: MyColors.whiteGrey),
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: _auth.currentUser.photoURL != null
-                          ? NetworkImage(_auth.currentUser.photoURL)
-                          : NetworkImage("https://i.imgur.com/BoN9kdC.png")))),
+          RoundImageProfile(),
           SizedBox(
             height: 10,
           ),
           Text(
-            '${_auth.currentUser.displayName}',
+            _auth.currentUser.displayName != null
+                ? '${_auth.currentUser.displayName}'
+                : Constants.NOM_USER_PRED,
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -54,6 +46,8 @@ class MyProfilePage extends StatelessWidget {
           MySeparator(
             text: Constants.LABEL_EDIT_PROFILE,
             icon: FontAwesomeIcons.edit,
+            onPressed: () =>
+                Navigator.pushNamed(context, Constants.ROUTE_EDIT_PROFILE),
           ),
           MySeparator(
             text: Constants.LABEL_FRIENDS,

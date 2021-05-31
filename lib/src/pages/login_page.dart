@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/user.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
@@ -59,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
           onSaved: (val) => user.pass = val,
         ),
         ButtomAuth(
-          text: 'LOGIN',
+          text: Constants.BUTTOM_LOGIN,
           onPressed: () => _onPressed(),
         ),
         _noAccount(),
@@ -132,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
         TextBold(text: 'Do you no hace account? '),
         ButtomText(
           text: 'Sing up',
-          navigateTo: 'sing',
+          navigateTo: Constants.ROUTE_SING,
         ),
       ],
     );

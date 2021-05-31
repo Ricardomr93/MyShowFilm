@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/pages/login_page.dart';
+import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/pages/my_profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/widgets/home.dart';
@@ -28,9 +28,9 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person),
-                label: _auth.currentUser != null
+                label: _auth.currentUser.displayName != null
                     ? '${_auth.currentUser.displayName}'
-                    : 'Usuario'),
+                    : Constants.NOM_USER_PRED),
           ],
         ));
   }

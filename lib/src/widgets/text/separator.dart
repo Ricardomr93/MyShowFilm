@@ -62,57 +62,5 @@ class MySeparator extends StatelessWidget {
         ),
       ),
     );
-    /*ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: .5),
-          primary: Colors.transparent,
-          shadowColor: Colors.transparent),
-      child: Text(
-        '$text',
-        style: TextStyle(
-          color: textTheme.bodyText2.color,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
-      ),
-      onPressed: () {
-        if (onPressed != null) {
-          onPressed();
-        } else {
-          Navigator.of(context).pushNamed('$navigateTo');
-        }
-      },
-    );*/
-    /* return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Icon(
-                Icons.pool_rounded,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
-                ),
-                child: Text(
-                  '$text',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Divider(
-            color: Colors.white,
-            thickness: 1,
-          ),
-        ],
-      ),
-    );*/
   }
 }
