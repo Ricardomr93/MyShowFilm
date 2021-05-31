@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/providers/auth_provider.dart';
+import 'package:myshowfilm/src/providers/share_prefs.dart';
 import 'package:myshowfilm/src/services/auth_service.dart' as authService;
 import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
 import 'package:myshowfilm/src/widgets/text/separator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MyProfilePage extends StatelessWidget {
+class MyProfilePage extends StatefulWidget {
   const MyProfilePage({Key key}) : super(key: key);
 
   @override
+  _MyProfilePageState createState() => _MyProfilePageState();
+}
+
+class _MyProfilePageState extends State<MyProfilePage> {
+  @override
   Widget build(BuildContext context) {
-    var authprovider = Provider.of<AuthProvider>(context);
     final _auth = FirebaseAuth.instance;
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -49,7 +53,7 @@ class MyProfilePage extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          authprovider.mitexto != Constants.PROVIDER_EMAIL
+          SharePrefs.instance.provider != Constants.PROVIDER_EMAIL
               ? SizedBox(
                   height: 0,
                 )
@@ -67,7 +71,7 @@ class MyProfilePage extends StatelessWidget {
               text: Constants.LABEL_LOGOUT,
               icon: Icons.logout,
               size: 25.0,
-              onPressed: () => authService.logOut(context, authprovider)),
+              onPressed: () => authService.logOut(context)),
         ],
       ),
     );

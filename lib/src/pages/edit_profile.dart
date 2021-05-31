@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:myshowfilm/src/services/auth_service.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_back.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
@@ -12,6 +13,8 @@ import 'package:myshowfilm/src/widgets/simple_dialog.dart';
 import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
 import 'package:image_picker/image_picker.dart';
+import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class EditProfilePage extends StatefulWidget {
   EditProfilePage({Key key}) : super(key: key);
@@ -22,66 +25,86 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   UserModel user = UserModel();
+  PickedFile pickedFile;
   File _image;
   final picker = ImagePicker();
+  final _auth = FirebaseAuth.instance;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final _auth = FirebaseAuth.instance;
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Column(
-        children: [
-          ButtomBack(),
-          Stack(
-            children: [
-              RoundImageProfile(
-                image: _image != null
-                    ? FileImage(_image)
-                    : _auth.currentUser.photoURL == null
-                        ? NetworkImage(Constants.IMAGE_PRED)
-                        : NetworkImage('${_auth.currentUser.photoURL}'),
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          child: Form(
+            child: _ui(),
+            key: _formKey,
+          ),
+        ));
+  }
+
+  _saveData() async {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
+
+    uploadFile();
+  }
+
+  _ui() {
+    return Column(
+      children: [
+        ButtomBack(),
+        Stack(
+          children: [
+            RoundImageProfile(
+              image: _image != null
+                  ? FileImage(_image)
+                  : _auth.currentUser.photoURL == null
+                      ? NetworkImage(Constants.IMAGE_PRED)
+                      : NetworkImage('${_auth.currentUser.photoURL}'),
+            ),
+            Positioned(
+              top: 110,
+              left: 110,
+              child: ButtomRound(
+                onPressed: () => getImage(),
+                icon: Icons.edit,
+                size: 50,
+                iconSize: 30,
               ),
-              Positioned(
-                top: 110,
-                left: 110,
-                child: ButtomRound(
-                  onPressed: () => getImage(),
-                  icon: Icons.edit,
-                  size: 50,
-                  iconSize: 30,
-                ),
-              )
-            ],
-          ),
-          SizedBox(height: 20),
-          TextFieldForm(
-            hintText: Constants.TEXT_NAME,
-            validator: (val) => util.validateName(val),
-            onSaved: (val) => user.userName = val,
-            usertext: true,
-            initialValue: _auth.currentUser.displayName,
-          ),
-          TextFieldForm(
-            hintText: Constants.TEXT_EMAIL,
-            validator: (val) => util.validateEmail(val),
-            keyboardType: TextInputType.emailAddress,
-            onSaved: (val) => user.email = val,
-            initialValue: _auth.currentUser.email,
-          ),
-          TextFieldForm(
-            hintText: Constants.TEXT_PASS,
-            validator: (val) =>
-                util.validatePass(val), //TODO encriptar contraseña
-            passtext: true,
-            onSaved: (val) => user.pass = val,
-            initialValue: '*********',
-          ),
-          ButtomAuth(
-              width: 160, text: Constants.BUTTOM_SAVE, onPressed: () => {}),
-          ButtomAuth(text: Constants.BUTTOM_DELETE_AC, onPressed: () => {}),
-        ],
-      ),
+            )
+          ],
+        ),
+        SizedBox(height: 20),
+        TextFieldForm(
+          hintText: Constants.TEXT_NAME,
+          validator: (val) => util.validateName(val),
+          onSaved: (val) => user.userName = val,
+          usertext: true,
+          initialValue: _auth.currentUser.displayName,
+        ),
+        TextFieldForm(
+          hintText: Constants.TEXT_EMAIL,
+          validator: (val) => util.validateEmail(val),
+          keyboardType: TextInputType.emailAddress,
+          onSaved: (val) => user.email = val,
+          initialValue: _auth.currentUser.email,
+        ),
+        TextFieldForm(
+          hintText: Constants.TEXT_PASS,
+          validator: (val) =>
+              util.validatePassProfile(val), //TODO encriptar contraseña
+          passtext: true,
+          onSaved: (val) => user.pass = val,
+        ),
+        ButtomAuth(
+            width: 160,
+            text: Constants.BUTTOM_SAVE,
+            onPressed: () => _saveData()),
+        ButtomAuth(text: Constants.BUTTOM_DELETE_AC, onPressed: () => {}),
+      ],
     );
   }
 
@@ -108,7 +131,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   _toCamera() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    pickedFile = await picker.getImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
@@ -118,12 +141,57 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   _toGallery() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    pickedFile = await picker.getImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
         Navigator.pop(context);
       }
     });
+  }
+
+  Future<void> uploadFile() async {
+    utilAlert.showLoadingIndicator(context, 'Update user');
+    //compreba que no se haya modificado algún campo
+    if (_auth.currentUser.displayName != user.userName ||
+        _auth.currentUser.email != user.email ||
+        user.pass.isNotEmpty) {
+      //si se ha modificado la foto la cambia
+      if (pickedFile != null) {
+        updateImage();
+      } else {
+        //se han modificado tanto imagen como algun campo
+        updateProfile(user).then((value) => {
+              utilAlert.hideLoadingIndicator(context),
+              Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME),
+            });
+      }
+      //solo se ha modificado la imagen
+    } else if (pickedFile != null) {
+      updateImage();
+    } else {
+      utilAlert.hideLoadingIndicator(context);
+    }
+  }
+
+  updateImage() {
+    firebase_storage.FirebaseStorage.instance
+        .ref('img/usr/${_auth.currentUser.uid}.jpg')
+        .putFile(File(pickedFile.path))
+        .whenComplete(() => {
+              downImage(user).then((value) => {
+                    utilAlert.hideLoadingIndicator(context),
+                    Navigator.of(context)
+                        .pushReplacementNamed(Constants.ROUTE_HOME),
+                  }),
+            });
+  }
+
+  Future<void> downImage(UserModel user) async {
+    String url = await firebase_storage.FirebaseStorage.instance
+        .ref('img/usr/${_auth.currentUser.uid}.jpg')
+        .getDownloadURL();
+    user.avatar = url;
+    updateProfile(user);
   }
 }

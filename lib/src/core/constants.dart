@@ -36,6 +36,7 @@ class Constants {
   static const String PROVIDER_FACE = 'Facebook';
   static const String PROVIDER_EMAIL = 'Email';
   static const String PROVIDER_LOGOUT = 'Logout';
+  static const String PROVIDER = 'Provider';
 
   //textfield
   static const String TEXT_NAME = 'User name';

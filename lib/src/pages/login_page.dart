@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/user.dart';
-import 'package:myshowfilm/src/providers/auth_provider.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
@@ -12,7 +11,6 @@ import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
 import 'package:myshowfilm/src/services/auth_service.dart' as authService;
-import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -32,7 +30,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    var authprovider = Provider.of<AuthProvider>(context); //provider
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
@@ -40,13 +37,13 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.only(top: 100.0),
             child: Form(
               key: _formKey,
-              child: _ui(authprovider),
+              child: _ui(),
             ),
           ),
         ));
   }
 
-  Widget _ui(authprovider) {
+  Widget _ui() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -65,14 +62,14 @@ class _LoginPageState extends State<LoginPage> {
         ),
         ButtomAuth(
           text: Constants.BUTTOM_LOGIN,
-          onPressed: () => _onPressed(authprovider),
+          onPressed: () => _onPressed(),
         ),
-        _noAccount(authprovider),
+        _noAccount(),
       ],
     );
   }
 
-  Widget _noAccount(authprovider) {
+  Widget _noAccount() {
     return Container(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -96,13 +93,13 @@ class _LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.all(20),
-          child: _social(authprovider),
+          child: _social(),
         ),
       ],
     ));
   }
 
-  Widget _social(authprovider) {
+  Widget _social() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -110,24 +107,21 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(15),
           child: ButtomRound(
             icon: FontAwesomeIcons.google,
-            onPressed: () =>
-                authService.signInWithGoogle(context, authprovider),
+            onPressed: () => authService.signInWithGoogle(context),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(15),
           child: ButtomRound(
             icon: FontAwesomeIcons.twitter,
-            onPressed: () =>
-                authService.signInWithFacebook(context, authprovider),
+            onPressed: () => authService.signInWithFacebook(context),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(15),
           child: ButtomRound(
             icon: FontAwesomeIcons.facebookF,
-            onPressed: () =>
-                authService.signInWithFacebook(context, authprovider),
+            onPressed: () => authService.signInWithFacebook(context),
           ),
         ),
       ],
@@ -147,11 +141,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   //evento al pulsar el botón de login
-  _onPressed(authprovider) async {
+  _onPressed() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
-    authService.singInWithEmailAndPass(context, user, authprovider);
+    authService.singInWithEmailAndPass(context, user);
   }
 }

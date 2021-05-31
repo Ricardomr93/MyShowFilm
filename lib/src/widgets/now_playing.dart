@@ -46,7 +46,7 @@ class _NowPlayingState extends State<NowPlaying> {
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
-          return ProgressSimple(); //TODO cambiar por el propio
+          return ProgressSimple();
         }
       },
     );
