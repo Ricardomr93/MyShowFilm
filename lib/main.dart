@@ -7,6 +7,7 @@ import 'package:myshowfilm/src/pages/login_page.dart';
 import 'package:myshowfilm/src/pages/my_profile_page.dart';
 import 'package:myshowfilm/src/pages/sing_page.dart';
 import 'package:myshowfilm/src/pages/splash_screen_page.dart';
+import 'package:myshowfilm/src/providers/share_prefs.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
@@ -15,6 +16,9 @@ void main() async {
   //importante para iniciar firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  //iniciar preferencias de la app
+  final prefs = SharePrefs();
+  prefs.initPrefs();
   runApp(MyApp());
 }
 

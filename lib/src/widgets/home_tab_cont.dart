@@ -20,9 +20,6 @@ class _HomeTabControllerState extends State<HomeTabController>
 
   TabController _tabController;
 
-  final List _children = [
-    HomeTabController(),
-  ];
   @override
   void initState() {
     _tabController = TabController(length: _myTabs.length, vsync: this);

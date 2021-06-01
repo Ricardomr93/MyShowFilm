@@ -1,4 +1,3 @@
-import 'package:myshowfilm/src/models/film_response.dart';
 import 'package:myshowfilm/src/models/serie_response.dart';
 import 'package:myshowfilm/src/repository/serie_repository.dart';
 import 'package:rxdart/rxdart.dart';
