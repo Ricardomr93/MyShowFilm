@@ -48,7 +48,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       return;
     }
     _formKey.currentState.save();
-
     uploadFile();
   }
 
@@ -131,7 +130,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   _toCamera() async {
-    pickedFile = await picker.getImage(source: ImageSource.camera);
+    pickedFile =
+        await picker.getImage(source: ImageSource.camera, imageQuality: 30);
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
@@ -141,7 +141,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   _toGallery() async {
-    pickedFile = await picker.getImage(source: ImageSource.gallery);
+    pickedFile =
+        await picker.getImage(source: ImageSource.gallery, imageQuality: 30);
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
@@ -153,24 +154,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future<void> uploadFile() async {
     utilAlert.showLoadingIndicator(context, 'Update user');
     //compreba que no se haya modificado algún campo
-    if (_auth.currentUser.displayName != user.userName ||
-        _auth.currentUser.email != user.email ||
-        user.pass.isNotEmpty) {
-      //si se ha modificado la foto la cambia
-      if (pickedFile != null) {
+    try {
+      if (_auth.currentUser.displayName != user.userName ||
+          _auth.currentUser.email != user.email ||
+          user.pass.isNotEmpty) {
+        //si se ha modificado la foto la cambia
+        if (pickedFile != null) {
+          updateImage();
+        } else {
+          //no se modifica foto pero si campo
+          updateProfile(context, user);
+        }
+        //solo se ha modificado la imagen
+      } else if (pickedFile != null) {
         updateImage();
       } else {
-        //se han modificado tanto imagen como algun campo
-        updateProfile(user).then((value) => {
-              utilAlert.hideLoadingIndicator(context),
-              Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME),
-            });
+        utilAlert.hideLoadingIndicator(context);
+        utilAlert.showAlertDialogGeneral(
+            context, Constants.INFO, Constants.SOME_CHANGE);
       }
-      //solo se ha modificado la imagen
-    } else if (pickedFile != null) {
-      updateImage();
-    } else {
-      utilAlert.hideLoadingIndicator(context);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {}
     }
   }
 
@@ -179,19 +183,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
         .ref('img/usr/${_auth.currentUser.uid}.jpg')
         .putFile(File(pickedFile.path))
         .whenComplete(() => {
-              downImage(user).then((value) => {
-                    utilAlert.hideLoadingIndicator(context),
-                    Navigator.of(context)
-                        .pushReplacementNamed(Constants.ROUTE_HOME),
-                  }),
+              downImage(user).then(
+                (value) => _closeCircAndNav(),
+              )
             });
   }
 
-  Future<void> downImage(UserModel user) async {
+  downImage(user) async {
     String url = await firebase_storage.FirebaseStorage.instance
         .ref('img/usr/${_auth.currentUser.uid}.jpg')
         .getDownloadURL();
     user.avatar = url;
-    updateProfile(user);
+    updateProfile(context, user);
+  }
+
+  _closeCircAndNav() {
+    utilAlert.hideLoadingIndicator(context);
+    Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
   }
 }

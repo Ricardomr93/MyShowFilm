@@ -54,17 +54,10 @@ class _SingUpPageState extends State<SingUpPage> {
         ),
         TextFieldForm(
           hintText: Constants.TEXT_PASS,
-          validator: (val) =>
-              util.validatePass(val), //TODO encriptar contraseña
+          validator: (val) => util.validatePass(val),
           passtext: true,
           onSaved: (val) => user.pass = val,
         ),
-        /*TextFieldForm(
-          hintText: 'confirm password',
-          passtext: true,
-          validator: (val) => util.validatePass(val),
-          onSaved: (val) => _pass2 = val,
-        ),*/ //borrado temporal de la confirmacion del password
         ButtomAuth(
           text: Constants.BUTTOM_SING,
           onPressed: () => _onPressed(),

@@ -6,7 +6,6 @@ import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
 import 'package:myshowfilm/src/widgets/text/separator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({Key key}) : super(key: key);
@@ -28,7 +27,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
           RoundImageProfile(
               image: _auth.currentUser.photoURL == null
                   ? NetworkImage(Constants.IMAGE_PRED)
-                  : NetworkImage('${_auth.currentUser.photoURL}')),
+                  : NetworkImage(_auth.currentUser.photoURL)),
           SizedBox(
             height: 10,
           ),

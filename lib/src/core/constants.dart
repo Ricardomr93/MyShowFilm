@@ -4,6 +4,9 @@ class Constants {
   static const int NUM_FILMS_POPULAR = 20;
 
   static const String NO_MORE_FILM = 'No more Films';
+  static const String SOME_CHANGE = 'You must make some change';
+  static const String ERROR = 'Error';
+  static const String INFO = 'Info';
 
   //menu
   static const String LABEL_FILMS = 'Films';
@@ -24,6 +27,7 @@ class Constants {
   static const String ROUTE_HOME = 'home';
   static const String ROUTE_PROFILE = 'profile';
   static const String ROUTE_EDIT_PROFILE = 'edit_profile';
+  static const String EM_OR_PAS_NO = 'Email or password isn\'t correct';
 
   //botones
   static const String BUTTOM_LOGIN = 'LOGIN';

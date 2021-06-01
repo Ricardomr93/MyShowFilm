@@ -25,8 +25,7 @@ signInWithGoogle(
       Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     });
   } catch (e) {
-    utilAlert.hideLoadingIndicator(context);
-    utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+    _errorAlert(context, e.message);
   }
 }
 
@@ -45,8 +44,7 @@ signInWithFacebook(context) async {
       Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     });
   } catch (e) {
-    utilAlert.hideLoadingIndicator(context);
-    utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+    _errorAlert(context, e.message);
   }
 }
 
@@ -63,16 +61,12 @@ singInWithEmailAndPass(context, UserModel user) async {
   } on FirebaseAuthException catch (e) {
     //error controlado de email o contraseñas no correctas
     if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-      utilAlert.hideLoadingIndicator(context);
-      utilAlert.showAlertDialogGeneral(
-          context, 'Error', 'Email or password isn\'t correct');
+      _errorAlert(context, Constants.EM_OR_PAS_NO);
     } else {
-      utilAlert.hideLoadingIndicator(context);
-      utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+      _errorAlert(context, e.message);
     }
   } catch (e) {
-    utilAlert.hideLoadingIndicator(context);
-    utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+    _errorAlert(context, e.message);
   }
 }
 
@@ -91,15 +85,12 @@ createUserWithEmailAndPassword(context, UserModel user) async {
   } on FirebaseAuthException catch (e) {
     //error controlado de duplicidad de email
     if (e.code == 'email-already-in-use') {
-      utilAlert.hideLoadingIndicator(context);
-      utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+      _errorAlert(context, e.message);
     } else {
-      utilAlert.hideLoadingIndicator(context);
-      utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+      _errorAlert(context, e.message);
     }
   } catch (e) {
-    utilAlert.hideLoadingIndicator(context);
-    utilAlert.showAlertDialogGeneral(context, 'Error', e.message);
+    _errorAlert(context, e.message);
   }
 }
 
@@ -111,15 +102,42 @@ logOut(context) async {
   });
 }
 
-Future<void> updateProfile(UserModel user) async {
-  if (user.pass.isNotEmpty) {
-    _auth.currentUser.updateEmail(user.pass);
+Future<void> updateProfile(context, UserModel user) async {
+  try {
+    if (user.pass.isNotEmpty) {
+      _auth.currentUser.updatePassword(user.pass).then((value) => {
+            if (_auth.currentUser.email ==
+                user.email) //evita salirse si se tiene que modificar el email
+              {_closeCircAndNav(context)}
+          });
+    }
+    if (_auth.currentUser.email != user.email) {
+      _auth.currentUser
+          .updateEmail(user.email)
+          .then((value) => _closeCircAndNav(context));
+    }
+    if (user.avatar == null) {
+      _auth.currentUser
+          .updateProfile(displayName: user.userName)
+          .then((value) => _closeCircAndNav(context));
+    } else {
+      _auth.currentUser
+          .updateProfile(displayName: user.userName, photoURL: user.avatar)
+          .then((value) => _closeCircAndNav(context));
+    }
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'requires-recent-login') {
+      _errorAlert(context, e.message);
+    }
   }
-  if (user.avatar == null) {
-    _auth.currentUser.updateProfile(displayName: user.userName);
-  } else {
-    _auth.currentUser
-        .updateProfile(displayName: user.userName, photoURL: user.avatar);
-  }
-  _auth.currentUser.updateEmail(user.email);
+}
+
+_errorAlert(context, val) {
+  utilAlert.hideLoadingIndicator(context);
+  utilAlert.showAlertDialogGeneral(context, Constants.ERROR, val);
+}
+
+_closeCircAndNav(context) {
+  utilAlert.hideLoadingIndicator(context);
+  Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
 }
