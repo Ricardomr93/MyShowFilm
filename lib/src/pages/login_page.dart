@@ -113,13 +113,6 @@ class _LoginPageState extends State<LoginPage> {
         Padding(
           padding: const EdgeInsets.all(15),
           child: ButtomRound(
-            icon: FontAwesomeIcons.twitter,
-            onPressed: () => authService.signInWithFacebook(context),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: ButtomRound(
             icon: FontAwesomeIcons.facebookF,
             onPressed: () => authService.signInWithFacebook(context),
           ),
