@@ -25,6 +25,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           RoundImageProfile(
+              size: Constants.SIZE_PROFILE,
               image: _auth.currentUser.photoURL == null
                   ? NetworkImage(Constants.IMAGE_PRED)
                   : NetworkImage(_auth.currentUser.photoURL)),

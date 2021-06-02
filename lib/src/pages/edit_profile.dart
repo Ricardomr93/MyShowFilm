@@ -58,6 +58,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         Stack(
           children: [
             RoundImageProfile(
+              size: Constants.SIZE_PROFILE,
               image: _image != null
                   ? FileImage(_image)
                   : _auth.currentUser.photoURL == null
@@ -184,8 +185,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         .putFile(File(pickedFile.path))
         .whenComplete(() => {
               downImage(user).then(
-                (value) => _closeCircAndNav(),
-              )
+                () => _closeCircAndNav(),
+              ),
             });
   }
 

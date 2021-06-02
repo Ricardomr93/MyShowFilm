@@ -8,6 +8,8 @@ class Constants {
   static const String ERROR = 'Error';
   static const String INFO = 'Info';
 
+  //image
+  static const int SIZE_PROFILE = 160;
   //menu
   static const String LABEL_FILMS = 'Films';
   static const String LABEL_SERIES = 'Series';
