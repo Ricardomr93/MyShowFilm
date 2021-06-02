@@ -34,7 +34,7 @@ flutter_icons:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.7.4
+  flutter_launcher_icons: ^0.9.0
   flutter_test:
     sdk: flutter
   # Add the dependency for the Firebase Core Flutter SDK
@@ -58,6 +58,7 @@ dev_dependencies:
   page_indicator: ^0.4.1
   font_awesome_flutter: ^9.0.0
   eva_icons_flutter: ^3.0.0
+  cached_network_image: ^3.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
