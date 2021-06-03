@@ -4,7 +4,7 @@ import 'package:myshowfilm/src/pages/details_film_page.dart';
 import 'package:myshowfilm/src/pages/my_profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
-import 'package:myshowfilm/src/widgets/home_tab_cont.dart';
+import 'package:myshowfilm/src/widgets/tabs/home_tab_cont.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key}) : super(key: key);
@@ -19,7 +19,7 @@ class _MainPageState extends State<MainPage> {
   final List _children = [
     HomeTabController(),
     DetailsFilmPage(),
-    MyProfilePage()
+    MyProfilePage(),
   ];
 
   @override

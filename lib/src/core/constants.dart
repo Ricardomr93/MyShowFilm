@@ -10,7 +10,8 @@ class Constants {
   static const String EM_OR_PAS_NO = 'Email or password isn\'t correct';
 
   //image
-  static const int SIZE_PROFILE = 160;
+  static const double SIZE_PROFILE = 160;
+  static const double SIZE_ICON_COMENT = 40;
   //menu
   static const String LABEL_FILMS = 'Films';
   static const String LABEL_SERIES = 'Series';
@@ -49,6 +50,9 @@ class Constants {
   static const String TEXT_NAME = 'User name';
   static const String TEXT_EMAIL = 'Email';
   static const String TEXT_PASS = 'Password';
+  static const String TEXT_COMMENT = 'Add a comment...';
+  static const int MAX_LENGTH_FIELD = 20;
+  static const int MAX_LENGTH_COMMENT = 300;
 
   //no / account
   static const String MSJ_COUNT = 'Already have account?';

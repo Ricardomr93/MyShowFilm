@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class CircularProgressWait extends StatelessWidget {
-  final text;
+  final String text;
   const CircularProgressWait({Key key, this.text = ''}) : super(key: key);
 
   @override

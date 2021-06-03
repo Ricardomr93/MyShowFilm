@@ -9,7 +9,7 @@ import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_back.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
 import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
-import 'package:myshowfilm/src/widgets/simple_dialog.dart';
+import 'package:myshowfilm/src/widgets/dialog/simple_dialog.dart';
 import 'package:myshowfilm/src/widgets/text/textfield_form.dart';
 import 'package:myshowfilm/src/utils/util_text.dart' as util;
 import 'package:image_picker/image_picker.dart';

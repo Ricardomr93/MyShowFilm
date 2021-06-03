@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class MySeparator extends StatelessWidget {
-  final text;
-  final onPressed;
-  final navigateTo;
-  final icon;
-  final size;
+  final String text;
+  final Function onPressed;
+  final String navigateTo;
+  final IconData icon;
+  final double size;
   const MySeparator(
       {Key key,
       @required this.text,

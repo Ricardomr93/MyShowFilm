@@ -4,7 +4,7 @@ class MyColors {
   MyColors._(); //constructor privado
   static const Color whiteGrey = Colors.white54;
   static const Color accentColor = Color(0xffd32f2f);
-  static const Color redDark = Color(0xffd32f2f);
+  static const Color redDark = Color(0xffba000d);
   static const Color redLight = Color(0xffff7961);
   static const Color textP = Color(0xffeeeeee);
   static const Color textS = Colors.black87;

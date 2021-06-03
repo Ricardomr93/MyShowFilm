@@ -5,8 +5,8 @@ class ButtomText extends StatelessWidget {
   const ButtomText(
       {Key key, this.text, this.onPressed, @required this.navigateTo})
       : super(key: key);
-  final text;
-  final navigateTo;
+  final String text;
+  final String navigateTo;
   final VoidCallback onPressed;
 
   @override

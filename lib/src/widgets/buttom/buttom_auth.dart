@@ -3,9 +3,9 @@ import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 
 class ButtomAuth extends StatelessWidget {
-  final text;
-  final onPressed;
-  final width;
+  final String text;
+  final Function onPressed;
+  final double width;
   const ButtomAuth(
       {Key key, @required this.text, @required this.onPressed, this.width})
       : super(key: key);
@@ -13,12 +13,12 @@ class ButtomAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: width == null ? double.infinity : width.toDouble(),
+        width: width == null ? double.infinity : width,
         height: 50,
         margin: EdgeInsets.only(right: 30, left: 30, top: 30),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: MyColors.blackDark,
+            primary: MyColors.redDark,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           ),
