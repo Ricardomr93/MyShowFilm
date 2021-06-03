@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class ButtomRound extends StatelessWidget {
-  final onPressed;
-  final icon;
-  const ButtomRound({Key key, this.onPressed, @required this.icon})
+  final Function onPressed;
+  final IconData icon;
+  final double size;
+  final double iconSize;
+  const ButtomRound(
+      {Key key, this.onPressed, @required this.icon, this.size, this.iconSize})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 65,
-        height: 65,
+        width: size == null ? 65 : size,
+        height: size == null ? 65 : size,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.all(10),
-            primary: myTheme.buttonColor,
+            primary: MyColors.redDark,
             shape: CircleBorder(),
           ),
           child: Icon(
             icon,
-            size: 40,
+            size: iconSize == null ? 40 : iconSize,
           ),
           onPressed: () => onPressed(),
         ));

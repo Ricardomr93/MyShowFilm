@@ -3,10 +3,8 @@ import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
 import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/api_constants.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/models/Serie.dart';
-import 'package:myshowfilm/src/models/film.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:page_indicator/page_indicator.dart';
 
@@ -47,25 +45,10 @@ class _NowPlayingState extends State<NowPlaying> {
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
-          return _buildLoadingWidget(); //TODO cambiar por el propio
+          return ProgressSimple();
         }
       },
     );
-  }
-
-  Widget _buildLoadingWidget() {
-    return Center(
-        heightFactor: 6,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(
-              valueColor:
-                  new AlwaysStoppedAnimation<Color>(myTheme.accentColor),
-              strokeWidth: 6,
-            ),
-          ],
-        ));
   }
 
   Widget _buildErrorWidget(String error) {
@@ -80,12 +63,6 @@ class _NowPlayingState extends State<NowPlaying> {
 
   Widget _buildHomeWidget(data, String type) {
     List films = data.films;
-    if (type == Constants.LABEL_FILMS) {
-      List<Film> films = data.films;
-    } else {
-      List<Serie> films = data.films;
-    }
-
     if (films.length == 0) {
       return Container(
         width: MediaQuery.of(context).size.width,
@@ -97,7 +74,7 @@ class _NowPlayingState extends State<NowPlaying> {
               children: <Widget>[
                 Text(
                   Constants.NO_MORE_FILM,
-                  style: TextStyle(color: myTheme.accentColor),
+                  style: TextStyle(color: MyColors.accentColor),
                 )
               ],
             )
@@ -106,14 +83,14 @@ class _NowPlayingState extends State<NowPlaying> {
       );
     } else
       return Container(
-        height: 210.0,
+        height: 190.0,
         child: PageIndicatorContainer(
             align: IndicatorAlign.bottom,
             length: films.take(Constants.NUM_FILMS_NOW).length,
             indicatorSpace: 9,
             padding: EdgeInsets.all(5.0),
             indicatorColor: MyColors.whiteGrey,
-            indicatorSelectorColor: myTheme.accentColor,
+            indicatorSelectorColor: MyColors.accentColor,
             shape: IndicatorShape.circle(size: 8),
             child: PageView.builder(
               scrollDirection: Axis.horizontal,
@@ -123,7 +100,7 @@ class _NowPlayingState extends State<NowPlaying> {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 220,
+                      height: MediaQuery.of(context).size.height,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         image: DecorationImage(
@@ -136,8 +113,8 @@ class _NowPlayingState extends State<NowPlaying> {
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                         colors: [
-                          myTheme.backgroundColor.withOpacity(1.0),
-                          myTheme.backgroundColor.withOpacity(0.0),
+                          MyColors.background.withOpacity(1.0),
+                          MyColors.background.withOpacity(0.0),
                         ],
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,

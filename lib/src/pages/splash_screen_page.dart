@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:myshowfilm/src/core/constants.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({Key key}) : super(key: key);
@@ -16,9 +17,9 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       final _auth = FirebaseAuth.instance;
       //IR A UNA PAGINA U OTRA SEGÚN SI ESTÁ CONECTADO O NO
       if (_auth.currentUser == null) {
-        Navigator.of(context).pushReplacementNamed('login');
+        Navigator.of(context).pushReplacementNamed(Constants.ROUTE_LOGIN);
       } else {
-        Navigator.of(context).pushReplacementNamed('home');
+        Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
       }
     });
     super.initState();

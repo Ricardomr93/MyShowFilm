@@ -3,6 +3,7 @@ import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/film_response.dart';
 import 'package:myshowfilm/src/models/serie_response.dart';
 import 'package:myshowfilm/src/pages/film_page.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class HomeTabController extends StatefulWidget {
   HomeTabController({Key key}) : super(key: key);
@@ -20,9 +21,6 @@ class _HomeTabControllerState extends State<HomeTabController>
 
   TabController _tabController;
 
-  final List _children = [
-    HomeTabController(),
-  ];
   @override
   void initState() {
     _tabController = TabController(length: _myTabs.length, vsync: this);
@@ -45,13 +43,13 @@ class _HomeTabControllerState extends State<HomeTabController>
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
-            backgroundColor: Color(0xff303030),
+            backgroundColor: MyColors.background,
             appBar: PreferredSize(
               preferredSize: Size.square(120),
               child: Padding(
                 padding: const EdgeInsets.only(top: 11.0),
                 child: AppBar(
-                  backgroundColor: Color(0xff303030),
+                  backgroundColor: MyColors.background,
                   bottom: TabBar(
                     controller: _tabController,
                     indicatorSize: TabBarIndicatorSize.tab,
