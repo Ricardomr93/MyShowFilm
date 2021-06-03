@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/user.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_text.dart';
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
           Constants.MSJ_SING_USING,
           style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: myTheme.accentColor,
+              color: MyColors.accentColor,
               fontSize: 15),
         ),
         Padding(

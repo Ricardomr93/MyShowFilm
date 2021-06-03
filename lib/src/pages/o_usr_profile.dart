@@ -32,7 +32,7 @@ class _OUsrProfilePageState extends State<OUsrProfilePage> {
             height: 10,
           ),
           Text(
-            'user.userName,', // TODO PONER SU PASS
+            'user.userName,', // TODO PONER SU NAME
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,

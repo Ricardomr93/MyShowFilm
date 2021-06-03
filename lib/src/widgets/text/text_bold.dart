@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/theme/text_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class TextBold extends StatelessWidget {
   final text;
@@ -15,7 +15,7 @@ class TextBold extends StatelessWidget {
         overflow: overflow ? TextOverflow.ellipsis : null,
         maxLines: overflow ? 2 : null,
         style: TextStyle(
-          color: textTheme.bodyText2.color,
+          color: MyColors.textP,
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),

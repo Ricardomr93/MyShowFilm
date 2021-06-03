@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class TextFieldForm extends StatefulWidget {
   final errorText;
@@ -65,10 +65,10 @@ class _TextFieldFormState extends State<TextFieldForm> {
                       )
                     : null,
                 filled: true,
-                fillColor: myTheme.primaryColorLight,
+                fillColor: MyColors.blackLight,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: myTheme.primaryColorLight),
+                  borderSide: BorderSide(color: MyColors.blackLight),
                 ),
                 hintText: '${widget.hintText}',
                 errorStyle: TextStyle(
@@ -79,7 +79,7 @@ class _TextFieldFormState extends State<TextFieldForm> {
                 ),
               ),
               keyboardType: widget.keyboardType,
-              cursorColor: myTheme.accentColor,
+              cursorColor: MyColors.accentColor,
               obscureText: widget.passtext
                   ? _obscureText
                   : false, //si no es una contraseña no ocultar el texto

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class ButtomRound extends StatelessWidget {
   final onPressed;
@@ -17,7 +17,7 @@ class ButtomRound extends StatelessWidget {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.all(10),
-            primary: myTheme.buttonColor,
+            primary: MyColors.redDark,
             shape: CircleBorder(),
           ),
           child: Icon(

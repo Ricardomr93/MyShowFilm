@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/theme/my_colors.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class RoundImageProfile extends StatelessWidget {
   final image;
@@ -13,8 +10,8 @@ class RoundImageProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipOval(
       child: FadeInImage(
-        width: 160.0,
-        height: 160.0,
+        width: size.toDouble(),
+        height: size.toDouble(),
         placeholder: AssetImage('assets/img/load.gif'),
         fit: BoxFit.cover,
         image: image,

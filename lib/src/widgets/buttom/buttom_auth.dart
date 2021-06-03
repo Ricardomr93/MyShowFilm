@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 
 class ButtomAuth extends StatelessWidget {
@@ -18,7 +18,7 @@ class ButtomAuth extends StatelessWidget {
         margin: EdgeInsets.only(right: 30, left: 30, top: 30),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: myTheme.buttonColor,
+            primary: MyColors.blackDark,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           ),

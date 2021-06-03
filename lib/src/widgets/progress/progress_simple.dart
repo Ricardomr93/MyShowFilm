@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class ProgressSimple extends StatelessWidget {
   const ProgressSimple({Key key}) : super(key: key);
@@ -13,7 +13,7 @@ class ProgressSimple extends StatelessWidget {
           children: [
             CircularProgressIndicator(
               valueColor:
-                  new AlwaysStoppedAnimation<Color>(myTheme.accentColor),
+                  new AlwaysStoppedAnimation<Color>(MyColors.accentColor),
               strokeWidth: 6,
             ),
           ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class ButtomText extends StatelessWidget {
   const ButtomText(
@@ -24,7 +24,7 @@ class ButtomText extends StatelessWidget {
       child: Text(
         '$text',
         style: TextStyle(
-          color: myTheme.accentColor,
+          color: MyColors.accentColor,
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),

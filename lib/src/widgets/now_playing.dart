@@ -4,7 +4,6 @@ import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/api_constants.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
 import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:page_indicator/page_indicator.dart';
@@ -75,7 +74,7 @@ class _NowPlayingState extends State<NowPlaying> {
               children: <Widget>[
                 Text(
                   Constants.NO_MORE_FILM,
-                  style: TextStyle(color: myTheme.accentColor),
+                  style: TextStyle(color: MyColors.accentColor),
                 )
               ],
             )
@@ -91,7 +90,7 @@ class _NowPlayingState extends State<NowPlaying> {
             indicatorSpace: 9,
             padding: EdgeInsets.all(5.0),
             indicatorColor: MyColors.whiteGrey,
-            indicatorSelectorColor: myTheme.accentColor,
+            indicatorSelectorColor: MyColors.accentColor,
             shape: IndicatorShape.circle(size: 8),
             child: PageView.builder(
               scrollDirection: Axis.horizontal,
@@ -114,8 +113,8 @@ class _NowPlayingState extends State<NowPlaying> {
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                         colors: [
-                          myTheme.backgroundColor.withOpacity(1.0),
-                          myTheme.backgroundColor.withOpacity(0.0),
+                          MyColors.background.withOpacity(1.0),
+                          MyColors.background.withOpacity(0.0),
                         ],
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,

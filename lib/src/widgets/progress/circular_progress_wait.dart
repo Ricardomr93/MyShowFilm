@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/theme/text_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class CircularProgressWait extends StatelessWidget {
   final text;
@@ -32,9 +32,7 @@ class CircularProgressWait extends StatelessWidget {
         child: Text(
           'Please wait …',
           style: TextStyle(
-              color: textTheme.bodyText2.color,
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
+              color: MyColors.textP, fontSize: 16, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         padding: EdgeInsets.only(bottom: 4));

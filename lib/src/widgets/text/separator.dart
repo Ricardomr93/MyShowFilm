@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/theme/text_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class MySeparator extends StatelessWidget {
   final text;
@@ -37,7 +37,7 @@ class MySeparator extends StatelessWidget {
                   child: Icon(
                     icon,
                     size: size == 0.0 ? 19 : size,
-                    color: textTheme.bodyText2.color,
+                    color: MyColors.textP,
                   ),
                 ),
                 Text(
@@ -45,7 +45,7 @@ class MySeparator extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: textTheme.bodyText2.color,
+                    color: MyColors.textP,
                   ),
                 ),
               ],
@@ -55,7 +55,7 @@ class MySeparator extends StatelessWidget {
             ),
             Divider(
               height: 10,
-              color: textTheme.bodyText2.color,
+              color: MyColors.textP,
               thickness: 1,
             ),
           ],
