@@ -15,7 +15,7 @@ class RoundImageProfile extends StatelessWidget {
       child: FadeInImage(
         width: 160.0,
         height: 160.0,
-        placeholder: AssetImage('assets/img/loading.gif'),
+        placeholder: AssetImage('assets/img/load.gif'),
         fit: BoxFit.cover,
         image: image,
       ),

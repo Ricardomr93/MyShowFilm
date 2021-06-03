@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/pages/my_profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:myshowfilm/src/pages/o_usr_profile.dart';
 import 'package:myshowfilm/src/widgets/home_tab_cont.dart';
 
 class MainPage extends StatefulWidget {
@@ -14,7 +15,11 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final _auth = FirebaseAuth.instance;
   int _currentIndex = 0;
-  final List _children = [HomeTabController(), Container(), MyProfilePage()];
+  final List _children = [
+    HomeTabController(),
+    OUsrProfilePage(),
+    MyProfilePage()
+  ];
 
   @override
   Widget build(BuildContext context) {

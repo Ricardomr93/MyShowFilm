@@ -7,6 +7,7 @@ class Constants {
   static const String SOME_CHANGE = 'You must make some change';
   static const String ERROR = 'Error';
   static const String INFO = 'Info';
+  static const String EM_OR_PAS_NO = 'Email or password isn\'t correct';
 
   //image
   static const int SIZE_PROFILE = 160;
@@ -29,7 +30,7 @@ class Constants {
   static const String ROUTE_HOME = 'home';
   static const String ROUTE_PROFILE = 'profile';
   static const String ROUTE_EDIT_PROFILE = 'edit_profile';
-  static const String EM_OR_PAS_NO = 'Email or password isn\'t correct';
+  static const String ROUTE_O_USR_PROFILE = 'o_usr_profile';
 
   //botones
   static const String BUTTOM_LOGIN = 'LOGIN';
