@@ -17,7 +17,7 @@ class _FilmPageState extends State<FilmPage> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      physics: NeverScrollableScrollPhysics(),
+      //physics: NeverScrollableScrollPhysics(),
       children: [
         NowPlaying(
           snapshot: widget.snapshot,

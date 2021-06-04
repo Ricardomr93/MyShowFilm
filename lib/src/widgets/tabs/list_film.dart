@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
 import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
-import 'package:myshowfilm/src/core/api_constants.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
+import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
+import 'package:myshowfilm/src/widgets/card_film.dart';
 import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
-import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 
 class ListFilm extends StatefulWidget {
-  final snapshot;
   final type;
+  final snapshot;
   ListFilm({Key key, @required this.snapshot, @required this.type})
       : super(key: key);
 
@@ -18,14 +18,15 @@ class ListFilm extends StatefulWidget {
 }
 
 class _ListFilmState extends State<ListFilm> {
+  int page = 1;
+  List films;
+  ScrollController _controller;
   @override
   void initState() {
     super.initState();
-    if (widget.type == Constants.LABEL_FILMS) {
-      nowPlayingFilmsBloc.getFilms();
-    } else {
-      nowPlayingSeriesBloc.getSeries();
-    }
+
+    _controller = ScrollController();
+    _controller.addListener(_onScrollUpdate);
   }
 
   @override
@@ -60,7 +61,7 @@ class _ListFilmState extends State<ListFilm> {
   }
 
   Widget _buildPopularWidget(data, String type) {
-    List films = data.films;
+    films == null ? films = data.films : null;
     if (films.length == 0) {
       return Container(
         width: 100,
@@ -82,88 +83,38 @@ class _ListFilmState extends State<ListFilm> {
     } else {
       return Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Container(
-          height: 400,
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                childAspectRatio: 1 / 1.6,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 40),
-            itemCount: films.length,
-            itemBuilder: (context, index) {
-              return Stack(
-                children: [
-                  films[index].posterPath == null
-                      ? Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          decoration: BoxDecoration(
-                            color: MyColors.whiteGrey,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(vertical: 100.0),
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.image_not_supported_outlined,
-                                  color: MyColors.whiteGrey,
-                                  size: 60,
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      : Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            shape: BoxShape.rectangle,
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "${ApiConstants.IMAGE_URL}${films[index].posterPath}"),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                  Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                      colors: [
-                        MyColors.background.withOpacity(1.0),
-                        MyColors.background.withOpacity(0.0),
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      stops: [
-                        0.0,
-                        0.6,
-                      ],
-                    )),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    alignment: Alignment.bottomCenter,
-                    child: TextBold(
-                      overflow: true,
-                      text: widget.type == Constants.LABEL_FILMS
-                          ? films[index].title
-                          : films[index].name,
-                    ),
-                  )
-                ],
-              );
-            },
-          ),
+        child: Column(
+          children: [
+            Container(
+              height: 390,
+              child: GridView.builder(
+                controller: _controller,
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    childAspectRatio: 1 / 1.6,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 40),
+                itemCount: films.length,
+                itemBuilder: (context, index) {
+                  if (index >= films.length) {
+                    print('object');
+                  }
+                  return CardFilm(type: type, film: films[index]);
+                },
+              ),
+            ),
+          ],
         ),
       );
+    }
+  }
+
+  void _onScrollUpdate() {
+    var maxScroll = _controller.position.maxScrollExtent;
+    var currentPosition = _controller.position.pixels;
+    if (currentPosition > maxScroll - 100) {
+      films.add(films[12]);
+      print('llegamos al final');
     }
   }
 }

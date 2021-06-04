@@ -32,6 +32,7 @@ class Constants {
   static const String ROUTE_PROFILE = 'profile';
   static const String ROUTE_EDIT_PROFILE = 'edit_profile';
   static const String ROUTE_O_USR_PROFILE = 'o_usr_profile';
+  static const String ROUTE_DETAILS_FILM = 'details_film';
 
   //botones
   static const String BUTTOM_LOGIN = 'LOGIN';
@@ -51,7 +52,7 @@ class Constants {
   static const String TEXT_EMAIL = 'Email';
   static const String TEXT_PASS = 'Password';
   static const String TEXT_COMMENT = 'Add a comment...';
-  static const int MAX_LENGTH_FIELD = 20;
+  static const int MAX_LENGTH_FIELD = 40;
   static const int MAX_LENGTH_COMMENT = 300;
 
   //no / account

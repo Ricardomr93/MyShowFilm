@@ -37,9 +37,11 @@ class _TextFieldFormState extends State<TextFieldForm> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: TextFormField(
-          inputFormatters: [
-            LengthLimitingTextInputFormatter(Constants.MAX_LENGTH_FIELD),
-          ],
+          inputFormatters: widget.usertext
+              ? [
+                  LengthLimitingTextInputFormatter(Constants.MAX_LENGTH_FIELD),
+                ]
+              : null,
           initialValue:
               widget.initialValue == null ? null : widget.initialValue,
           textCapitalization:

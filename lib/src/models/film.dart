@@ -1,4 +1,6 @@
-class Film {
+import 'package:equatable/equatable.dart';
+
+class Film extends Equatable {
   List<int> genreIds;
   String originalLanguage;
   String originalTitle;
@@ -49,4 +51,43 @@ class Film {
     popularity = json['popularity'].toDouble();
     mediaType = json['media_type'];
   }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['adult'] = this.adult;
+    data['backdrop_path'] = this.backdropPath;
+    data['id'] = this.id;
+    data['original_language'] = this.originalLanguage;
+    data['original_title'] = this.originalTitle;
+    data['overview'] = this.overview;
+    data['popularity'] = this.popularity;
+    data['poster_path'] = this.posterPath;
+    data['release_date'] = this.releaseDate;
+    data['title'] = this.title;
+    data['video'] = this.video;
+    data['vote_average'] = this.voteAverage;
+    data['vote_count'] = this.voteCount;
+    if (this.genreIds != null) {
+      data['genre_ids'] = this.genreIds;
+    }
+    return data;
+  }
+
+  @override
+  List<Object> get props => [
+        genreIds,
+        originalLanguage,
+        originalTitle,
+        posterPath,
+        id,
+        video,
+        voteAverage,
+        overview,
+        releaseDate,
+        voteCount,
+        adult,
+        backdropPath,
+        title,
+        popularity,
+        mediaType,
+      ];
 }

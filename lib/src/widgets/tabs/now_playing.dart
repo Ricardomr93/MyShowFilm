@@ -3,6 +3,7 @@ import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
 import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/api_constants.dart';
 import 'package:myshowfilm/src/core/constants.dart';
+import 'package:myshowfilm/src/pages/details_film_page.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
@@ -24,7 +25,7 @@ class _NowPlayingState extends State<NowPlaying> {
   void initState() {
     super.initState();
     if (widget.type == Constants.LABEL_FILMS) {
-      nowPlayingFilmsBloc.getFilms();
+      nowPlayingFilmsBloc.getFilms(1);
     } else {
       nowPlayingSeriesBloc.getSeries();
     }
@@ -96,51 +97,59 @@ class _NowPlayingState extends State<NowPlaying> {
               scrollDirection: Axis.horizontal,
               itemCount: films.take(Constants.NUM_FILMS_NOW).length,
               itemBuilder: (context, index) {
-                return Stack(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        image: DecorationImage(
-                            image: NetworkImage(
-                                "${ApiConstants.IMAGE_URL}${films[index].backdropPath}"),
-                            fit: BoxFit.cover),
+                return GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DetailsFilmPage(film: films[index], type: type)),
+                  ),
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                  "${ApiConstants.IMAGE_URL}${films[index].backdropPath}"),
+                              fit: BoxFit.cover),
+                        ),
                       ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                        colors: [
-                          MyColors.background.withOpacity(1.0),
-                          MyColors.background.withOpacity(0.0),
-                        ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        stops: [
-                          0.0,
-                          0.9,
-                        ],
-                      )),
-                    ),
-                    Positioned(
-                        bottom: 30.0,
-                        child: Container(
-                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                          width: 250.0,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextBold(
-                                text: widget.type == Constants.LABEL_FILMS
-                                    ? films[index].title
-                                    : films[index].name,
-                              )
-                            ],
-                          ),
-                        ))
-                  ],
+                      Container(
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                          colors: [
+                            MyColors.background.withOpacity(1.0),
+                            MyColors.background.withOpacity(0.0),
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          stops: [
+                            0.0,
+                            0.9,
+                          ],
+                        )),
+                      ),
+                      Positioned(
+                          bottom: 30.0,
+                          child: Container(
+                            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                            width: 250.0,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextBold(
+                                  text: widget.type == Constants.LABEL_FILMS
+                                      ? films[index].title
+                                      : films[index].name,
+                                )
+                              ],
+                            ),
+                          ))
+                    ],
+                  ),
                 );
               },
             )),

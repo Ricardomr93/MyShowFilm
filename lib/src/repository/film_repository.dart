@@ -23,11 +23,11 @@ class FilmRepository {
     }
   }
 
-  Future<FilmResponse> getPlayingFilm() async {
+  Future<FilmResponse> getPlayingFilm(int numPage) async {
     var params = {
       "api_key": ApiConstants.API_KEY,
       "language": "en-US",
-      "page": 1
+      "page": numPage
     };
     try {
       Response response =
