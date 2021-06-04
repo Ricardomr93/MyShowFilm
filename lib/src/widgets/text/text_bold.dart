@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/theme/text_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class TextBold extends StatelessWidget {
-  final text;
-  const TextBold({Key key, @required this.text}) : super(key: key);
+  final String text;
+  final bool overflow;
+  final FontWeight fontWeight;
+  final double fontSize;
+  final int maxLines;
+  const TextBold(
+      {Key key,
+      @required this.text,
+      this.overflow = false,
+      this.fontWeight,
+      this.fontSize,
+      this.maxLines})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Text(
         '$text',
+        overflow: overflow ? TextOverflow.ellipsis : null,
+        maxLines: maxLines == null ? null : maxLines,
         style: TextStyle(
-          color: textTheme.bodyText2.color,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
+          color: MyColors.textP,
+          fontWeight: fontWeight == null ? FontWeight.bold : fontWeight,
+          fontSize: fontSize == null ? 16 : fontSize,
         ),
       ),
     );

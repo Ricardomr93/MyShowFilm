@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/theme/my_theme.dart';
+import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class ButtomText extends StatelessWidget {
   const ButtomText(
       {Key key, this.text, this.onPressed, @required this.navigateTo})
       : super(key: key);
-  final text;
-  final navigateTo;
+  final String text;
+  final String navigateTo;
   final VoidCallback onPressed;
 
   @override
@@ -24,7 +24,7 @@ class ButtomText extends StatelessWidget {
       child: Text(
         '$text',
         style: TextStyle(
-          color: myTheme.accentColor,
+          color: MyColors.accentColor,
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),

@@ -1,16 +1,20 @@
-# myshowfilm
+# Myshowfilm
+[![](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev/?gclid=Cj0KCQjw2NyFBhDoARIsAMtHtZ5lANpCL3iwKQFCNU5-lUGT1xKLiEFtW3C9AmbRjlNIxsele02l0EsaAiJyEALw_wcB&gclsrc=aw.ds)
+[![](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev/)
+[![](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
+[![](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://www.android.com/intl/es_es/)
 
-A new Flutter project.
+Tu aplicación favorita de tematica cinéfila donde podrás puntuar y comentar tus películas y series favoritas.
 
-## Getting Started
+## Diseño atractivo
+<a href="https://ibb.co/G5Y1WjT"><img src="https://i.ibb.co/3C68pHz/mianPage.jpg" alt="mianPage" width="250"></a>
+<a href="https://ibb.co/SPp7d2P"><img src="https://i.ibb.co/qdwFWzd/perfil.jpg" alt="perfil" width="250"></a>
+<br><br>
+##Registrate con tu email o usa los metodos: <br> 
+[![](https://img.shields.io/badge/Google-D14836.svg?style=for-the-badge&logo=google&logoColor=white)](https://accounts.google.com)
+[![](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://es-es.facebook.com)
 
-This project is a starting point for a Flutter application.
+<a href="https://ibb.co/51z4fm1"><img src="https://i.ibb.co/zmLx0pm/login.jpg" alt="login" width="250" ></a>
 
-A few resources to get you started if this is your first Flutter project:
+Eterno agradecimiento para [The Movie Database](https://www.themoviedb.org/?language=es-ES) por facilitarnos una API.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

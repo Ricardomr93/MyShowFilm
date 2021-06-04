@@ -33,6 +33,14 @@ validateName(String val) {
   return msj;
 }
 
+validatePassProfile(String val) {
+  String msj;
+  if (val.isNotEmpty && val.length < 6) {
+    msj = 'Password must be at least 6 characters';
+  }
+  return msj;
+}
+
 //valida por campo password y devuelve un texto informativo
 validatePass(String val) {
   String msj;
