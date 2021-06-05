@@ -80,7 +80,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         SizedBox(height: 20),
         TextFieldForm(
           hintText: Constants.TEXT_NAME,
-          validator: (val) => util.validateName(val),
+          validator: (val) => util.isFieldEmpty(val),
           onSaved: (val) => user.userName = val,
           usertext: true,
           initialValue: _auth.currentUser.displayName,

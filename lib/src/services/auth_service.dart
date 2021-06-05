@@ -2,15 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/user.dart';
 import 'package:myshowfilm/src/providers/share_prefs.dart';
+import 'package:myshowfilm/src/providers/user_provider.dart' as userProv;
 import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:myshowfilm/src/utils/util_text.dart' as util;
 
 final _auth = FirebaseAuth.instance;
-signInWithGoogle(
-  context,
-) async {
+final googleSignIn = GoogleSignIn();
+signInWithGoogle(context) async {
   try {
     utilAlert.showLoadingIndicator(context, Constants.TRY_LOGIN_G);
     final googleUser = await GoogleSignIn().signIn();
@@ -20,11 +21,13 @@ signInWithGoogle(
       idToken: googleAuth.idToken,
     );
     await _auth.signInWithCredential(credential).then((value) {
+      userProv.addUserAuth(_auth);
       utilAlert.hideLoadingIndicator(context);
       SharePrefs.instance.provider = (Constants.PROVIDER_GOOGLE);
       Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     });
   } catch (e) {
+    utilAlert.hideLoadingIndicator(context);
     _errorAlert(context, e.message);
   }
 }
@@ -38,12 +41,16 @@ signInWithFacebook(context) async {
     final facebookAuthCredential =
         FacebookAuthProvider.credential('${result.accessToken.token}');
     // Once signed in, return the UserCredential
+
     await _auth.signInWithCredential(facebookAuthCredential).then((value) {
+      userProv.addUserAuth(_auth);
       utilAlert.hideLoadingIndicator(context);
       SharePrefs.instance.provider = (Constants.PROVIDER_FACE);
       Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     });
+    utilAlert.hideLoadingIndicator(context);
   } catch (e) {
+    utilAlert.hideLoadingIndicator(context);
     _errorAlert(context, e.message);
   }
 }
@@ -52,7 +59,8 @@ singInWithEmailAndPass(context, UserModel user) async {
   utilAlert.showLoadingIndicator(context, Constants.TRY_LOGIN);
   try {
     await _auth
-        .signInWithEmailAndPassword(email: user.email, password: user.pass)
+        .signInWithEmailAndPassword(
+            email: user.email, password: util.sha256Password(user.pass))
         .then((value) {
       utilAlert.hideLoadingIndicator(context);
       SharePrefs.instance.provider = (Constants.PROVIDER_EMAIL);
@@ -71,6 +79,7 @@ singInWithEmailAndPass(context, UserModel user) async {
 }
 
 createUserWithEmailAndPassword(context, UserModel user) async {
+  user.pass = util.sha256Password(user.pass); //resume la constraseña
   //crea un alertDialog para darle feedback al usuario de que está trabajando internamente
   utilAlert.showLoadingIndicator(context, Constants.TRY_SING);
   try {
@@ -82,6 +91,8 @@ createUserWithEmailAndPassword(context, UserModel user) async {
       utilAlert.showAlertDialogGeneral(context, 'Registro',
           'Registrado correctamente', () => Navigator.pop(context));
     });
+    user.idUser = _auth.currentUser.uid;
+    userProv.addUser(user);
   } on FirebaseAuthException catch (e) {
     //error controlado de duplicidad de email
     if (e.code == 'email-already-in-use') {
@@ -90,26 +101,21 @@ createUserWithEmailAndPassword(context, UserModel user) async {
       _errorAlert(context, e.message);
     }
   } catch (e) {
+    utilAlert.hideLoadingIndicator(context);
     _errorAlert(context, e.message);
   }
-}
-
-logOut(context) async {
-  utilAlert.showLoadingIndicator(context, '');
-  await _auth.signOut().then((value) {
-    utilAlert.hideLoadingIndicator(context);
-    Navigator.of(context).pushReplacementNamed(Constants.ROUTE_LOGIN);
-  });
 }
 
 Future<void> updateProfile(context, UserModel user) async {
   try {
     if (user.pass.isNotEmpty) {
-      _auth.currentUser.updatePassword(user.pass).then((value) => {
-            if (_auth.currentUser.email ==
-                user.email) //evita salirse si se tiene que modificar el email
-              {_closeCircAndNav(context)}
-          });
+      _auth.currentUser
+          .updatePassword(util.sha256Password(user.pass))
+          .then((value) => {
+                if (_auth.currentUser.email ==
+                    user.email) //evita salirse si se tiene que modificar el email
+                  {_closeCircAndNav(context)}
+              });
     }
     if (_auth.currentUser.email != user.email) {
       _auth.currentUser
@@ -130,6 +136,16 @@ Future<void> updateProfile(context, UserModel user) async {
       _errorAlert(context, Constants.REQUIRE_LOGIN);
     }
   }
+}
+
+logOut(context) async {
+  //solo entra si el provider es google
+  if (SharePrefs.instance.provider == Constants.PROVIDER_GOOGLE) {
+    await googleSignIn.disconnect();
+  }
+  await _auth.signOut().then((value) {
+    Navigator.of(context).pushReplacementNamed(Constants.ROUTE_LOGIN);
+  });
 }
 
 _errorAlert(context, val) {

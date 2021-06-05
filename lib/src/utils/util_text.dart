@@ -1,7 +1,10 @@
 //clase de utilidades para la aplicación
 
 //comprueba si el email es válido
+import 'dart:convert';
+
 import 'package:myshowfilm/src/core/constants.dart';
+import 'package:crypto/crypto.dart';
 
 bool _isMailValid(String val) {
   return RegExp(
@@ -53,4 +56,10 @@ validatePass(String val) {
     }
   }
   return msj;
+}
+
+String sha256Password(String pass) {
+  var bytes = utf8.encode(pass);
+  var digest = sha256.convert(bytes);
+  return digest.toString();
 }

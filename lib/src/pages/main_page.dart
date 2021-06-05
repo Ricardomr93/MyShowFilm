@@ -3,6 +3,7 @@ import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/pages/my_profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
+import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
 import 'package:myshowfilm/src/widgets/tabs/home_tab_cont.dart';
 
 class MainPage extends StatefulWidget {
@@ -35,7 +36,12 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.search), label: Constants.NAV_SEARCH),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person),
+                icon: RoundImageProfile(
+                  size: 24,
+                  image: _auth.currentUser.photoURL != null
+                      ? NetworkImage('${_auth.currentUser.photoURL}')
+                      : NetworkImage(Constants.IMAGE_PRED),
+                ),
                 label: _auth.currentUser.displayName != null
                     ? '${_auth.currentUser.displayName}'
                     : Constants.NOM_USER_PRED),

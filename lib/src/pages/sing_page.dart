@@ -42,7 +42,7 @@ class _SingUpPageState extends State<SingUpPage> {
         LogoAut(),
         TextFieldForm(
           hintText: Constants.TEXT_NAME,
-          validator: (val) => util.validateName(val),
+          validator: (val) => util.isFieldEmpty(val),
           onSaved: (val) => user.userName = val,
           usertext: true,
         ),

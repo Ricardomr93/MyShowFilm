@@ -46,7 +46,7 @@ class _TextFieldFormState extends State<TextFieldForm> {
               widget.initialValue == null ? null : widget.initialValue,
           textCapitalization:
               widget.usertext // si es un nombre de usuario capitaliza
-                  ? TextCapitalization.sentences
+                  ? TextCapitalization.words
                   : TextCapitalization.none,
           decoration: InputDecoration(
             // si es un pass tiene botón y se oculta el texto : no oculta ni muestra boton(null)

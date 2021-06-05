@@ -61,7 +61,7 @@ class Constants {
   static const String TEXT_EMAIL = 'Email';
   static const String TEXT_PASS = 'Contraseña';
   static const String TEXT_COMMENT = 'Añadir comentario...';
-  static const int MAX_LENGTH_FIELD = 40;
+  static const int MAX_LENGTH_FIELD = 20;
   static const int MAX_LENGTH_COMMENT = 300;
 
   //no / account
@@ -86,4 +86,14 @@ class Constants {
   static const String TRY_LOGIN_G = 'Logueando con Google';
   static const String TRY_SING = 'Registrando';
   static const String TRY_UPDATE = 'Modificando perfil';
+
+  //user
+  static const String USER_ID = 'idUser';
+  static const String USER_NAME = 'userName';
+  static const String USER_EMAIL = 'email';
+  static const String USER_AVATAR = 'avatar';
+  static const String USER_PASS = 'pass';
+  static const String USER_DELETE = 'delete';
+  static const String USER_FOLLOWER = 'followers';
+  static const String USER_FOLLOWED = 'followed';
 }

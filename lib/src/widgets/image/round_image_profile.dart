@@ -4,7 +4,7 @@ import 'package:myshowfilm/src/core/constants.dart';
 class RoundImageProfile extends StatelessWidget {
   final ImageProvider<Object> image;
   final double size;
-  const RoundImageProfile({Key key, this.image, @required this.size})
+  const RoundImageProfile({Key key, @required this.image, @required this.size})
       : super(key: key);
 
   @override
