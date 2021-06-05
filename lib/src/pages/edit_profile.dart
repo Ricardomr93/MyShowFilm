@@ -117,12 +117,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: [
               SimpleDialogItem(
                 icon: Icons.collections,
-                text: 'Gallery',
+                text: Constants.GALLERY,
                 onPressed: () => _toGallery(),
               ),
               SimpleDialogItem(
                 icon: Icons.camera_alt,
-                text: 'Camera',
+                text: Constants.CAMERA,
                 onPressed: () => _toCamera(),
               ),
             ],
