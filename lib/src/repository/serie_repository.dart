@@ -11,7 +11,7 @@ class SerieRepository {
   Future<SerieResponse> getSerie() async {
     var params = {
       "api_key": ApiConstants.API_KEY,
-      "language": "en-US",
+      "language": "es-ES",
       "page": 1
     };
     try {
@@ -26,7 +26,7 @@ class SerieRepository {
   Future<SerieResponse> getPlayingSerie() async {
     var params = {
       "api_key": ApiConstants.API_KEY,
-      "language": "en-US",
+      "language": "es-ES",
       "page": 1
     };
     try {

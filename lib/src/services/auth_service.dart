@@ -12,7 +12,7 @@ signInWithGoogle(
   context,
 ) async {
   try {
-    utilAlert.showLoadingIndicator(context, 'Trying to login with Google');
+    utilAlert.showLoadingIndicator(context, Constants.TRY_LOGIN_G);
     final googleUser = await GoogleSignIn().signIn();
     final googleAuth = await googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
@@ -31,7 +31,7 @@ signInWithGoogle(
 
 signInWithFacebook(context) async {
   try {
-    utilAlert.showLoadingIndicator(context, 'Trying to login with Facebook');
+    utilAlert.showLoadingIndicator(context, Constants.TRY_LOGIN_F);
     // Trigger the sign-in flow
     final result = await FacebookAuth.instance.login();
     // Create a credential from the access token
@@ -49,7 +49,7 @@ signInWithFacebook(context) async {
 }
 
 singInWithEmailAndPass(context, UserModel user) async {
-  utilAlert.showLoadingIndicator(context, 'Trying to login');
+  utilAlert.showLoadingIndicator(context, Constants.TRY_LOGIN);
   try {
     await _auth
         .signInWithEmailAndPassword(email: user.email, password: user.pass)
@@ -72,15 +72,15 @@ singInWithEmailAndPass(context, UserModel user) async {
 
 createUserWithEmailAndPassword(context, UserModel user) async {
   //crea un alertDialog para darle feedback al usuario de que está trabajando internamente
-  utilAlert.showLoadingIndicator(context, 'Trying to register');
+  utilAlert.showLoadingIndicator(context, Constants.TRY_SING);
   try {
     UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: user.email, password: user.pass);
     User u = result.user;
     u.updateProfile(displayName: user.userName).then((value) {
       utilAlert.hideLoadingIndicator(context);
-      utilAlert.showAlertDialogGeneral(context, 'Correct',
-          'Successfully registered', () => Navigator.pop(context));
+      utilAlert.showAlertDialogGeneral(context, 'Registro',
+          'Registrado correctamente', () => Navigator.pop(context));
     });
   } on FirebaseAuthException catch (e) {
     //error controlado de duplicidad de email
@@ -95,7 +95,7 @@ createUserWithEmailAndPassword(context, UserModel user) async {
 }
 
 logOut(context) async {
-  utilAlert.showLoadingIndicator(context, 'User trying log out');
+  utilAlert.showLoadingIndicator(context, '');
   await _auth.signOut().then((value) {
     utilAlert.hideLoadingIndicator(context);
     Navigator.of(context).pushReplacementNamed(Constants.ROUTE_LOGIN);
@@ -127,7 +127,7 @@ Future<void> updateProfile(context, UserModel user) async {
     }
   } on FirebaseAuthException catch (e) {
     if (e.code == 'requires-recent-login') {
-      _errorAlert(context, e.message);
+      _errorAlert(context, Constants.REQUIRE_LOGIN);
     }
   }
 }

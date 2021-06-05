@@ -3,24 +3,33 @@ class Constants {
   static const int NUM_FILMS_NOW = 6;
   static const int NUM_FILMS_POPULAR = 20;
 
-  static const String NO_MORE_FILM = 'No more Films';
-  static const String SOME_CHANGE = 'You must make some change';
+  static const String NO_MORE_FILM = 'No hay mas';
+  static const String SOME_CHANGE = 'Debes modificar algún campo';
   static const String ERROR = 'Error';
   static const String INFO = 'Info';
-  static const String EM_OR_PAS_NO = 'Email or password isn\'t correct';
+  static const String EM_OR_PAS_NO = 'Email o contraseña erroneos';
+  static const String EMAIL_USE = 'Email ya está registrado';
+  static const String MSJ_TXT_EMPTY = 'El campo no debe estar vacío';
+  static const String REQUIRE_LOGIN = 'Requiere volver a loguearse';
+  static const String NAME_SPACE = 'Nombre de usuario contiene espacios';
+  static const String EMAIL_NO_VALID = 'Email no válido';
+  static const String PASS_WEAK = 'La contraseña tiene menos de 6 caracteres';
 
   //image
   static const double SIZE_PROFILE = 160;
   static const double SIZE_ICON_COMENT = 40;
   //menu
-  static const String LABEL_FILMS = 'Films';
+  static const String LABEL_FILMS = 'Películas';
   static const String LABEL_SERIES = 'Series';
 
   //profile
-  static const String LABEL_EDIT_PROFILE = 'Edit profile';
-  static const String LABEL_FRIENDS = 'Friends';
-  static const String LABEL_LOGOUT = 'Logut';
-  static const String NOM_USER_PRED = 'User';
+  static const String LABEL_BACK = 'Atrás';
+  static const String GALLERY = 'Galería';
+  static const String CAMERA = 'Cámara';
+  static const String LABEL_EDIT_PROFILE = 'Editar perfil';
+  static const String LABEL_FRIENDS = 'Amigos';
+  static const String LABEL_LOGOUT = 'Cerrar sesión';
+  static const String NOM_USER_PRED = 'Usuario';
   static const String IMAGE_PRED =
       'https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png';
 
@@ -35,10 +44,10 @@ class Constants {
   static const String ROUTE_DETAILS_FILM = 'details_film';
 
   //botones
-  static const String BUTTOM_LOGIN = 'LOGIN';
-  static const String BUTTOM_SING = 'SING UP';
-  static const String BUTTOM_SAVE = 'SAVE';
-  static const String BUTTOM_DELETE_AC = 'DELETE ACCOUNT';
+  static const String BUTTOM_LOGIN = 'CONECTAR';
+  static const String BUTTOM_SING = 'REGISTRARSE';
+  static const String BUTTOM_SAVE = 'GUARDAR';
+  static const String BUTTOM_DELETE_AC = 'BORRAR CUENTA';
 
   //provider
   static const String PROVIDER_GOOGLE = 'Google';
@@ -48,26 +57,33 @@ class Constants {
   static const String PROVIDER = 'Provider';
 
   //textfield
-  static const String TEXT_NAME = 'User name';
+  static const String TEXT_NAME = 'Nombre usuario';
   static const String TEXT_EMAIL = 'Email';
-  static const String TEXT_PASS = 'Password';
-  static const String TEXT_COMMENT = 'Add a comment...';
+  static const String TEXT_PASS = 'Contraseña';
+  static const String TEXT_COMMENT = 'Añadir comentario...';
   static const int MAX_LENGTH_FIELD = 40;
   static const int MAX_LENGTH_COMMENT = 300;
 
   //no / account
-  static const String MSJ_COUNT = 'Already have account?';
-  static const String MSJ_NO_COUNT = 'Do you no hace account?';
+  static const String MSJ_COUNT = '¿Ya tienes una cuenta? ';
+  static const String MSJ_NO_COUNT = '¿No tienes cuenta?  ';
 
   //login
-  static const String MSJ_OR = 'OR';
-  static const String MSJ_SING_USING = 'Sing in using';
-  static const String MSJ_SING_UP = 'Sing up';
+  static const String MSJ_OR = 'O';
+  static const String MSJ_SING_USING = 'Registrate usando';
+  static const String MSJ_SING_UP = 'Registrate';
 
   //sing up
-  static const String MSJ_LOG_IN = 'Log in';
+  static const String MSJ_LOG_IN = 'Login';
 
   //navigation bottom
-  static const String NAV_HOME = 'Home';
-  static const String NAV_SEARCH = 'Search';
+  static const String NAV_HOME = 'Inicio';
+  static const String NAV_SEARCH = 'Buscar';
+
+  //loanding
+  static const String TRY_LOGIN = 'Logueando';
+  static const String TRY_LOGIN_F = 'Logueando con Facebook';
+  static const String TRY_LOGIN_G = 'Logueando con Google';
+  static const String TRY_SING = 'Registrando';
+  static const String TRY_UPDATE = 'Modificando perfil';
 }
