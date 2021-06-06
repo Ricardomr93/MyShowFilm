@@ -67,6 +67,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
                           TextBold(
                             text: '3.6/5',
                             fontSize: 14,
+                            color: MyColors.accentColor,
                           ),
                         ],
                       ),
@@ -104,41 +105,16 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
                 ],
               )),
             ),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextBold(text: 'Comentarios'),
+            ),
             ListView(
               padding: EdgeInsets.symmetric(horizontal: 25),
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true, //ocupa el espacio que necesita no mas
               children: [
-                CommentUser(
-                  nameText: 'Mariano escribar',
-                  msjText:
-                      'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.' +
-                          'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
-                ),
-                CommentUser(
-                  nameText: 'Mariano escribar',
-                  msjText:
-                      'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.' +
-                          'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
-                ),
-                CommentUser(
-                  nameText: 'Mariano escribar',
-                  msjText:
-                      'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.' +
-                          'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
-                ),
-                CommentUser(
-                  nameText: 'Mariano escribar',
-                  msjText:
-                      'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.' +
-                          'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
-                ),
-                CommentUser(
-                  nameText: 'Mariano escribar',
-                  msjText:
-                      'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.' +
-                          'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
-                ),
                 CommentUser(
                   nameText: 'Mariano escribar',
                   msjText:

@@ -23,3 +23,26 @@ addUserAuth(FirebaseAuth auth) {
           }
       });
 }
+
+updateUser(FirebaseAuth auth, [String pass]) {
+  if (pass == null) {
+    users.doc(auth.currentUser.uid).update({
+      Constants.USER_EMAIL: auth.currentUser.email,
+      Constants.USER_AVATAR: auth.currentUser.photoURL,
+      Constants.USER_NAME: auth.currentUser.displayName
+    });
+  } else {
+    users.doc(auth.currentUser.uid).update({
+      Constants.USER_EMAIL: auth.currentUser.email,
+      Constants.USER_AVATAR: auth.currentUser.photoURL,
+      Constants.USER_NAME: auth.currentUser.displayName,
+      Constants.USER_PASS: pass,
+    });
+  }
+}
+
+deleteUser(FirebaseAuth auth) {
+  users.doc(auth.currentUser.uid).update({
+    Constants.USER_DELETE: true,
+  });
+}

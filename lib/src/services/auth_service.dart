@@ -114,22 +114,22 @@ Future<void> updateProfile(context, UserModel user) async {
           .then((value) => {
                 if (_auth.currentUser.email ==
                     user.email) //evita salirse si se tiene que modificar el email
-                  {_closeCircAndNav(context)}
+                  {_closeCircAndNav(context, user)}
               });
     }
     if (_auth.currentUser.email != user.email) {
       _auth.currentUser
           .updateEmail(user.email)
-          .then((value) => _closeCircAndNav(context));
+          .then((value) => _closeCircAndNav(context, user));
     }
     if (user.avatar == null) {
       _auth.currentUser
           .updateProfile(displayName: user.userName)
-          .then((value) => _closeCircAndNav(context));
+          .then((value) => _closeCircAndNav(context, user));
     } else {
       _auth.currentUser
           .updateProfile(displayName: user.userName, photoURL: user.avatar)
-          .then((value) => _closeCircAndNav(context));
+          .then((value) => _closeCircAndNav(context, user));
     }
   } on FirebaseAuthException catch (e) {
     if (e.code == 'requires-recent-login') {
@@ -153,7 +153,8 @@ _errorAlert(context, val) {
   utilAlert.showAlertDialogGeneral(context, Constants.ERROR, val);
 }
 
-_closeCircAndNav(context) {
+_closeCircAndNav(context, user) {
+  userProv.updateUser(_auth, user.pass == null ? null : user.pass);
   utilAlert.hideLoadingIndicator(context);
   Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
 }

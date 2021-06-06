@@ -86,8 +86,9 @@ class _ListFilmState extends State<ListFilm> {
         child: Column(
           children: [
             Container(
-              height: 390,
+              height: MediaQuery.of(context).size.height / 1.95,
               child: GridView.builder(
+                physics: BouncingScrollPhysics(),
                 controller: _controller,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200,

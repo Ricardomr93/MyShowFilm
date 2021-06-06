@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:myshowfilm/src/models/comments.dart';
 
 class Film extends Equatable {
   List<int> genreIds;
@@ -16,6 +17,7 @@ class Film extends Equatable {
   String title;
   double popularity;
   String mediaType;
+  List<CommentModel> comments;
 
   Film(
       {this.genreIds,
@@ -32,7 +34,8 @@ class Film extends Equatable {
       this.backdropPath,
       this.title,
       this.popularity,
-      this.mediaType});
+      this.mediaType,
+      this.comments});
 
   Film.fromJson(Map<String, dynamic> json) {
     genreIds = json['genre_ids'].cast<int>();
@@ -50,6 +53,7 @@ class Film extends Equatable {
     title = json['title'];
     popularity = json['popularity'].toDouble();
     mediaType = json['media_type'];
+    comments = json['comments'];
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -68,6 +72,9 @@ class Film extends Equatable {
     data['vote_count'] = this.voteCount;
     if (this.genreIds != null) {
       data['genre_ids'] = this.genreIds;
+    }
+    if (this.comments != null) {
+      data['comments'] = this.comments;
     }
     return data;
   }

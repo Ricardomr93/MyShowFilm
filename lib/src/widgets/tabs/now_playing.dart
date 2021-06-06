@@ -84,7 +84,7 @@ class _NowPlayingState extends State<NowPlaying> {
       );
     } else
       return Container(
-        height: 190.0,
+        height: MediaQuery.of(context).size.height / 4.5,
         child: PageIndicatorContainer(
             align: IndicatorAlign.bottom,
             length: films.take(Constants.NUM_FILMS_NOW).length,

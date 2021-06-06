@@ -6,11 +6,13 @@ import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 
 class CommentUser extends StatelessWidget {
   final String nameText;
+  final ImageProvider urlAvatar;
   final String msjText;
   const CommentUser({
     Key key,
     @required this.nameText,
     @required this.msjText,
+    @required this.urlAvatar,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,10 @@ class CommentUser extends StatelessWidget {
         //crossAxisAlignment: CrossAxisAlignment.stretch,
         //mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          RoundImageProfile(size: Constants.SIZE_ICON_COMENT),
+          RoundImageProfile(
+            size: Constants.SIZE_ICON_COMENT,
+            image: urlAvatar,
+          ),
           Flexible(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
