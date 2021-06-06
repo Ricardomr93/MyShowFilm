@@ -1,13 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-CollectionReference users = FirebaseFirestore.instance.collection('users');
+CollectionReference users =
+    FirebaseFirestore.instance.collection(Constants.COLL_USER);
 
 addUser(UserModel user) {
   return users.doc(user.idUser).set(user.toJson());
+}
+
+Future<UserModel> getUserByID(String id) async {
+  UserModel u;
+  users.doc(id).get().then((doc) => u = UserModel.fromJson(doc.data()));
+  print(u);
+  return u;
 }
 
 addUserAuth(FirebaseAuth auth) {

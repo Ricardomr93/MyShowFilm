@@ -14,6 +14,7 @@ class Constants {
   static const String NAME_SPACE = 'Nombre de usuario contiene espacios';
   static const String EMAIL_NO_VALID = 'Email no válido';
   static const String PASS_WEAK = 'La contraseña tiene menos de 6 caracteres';
+  static const String NOT_COMMENTS = 'No hay comentarios...';
 
   //image
   static const double SIZE_PROFILE = 160;
@@ -96,4 +97,19 @@ class Constants {
   static const String USER_DELETE = 'delete';
   static const String USER_FOLLOWER = 'followers';
   static const String USER_FOLLOWED = 'followed';
+
+  //film
+  static const String FILM_ID = 'idFilm';
+  static const String FILM_COMMENT = 'comments';
+  static const String FILM_VOTES = 'votes';
+  //comments
+  static const String COMMENT_IDU = 'idUser';
+  static const String COMMENT_MSJ = 'msj';
+  //votes
+  static const String VOTE_ID = 'idUser';
+  static const String VOTE_VOTE = 'vote';
+  //firebase
+  static const String COLL_FILM = 'films';
+  static const String COLL_USER = 'users';
+  static const String COLL_COMMENT = 'comments';
 }

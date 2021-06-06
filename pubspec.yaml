@@ -38,7 +38,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   # Add the dependency for the Firebase Core Flutter SDK
-  
+  uuid: ^3.0.4
   shared_preferences: ^2.0.6
   #firebase
   firebase_core: ^1.2.0

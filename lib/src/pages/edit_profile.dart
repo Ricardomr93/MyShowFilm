@@ -94,8 +94,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
         TextFieldForm(
           hintText: Constants.TEXT_PASS,
-          validator: (val) =>
-              util.validatePassProfile(val), //TODO encriptar contraseña
+          validator: (val) => util.validatePassProfile(val),
           passtext: true,
           onSaved: (val) => user.pass = val,
         ),

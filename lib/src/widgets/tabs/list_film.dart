@@ -3,7 +3,6 @@ import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
 import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
-import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
 import 'package:myshowfilm/src/widgets/card_film.dart';
 import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 

@@ -1,7 +1,8 @@
-import 'package:equatable/equatable.dart';
+import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/models/comments.dart';
+import 'package:myshowfilm/src/models/vote.dart';
 
-class Film extends Equatable {
+class Film {
   List<int> genreIds;
   String originalLanguage;
   String originalTitle;
@@ -17,25 +18,33 @@ class Film extends Equatable {
   String title;
   double popularity;
   String mediaType;
-  List<CommentModel> comments;
+  List<dynamic> comments;
+  List<VoteModel> votes;
 
-  Film(
-      {this.genreIds,
-      this.originalLanguage,
-      this.originalTitle,
-      this.posterPath,
-      this.id,
-      this.video,
-      this.voteAverage,
-      this.overview,
-      this.releaseDate,
-      this.voteCount,
-      this.adult,
-      this.backdropPath,
-      this.title,
-      this.popularity,
-      this.mediaType,
-      this.comments});
+  Film({
+    this.genreIds,
+    this.originalLanguage,
+    this.originalTitle,
+    this.posterPath,
+    this.id,
+    this.video,
+    this.voteAverage,
+    this.overview,
+    this.releaseDate,
+    this.voteCount,
+    this.adult,
+    this.backdropPath,
+    this.title,
+    this.popularity,
+    this.mediaType,
+    this.comments,
+    this.votes,
+  });
+  Film.fromMap(Map<dynamic, dynamic> map)
+      : id = map[Constants.FILM_ID],
+        comments = map[Constants.FILM_COMMENT].map((map) {
+          return CommentModel.fromMap(map);
+        }).toList();
 
   Film.fromJson(Map<String, dynamic> json) {
     genreIds = json['genre_ids'].cast<int>();
@@ -53,7 +62,8 @@ class Film extends Equatable {
     title = json['title'];
     popularity = json['popularity'].toDouble();
     mediaType = json['media_type'];
-    comments = json['comments'];
+    //comments = json['comments'].cast<CommentModel>();
+    //votes = json['votes'].cast<VoteModel>();
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -69,6 +79,7 @@ class Film extends Equatable {
     data['title'] = this.title;
     data['video'] = this.video;
     data['vote_average'] = this.voteAverage;
+    data['votes'] = this.votes;
     data['vote_count'] = this.voteCount;
     if (this.genreIds != null) {
       data['genre_ids'] = this.genreIds;
@@ -78,23 +89,4 @@ class Film extends Equatable {
     }
     return data;
   }
-
-  @override
-  List<Object> get props => [
-        genreIds,
-        originalLanguage,
-        originalTitle,
-        posterPath,
-        id,
-        video,
-        voteAverage,
-        overview,
-        releaseDate,
-        voteCount,
-        adult,
-        backdropPath,
-        title,
-        popularity,
-        mediaType,
-      ];
 }

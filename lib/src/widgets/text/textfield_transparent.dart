@@ -5,14 +5,20 @@ import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class TextFieldTransparent extends StatefulWidget {
   final String hintText;
-  final Function onChanged;
+  final Function onSaved;
   final TextInputType keyboardType;
-  TextFieldTransparent({
-    Key key,
-    this.hintText,
-    this.keyboardType,
-    this.onChanged,
-  }) : super(key: key);
+  final Function onPressed;
+  final Function validator;
+  final TextEditingController controller;
+  TextFieldTransparent(
+      {Key key,
+      this.hintText,
+      this.keyboardType,
+      this.onSaved,
+      this.onPressed,
+      this.controller,
+      this.validator})
+      : super(key: key);
 
   @override
   _TextFieldTransparentState createState() => _TextFieldTransparentState();
@@ -22,19 +28,23 @@ class _TextFieldTransparentState extends State<TextFieldTransparent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: TextField(
+      child: TextFormField(
         inputFormatters: [
           LengthLimitingTextInputFormatter(Constants.MAX_LENGTH_COMMENT),
         ],
         textCapitalization: TextCapitalization.sentences,
-        keyboardType: widget.keyboardType,
+        //keyboardType: widget.keyboardType,
         cursorColor: MyColors.accentColor,
         maxLength: Constants.MAX_LENGTH_COMMENT,
-        textInputAction: TextInputAction.send,
+        //textInputAction: TextInputAction.newline,
         maxLines: 3,
         minLines: 1,
-        onChanged: (val) => widget.onChanged(val),
+        validator: (val) => widget.validator(val),
+        autocorrect: true,
+        onSaved: (val) => widget.onSaved(val),
         decoration: InputDecoration(
+          suffixIcon:
+              IconButton(icon: Icon(Icons.send), onPressed: widget.onPressed),
           border: OutlineInputBorder(),
           hintText: widget.hintText == null
               ? Constants.TEXT_COMMENT
