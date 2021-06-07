@@ -1,6 +1,6 @@
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/models/comments.dart';
-import 'package:myshowfilm/src/models/vote.dart';
+import 'package:myshowfilm/src/data/models/vote.dart';
+import 'package:myshowfilm/src/data/models/comments.dart';
 
 class Film {
   List<int> genreIds;

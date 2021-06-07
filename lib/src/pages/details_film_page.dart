@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/api_constants.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/models/comments.dart';
+import 'package:myshowfilm/src/data/models/comments.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:myshowfilm/src/providers/film_provider.dart' as filmProv;
-import 'package:myshowfilm/src/widgets/comment_user.dart';
+import 'package:myshowfilm/src/data/providers/film_provider.dart' as filmProv;
+import 'package:myshowfilm/src/widgets/item/comment_user.dart';
 import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
 import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
@@ -30,35 +30,38 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
   final film;
   final _formKey = GlobalKey<FormState>();
   _DetailsFilmPageState(this.film);
-  CollectionReference filmsss =
+  CollectionReference filmsColl =
       FirebaseFirestore.instance.collection(Constants.COLL_FILM);
-
+  CollectionReference seriesColl =
+      FirebaseFirestore.instance.collection(Constants.COLL_SERIE);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: filmsss
-            .doc(film.id.toString())
-            .collection(Constants.FILM_COMMENT)
-            .get(), //filmProv.getComment(film), //TODO falta para series
+        future: widget.type == Constants.LABEL_FILMS
+            ? filmsColl
+                .doc(film.id.toString())
+                .collection(Constants.FILM_COMMENT)
+                .get()
+            : seriesColl
+                .doc(film.id.toString())
+                .collection(Constants.FILM_COMMENT)
+                .get(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            //return Center(child: Text('${snapshot.data.docs.length}'));
-            return _detailswid(snapshot);
+            return _detailswidget(snapshot);
           }
           if (snapshot.hasError) {
             return Center(child: Text('error'));
           }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return ProgressSimple();
-          }
+
+          return ProgressSimple();
         },
       ),
     );
   }
 
-  _detailswid(AsyncSnapshot<dynamic> snapshot) {
-    final double votes = 0.0;
+  _detailswidget(AsyncSnapshot<dynamic> snapshot) {
     return CustomScrollView(
       slivers: [
         _sliveAppBar(film, widget.type),
@@ -69,58 +72,30 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
                   EdgeInsets.only(right: 25, top: 30, left: 25, bottom: 10),
               child: Text(film.overview),
             ),
+            FutureBuilder(
+              future: widget.type == Constants.LABEL_FILMS
+                  ? filmsColl
+                      .doc(film.id.toString())
+                      .collection(Constants.FILM_VOTES)
+                      .get()
+                  : seriesColl
+                      .doc(film.id.toString())
+                      .collection(Constants.FILM_VOTES)
+                      .get(),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.hasData) {
+                  return _average(
+                      _averageScore(snapshot), snapshot.data.docs.length);
+                }
+                if (snapshot.hasError) {
+                  return Center(child: Text('error'));
+                }
+                return _average(0.0, 0);
+              },
+            ),
+            Divider(),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 3),
-                      child: Row(
-                        children: [
-                          RatingBar.builder(
-                            itemSize: 16.0,
-                            initialRating: votes,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                            minRating: 0,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: MyColors.accentColor,
-                            ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                            },
-                          ),
-                          SizedBox(width: 12),
-                          TextBold(
-                            text: '$votes/5',
-                            fontSize: 14,
-                            color: MyColors.accentColor,
-                          ),
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border:
-                            Border.all(color: MyColors.accentColor, width: 3),
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    TextBold(
-                      text: film.votes == null
-                          ? '0 votes'
-                          : '${film.votes.lenght} Votes',
-                      fontSize: 14,
-                    ),
-                  ],
-                )),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 1),
+              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               child: Container(
                   child: Row(
                 children: [
@@ -147,7 +122,6 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
                 ],
               )),
             ),
-            Divider(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextBold(text: 'Comentarios'),
@@ -225,20 +199,86 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
     );
   }
 
+  double _averageScore(AsyncSnapshot<dynamic> snapshot) {
+    double res = 0.0;
+    var sna = snapshot.data.docs;
+    if (sna.length > 0) {
+      for (var i = 0; i < sna.length; i++) {
+        res = res + (sna[i]['vote']);
+      }
+      res = double.parse((res / sna.length).toStringAsFixed(1));
+    }
+    return res;
+  }
+
+  _average(double average, int numVotes) {
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+        child: Row(
+          //crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+              child: Row(
+                children: [
+                  RatingBar.builder(
+                    itemSize: 25.0,
+                    initialRating: average,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                    minRating: 0,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: MyColors.accentColor,
+                    ),
+                    onRatingUpdate: (rating) {
+                      filmProv.addAverage(
+                          film, _auth.currentUser.uid, rating, widget.type);
+                      setState(() {});
+                    },
+                  ),
+                  SizedBox(width: 12),
+                  TextBold(
+                    text: '$average/5.0',
+                    fontSize: 14,
+                    color: MyColors.accentColor,
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: MyColors.accentColor, width: 3),
+              ),
+            ),
+            SizedBox(width: 12),
+            TextBold(
+              text: '$numVotes Votes',
+              fontSize: 16,
+            ),
+          ],
+        ));
+  }
+
   _sendComment() {
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
     comment.idUser = _auth.currentUser.uid;
-    filmProv.addComment(film, comment);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-          builder: (context) => DetailsFilmPage(
-                film: film,
-                type: widget.type,
-              )),
-    );
+    filmProv.addComment(film, comment, widget.type);
+
+    setState(() {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DetailsFilmPage(
+                  film: film,
+                  type: widget.type,
+                )),
+      );
+    });
   }
 }

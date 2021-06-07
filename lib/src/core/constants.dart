@@ -106,10 +106,11 @@ class Constants {
   static const String COMMENT_IDU = 'idUser';
   static const String COMMENT_MSJ = 'msj';
   //votes
-  static const String VOTE_ID = 'idUser';
+  static const String VOTE_IDU = 'idUser';
   static const String VOTE_VOTE = 'vote';
   //firebase
   static const String COLL_FILM = 'films';
+  static const String COLL_SERIE = 'series';
   static const String COLL_USER = 'users';
   static const String COLL_COMMENT = 'comments';
 }

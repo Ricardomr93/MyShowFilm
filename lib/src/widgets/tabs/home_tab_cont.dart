@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/models/film_response.dart';
-import 'package:myshowfilm/src/models/serie_response.dart';
+import 'package:myshowfilm/src/data/models/film_response.dart';
+import 'package:myshowfilm/src/data/models/serie_response.dart';
 import 'package:myshowfilm/src/pages/film_page.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 

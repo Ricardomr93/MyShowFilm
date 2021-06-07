@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/models/user.dart';
+import 'package:myshowfilm/src/data/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 CollectionReference users =

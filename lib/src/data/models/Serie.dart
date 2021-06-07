@@ -1,3 +1,5 @@
+import 'package:myshowfilm/src/data/models/vote.dart';
+
 class Serie {
   String backdropPath;
   String firstAirDate;
@@ -12,21 +14,26 @@ class Serie {
   String posterPath;
   double voteAverage;
   int voteCount;
+  List<dynamic> comments;
+  List<VoteModel> votes;
 
-  Serie(
-      {this.backdropPath,
-      this.firstAirDate,
-      this.genreIds,
-      this.id,
-      this.name,
-      this.originCountry,
-      this.originalLanguage,
-      this.originalName,
-      this.overview,
-      this.popularity,
-      this.posterPath,
-      this.voteAverage,
-      this.voteCount});
+  Serie({
+    this.backdropPath,
+    this.firstAirDate,
+    this.genreIds,
+    this.id,
+    this.name,
+    this.originCountry,
+    this.originalLanguage,
+    this.originalName,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.voteAverage,
+    this.voteCount,
+    this.comments,
+    this.votes,
+  });
 
   Serie.fromJson(Map<String, dynamic> json) {
     backdropPath = json['backdrop_path'];

@@ -5,7 +5,7 @@ import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
 import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:myshowfilm/src/providers/user_provider.dart' as userProv;
+import 'package:myshowfilm/src/data/providers/user_provider.dart' as userProv;
 
 class CommentUser extends StatelessWidget {
   final String msjText;
@@ -29,9 +29,7 @@ class CommentUser extends StatelessWidget {
         if (snapshot.hasError) {
           return Center(child: Text('error'));
         }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return ProgressSimple();
-        }
+        return ProgressSimple();
       },
     );
   }
@@ -40,8 +38,6 @@ class CommentUser extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
-        //crossAxisAlignment: CrossAxisAlignment.stretch,
-        //mainAxisAlignment: MainAxisAlignment.end,
         children: [
           RoundImageProfile(
             size: Constants.SIZE_ICON_COMENT,

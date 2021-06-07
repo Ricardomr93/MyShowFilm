@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/models/user.dart';
-import 'package:myshowfilm/src/providers/share_prefs.dart';
-import 'package:myshowfilm/src/providers/user_provider.dart' as userProv;
+import 'package:myshowfilm/src/data/models/user.dart';
+import 'package:myshowfilm/src/data/providers/share_prefs.dart';
+import 'package:myshowfilm/src/data/providers/user_provider.dart' as userProv;
 import 'package:myshowfilm/src/utils/util_alert.dart' as utilAlert;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
