@@ -49,6 +49,8 @@ class Constants {
   static const String BUTTOM_SING = 'REGISTRARSE';
   static const String BUTTOM_SAVE = 'GUARDAR';
   static const String BUTTOM_DELETE_AC = 'BORRAR CUENTA';
+  static const String BUTTOM_FOLLOW = 'SEGUIR';
+  static const String BUTTOM_UNFOLLOW = 'SIGUIENDO';
 
   //provider
   static const String PROVIDER_GOOGLE = 'Google';
@@ -113,4 +115,7 @@ class Constants {
   static const String COLL_SERIE = 'series';
   static const String COLL_USER = 'users';
   static const String COLL_COMMENT = 'comments';
+
+  //hero
+  static const String HERO_PROFILE = 'profile';
 }

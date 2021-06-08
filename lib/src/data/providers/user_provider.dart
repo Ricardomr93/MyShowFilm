@@ -53,3 +53,19 @@ deleteUser(FirebaseAuth auth) {
     Constants.USER_DELETE: true,
   });
 }
+
+followUser(String idAuth, String idUser) {
+  users.doc(idAuth).set({
+    Constants.USER_FOLLOWED: FieldValue.arrayUnion([idUser])
+  }, SetOptions(merge: true)).then((value) => users.doc(idUser).set({
+        Constants.USER_FOLLOWER: FieldValue.arrayUnion([idAuth])
+      }, SetOptions(merge: true)));
+}
+
+unfollowUser(String idAuth, String idUser) {
+  users.doc(idAuth).update({
+    Constants.USER_FOLLOWED: FieldValue.arrayRemove([idUser])
+  }).then((value) => users.doc(idUser).update({
+        Constants.USER_FOLLOWER: FieldValue.arrayRemove([idAuth])
+      }));
+}

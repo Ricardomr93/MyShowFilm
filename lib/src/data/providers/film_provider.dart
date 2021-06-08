@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/data/models/comments.dart';
-import 'package:myshowfilm/src/data/models/film.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = Uuid();

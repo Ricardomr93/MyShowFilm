@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
+import 'package:myshowfilm/src/pages/o_usr_profile.dart';
 import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
 import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:myshowfilm/src/data/providers/user_provider.dart' as userProv;
+import 'package:firebase_auth/firebase_auth.dart';
 
-class CommentUser extends StatelessWidget {
+class CommentUser extends StatefulWidget {
   final String msjText;
   final String idUser;
 
@@ -15,16 +16,23 @@ class CommentUser extends StatelessWidget {
       : super(key: key);
 
   @override
+  _CommentUserState createState() => _CommentUserState();
+}
+
+class _CommentUserState extends State<CommentUser> {
+  CollectionReference users =
+      FirebaseFirestore.instance.collection(Constants.COLL_USER);
+  final _auth = FirebaseAuth.instance;
+
+  @override
   Widget build(BuildContext context) {
     CollectionReference users =
         FirebaseFirestore.instance.collection(Constants.COLL_USER);
     return FutureBuilder(
-      future: users
-          .doc(idUser)
-          .get(), //filmProv.getComment(film), //TODO falta para series
+      future: users.doc(widget.idUser).get(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return _comment(snapshot);
+          return _comment(snapshot, context);
         }
         if (snapshot.hasError) {
           return Center(child: Text('error'));
@@ -34,14 +42,27 @@ class CommentUser extends StatelessWidget {
     );
   }
 
-  _comment(snapshot) {
+  _comment(snapshot, context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          RoundImageProfile(
-            size: Constants.SIZE_ICON_COMENT,
-            image: NetworkImage('${snapshot.data.data()['avatar']}'),
+          GestureDetector(
+            onTap: widget.idUser != _auth.currentUser.uid
+                ? () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => OUsrProfilePage(
+                                  idUser: widget.idUser,
+                                )),
+                      )
+                    }
+                : null,
+            child: RoundImageProfile(
+              size: Constants.SIZE_ICON_COMENT,
+              image: NetworkImage('${snapshot.data.data()['avatar']}'),
+            ),
           ),
           Flexible(
             child: Padding(
@@ -51,7 +72,7 @@ class CommentUser extends StatelessWidget {
                 children: [
                   TextBold(text: '${snapshot.data.data()['userName']}'),
                   SizedBox(height: 5),
-                  Text(msjText),
+                  Text(widget.msjText),
                 ],
               ),
             ),

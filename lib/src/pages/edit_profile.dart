@@ -102,7 +102,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             width: 160,
             text: Constants.BUTTOM_SAVE,
             onPressed: () => _saveData()),
-        ButtomAuth(text: Constants.BUTTOM_DELETE_AC, onPressed: () => {}),
+        //ButtomAuth(text: Constants.BUTTOM_DELETE_AC, onPressed: () => {}), //TODO PARA EL FUTURO
       ],
     );
   }

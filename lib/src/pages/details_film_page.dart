@@ -269,7 +269,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
     _formKey.currentState.save();
     comment.idUser = _auth.currentUser.uid;
     filmProv.addComment(film, comment, widget.type);
-
+    FocusScope.of(context).requestFocus(FocusNode());
     setState(() {
       Navigator.pushReplacement(
         context,
