@@ -96,9 +96,6 @@ class _ListFilmState extends State<ListFilm> {
                     mainAxisSpacing: 40),
                 itemCount: films.length,
                 itemBuilder: (context, index) {
-                  if (index >= films.length) {
-                    print('object');
-                  }
                   return CardFilm(type: type, film: films[index]);
                 },
               ),
@@ -112,8 +109,8 @@ class _ListFilmState extends State<ListFilm> {
   void _onScrollUpdate() {
     var maxScroll = _controller.position.maxScrollExtent;
     var currentPosition = _controller.position.pixels;
-    if (currentPosition > maxScroll - 100) {
-      films.add(films[12]);
+    if (currentPosition > maxScroll + 100) {
+      //films.add(films[12]);
       print('llegamos al final');
     }
   }
