@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:myshowfilm/src/core/api_constants.dart';
-import 'package:myshowfilm/src/models/film_response.dart';
+import 'package:myshowfilm/src/data/models/film_response.dart';
 
 class FilmRepository {
   Dio _dio = Dio();
@@ -11,7 +11,7 @@ class FilmRepository {
   Future<FilmResponse> getFilms() async {
     var params = {
       "api_key": ApiConstants.API_KEY,
-      "language": "en-US",
+      "language": "es-ES",
       "page": 1
     };
     try {
@@ -23,11 +23,11 @@ class FilmRepository {
     }
   }
 
-  Future<FilmResponse> getPlayingFilm() async {
+  Future<FilmResponse> getPlayingFilm(int numPage) async {
     var params = {
       "api_key": ApiConstants.API_KEY,
-      "language": "en-US",
-      "page": 1
+      "language": "es-ES",
+      "page": numPage
     };
     try {
       Response response =

@@ -6,12 +6,16 @@ class TextBold extends StatelessWidget {
   final bool overflow;
   final FontWeight fontWeight;
   final double fontSize;
+  final int maxLines;
+  final Color color;
   const TextBold(
       {Key key,
       @required this.text,
       this.overflow = false,
       this.fontWeight,
-      this.fontSize})
+      this.fontSize,
+      this.maxLines,
+      this.color})
       : super(key: key);
 
   @override
@@ -20,9 +24,9 @@ class TextBold extends StatelessWidget {
       child: Text(
         '$text',
         overflow: overflow ? TextOverflow.ellipsis : null,
-        maxLines: overflow ? 2 : null,
+        maxLines: maxLines == null ? null : maxLines,
         style: TextStyle(
-          color: MyColors.textP,
+          color: color == null ? MyColors.textP : color,
           fontWeight: fontWeight == null ? FontWeight.bold : fontWeight,
           fontSize: fontSize == null ? 16 : fontSize,
         ),

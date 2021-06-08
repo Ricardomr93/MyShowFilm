@@ -1,6 +1,11 @@
 //clase de utilidades para la aplicación
 
 //comprueba si el email es válido
+import 'dart:convert';
+
+import 'package:myshowfilm/src/core/constants.dart';
+import 'package:crypto/crypto.dart';
+
 bool _isMailValid(String val) {
   return RegExp(
           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
@@ -8,7 +13,7 @@ bool _isMailValid(String val) {
 }
 
 //comprueba si el campo está vacío
-isFieldEmpty(String val) => val.isEmpty ? 'Text field must not be empty' : null;
+isFieldEmpty(String val) => val.isEmpty ? Constants.MSJ_TXT_EMPTY : null;
 
 //valida por campo email y devuelve un texto informativo
 validateEmail(String val) {
@@ -16,7 +21,7 @@ validateEmail(String val) {
   msj = isFieldEmpty(val);
   if (msj == null) {
     if (!_isMailValid(val)) {
-      msj = 'Email is not valid';
+      msj = Constants.EMAIL_NO_VALID;
     }
   }
   return msj;
@@ -27,7 +32,7 @@ validateName(String val) {
   msj = isFieldEmpty(val);
   if (msj == null) {
     if (val.trim().contains(' ')) {
-      msj = 'Username contains spaces';
+      msj = Constants.NAME_SPACE;
     }
   }
   return msj;
@@ -36,7 +41,7 @@ validateName(String val) {
 validatePassProfile(String val) {
   String msj;
   if (val.isNotEmpty && val.length < 6) {
-    msj = 'Password must be at least 6 characters';
+    msj = Constants.PASS_WEAK;
   }
   return msj;
 }
@@ -47,8 +52,14 @@ validatePass(String val) {
   msj = isFieldEmpty(val);
   if (msj == null) {
     if (val.length < 6) {
-      msj = 'Password must be at least 6 characters';
+      msj = Constants.PASS_WEAK;
     }
   }
   return msj;
+}
+
+String sha256Password(String pass) {
+  var bytes = utf8.encode(pass);
+  var digest = sha256.convert(bytes);
+  return digest.toString();
 }

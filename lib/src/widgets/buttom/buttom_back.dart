@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 
 class ButtomBack extends StatelessWidget {
@@ -7,7 +8,7 @@ class ButtomBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 30.0),
       child: Row(
         children: [
           IconButton(
@@ -17,7 +18,7 @@ class ButtomBack extends StatelessWidget {
             },
           ),
           TextBold(
-            text: 'Back',
+            text: Constants.LABEL_BACK,
           )
         ],
       ),

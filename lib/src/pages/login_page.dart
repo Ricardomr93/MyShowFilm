@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/models/user.dart';
+import 'package:myshowfilm/src/data/models/user.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';

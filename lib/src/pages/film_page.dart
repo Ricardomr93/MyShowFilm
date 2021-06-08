@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/models/film_response.dart';
+import 'package:myshowfilm/src/data/models/film_response.dart';
 import 'package:myshowfilm/src/widgets/tabs/list_film.dart';
 import 'package:myshowfilm/src/widgets/tabs/now_playing.dart';
 
@@ -17,7 +17,7 @@ class _FilmPageState extends State<FilmPage> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      physics: NeverScrollableScrollPhysics(),
+      //physics: NeverScrollableScrollPhysics(),
       children: [
         NowPlaying(
           snapshot: widget.snapshot,

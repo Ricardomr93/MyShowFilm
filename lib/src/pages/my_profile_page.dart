@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/providers/share_prefs.dart';
+import 'package:myshowfilm/src/data/providers/share_prefs.dart';
 import 'package:myshowfilm/src/services/auth_service.dart' as authService;
 import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
 import 'package:myshowfilm/src/widgets/text/separator.dart';
