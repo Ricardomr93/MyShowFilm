@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/data/models/film_response.dart';
-import 'package:myshowfilm/src/data/models/serie_response.dart';
-import 'package:myshowfilm/src/pages/film_page.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
+import 'package:myshowfilm/src/widgets/tabs/tabs_lists/list_friends.dart';
 
-class HomeTabController extends StatefulWidget {
-  HomeTabController({Key key}) : super(key: key);
+class FriendTab extends StatefulWidget {
+  FriendTab({Key key}) : super(key: key);
 
   @override
-  _HomeTabControllerState createState() => _HomeTabControllerState();
+  _FriendTabState createState() => _FriendTabState();
 }
 
-class _HomeTabControllerState extends State<HomeTabController>
-    with TickerProviderStateMixin {
+class _FriendTabState extends State<FriendTab> with TickerProviderStateMixin {
   static const List<Tab> _myTabs = <Tab>[
-    Tab(text: Constants.LABEL_FILMS),
-    Tab(text: Constants.LABEL_SERIES),
+    Tab(text: Constants.LABEL_FOLLOWER),
+    Tab(text: Constants.LABEL_FOLLOWED),
   ];
 
   TabController _tabController;
@@ -35,9 +32,6 @@ class _HomeTabControllerState extends State<HomeTabController>
 
   @override
   Widget build(BuildContext context) {
-    AsyncSnapshot<FilmResponse> snapshotFilm;
-    AsyncSnapshot<SerieResponse> snapshotSerie;
-
     return Container(
       height: MediaQuery.of(context).size.height,
       child: DefaultTabController(
@@ -58,16 +52,13 @@ class _HomeTabControllerState extends State<HomeTabController>
                   ),
                   elevation: 0,
                   title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    //crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      SizedBox(width: 35),
                       Image.asset(
                         'assets/img/logo_v.png',
                         height: 50,
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.filter_list_outlined),
-                        iconSize: 40,
-                        onPressed: () {},
                       )
                     ],
                   ),
@@ -77,16 +68,7 @@ class _HomeTabControllerState extends State<HomeTabController>
             body: TabBarView(
               controller: _tabController,
               physics: NeverScrollableScrollPhysics(),
-              children: [
-                FilmPage(
-                  snapshot: snapshotFilm,
-                  type: Constants.LABEL_FILMS,
-                ),
-                FilmPage(
-                  snapshot: snapshotSerie,
-                  type: Constants.LABEL_SERIES,
-                )
-              ],
+              children: [ListFriends(), ListFriends()],
             )),
       ),
     );

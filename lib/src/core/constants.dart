@@ -14,6 +14,7 @@ class Constants {
   static const String NAME_SPACE = 'Nombre de usuario contiene espacios';
   static const String EMAIL_NO_VALID = 'Email no válido';
   static const String PASS_WEAK = 'La contraseña tiene menos de 6 caracteres';
+  static const String NOT_COMMENTS = 'No hay comentarios...';
 
   //image
   static const double SIZE_PROFILE = 160;
@@ -21,6 +22,8 @@ class Constants {
   //menu
   static const String LABEL_FILMS = 'Películas';
   static const String LABEL_SERIES = 'Series';
+  static const String LABEL_FOLLOWER = 'Seguidores';
+  static const String LABEL_FOLLOWED = 'Seguidos';
 
   //profile
   static const String LABEL_BACK = 'Atrás';
@@ -42,12 +45,16 @@ class Constants {
   static const String ROUTE_EDIT_PROFILE = 'edit_profile';
   static const String ROUTE_O_USR_PROFILE = 'o_usr_profile';
   static const String ROUTE_DETAILS_FILM = 'details_film';
+  static const String ROUTE_LIST_FRIENDS = 'lists_friends';
+  static const String ROUTE_SEARCH = 'search';
 
   //botones
   static const String BUTTOM_LOGIN = 'CONECTAR';
   static const String BUTTOM_SING = 'REGISTRARSE';
   static const String BUTTOM_SAVE = 'GUARDAR';
   static const String BUTTOM_DELETE_AC = 'BORRAR CUENTA';
+  static const String BUTTOM_FOLLOW = 'SEGUIR';
+  static const String BUTTOM_UNFOLLOW = 'SIGUIENDO';
 
   //provider
   static const String PROVIDER_GOOGLE = 'Google';
@@ -61,7 +68,7 @@ class Constants {
   static const String TEXT_EMAIL = 'Email';
   static const String TEXT_PASS = 'Contraseña';
   static const String TEXT_COMMENT = 'Añadir comentario...';
-  static const int MAX_LENGTH_FIELD = 40;
+  static const int MAX_LENGTH_FIELD = 20;
   static const int MAX_LENGTH_COMMENT = 300;
 
   //no / account
@@ -86,4 +93,33 @@ class Constants {
   static const String TRY_LOGIN_G = 'Logueando con Google';
   static const String TRY_SING = 'Registrando';
   static const String TRY_UPDATE = 'Modificando perfil';
+
+  //user
+  static const String USER_ID = 'idUser';
+  static const String USER_NAME = 'userName';
+  static const String USER_EMAIL = 'email';
+  static const String USER_AVATAR = 'avatar';
+  static const String USER_PASS = 'pass';
+  static const String USER_DELETE = 'delete';
+  static const String USER_FOLLOWER = 'followers';
+  static const String USER_FOLLOWED = 'followed';
+
+  //film
+  static const String FILM_ID = 'idFilm';
+  static const String FILM_COMMENT = 'comments';
+  static const String FILM_VOTES = 'votes';
+  //comments
+  static const String COMMENT_IDU = 'idUser';
+  static const String COMMENT_MSJ = 'msj';
+  //votes
+  static const String VOTE_IDU = 'idUser';
+  static const String VOTE_VOTE = 'vote';
+  //firebase
+  static const String COLL_FILM = 'films';
+  static const String COLL_SERIE = 'series';
+  static const String COLL_USER = 'users';
+  static const String COLL_COMMENT = 'comments';
+
+  //hero
+  static const String HERO_PROFILE = 'profile';
 }

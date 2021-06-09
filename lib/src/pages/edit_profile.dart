@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/models/user.dart';
+import 'package:myshowfilm/src/data/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshowfilm/src/services/auth_service.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_auth.dart';
@@ -80,7 +80,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         SizedBox(height: 20),
         TextFieldForm(
           hintText: Constants.TEXT_NAME,
-          validator: (val) => util.validateName(val),
+          validator: (val) => util.isFieldEmpty(val),
           onSaved: (val) => user.userName = val,
           usertext: true,
           initialValue: _auth.currentUser.displayName,
@@ -94,8 +94,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
         TextFieldForm(
           hintText: Constants.TEXT_PASS,
-          validator: (val) =>
-              util.validatePassProfile(val), //TODO encriptar contraseña
+          validator: (val) => util.validatePassProfile(val),
           passtext: true,
           onSaved: (val) => user.pass = val,
         ),
@@ -103,7 +102,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             width: 160,
             text: Constants.BUTTOM_SAVE,
             onPressed: () => _saveData()),
-        ButtomAuth(text: Constants.BUTTOM_DELETE_AC, onPressed: () => {}),
+        //ButtomAuth(text: Constants.BUTTOM_DELETE_AC, onPressed: () => {}), //TODO PARA EL FUTURO
       ],
     );
   }

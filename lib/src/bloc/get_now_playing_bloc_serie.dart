@@ -1,5 +1,5 @@
-import 'package:myshowfilm/src/models/serie_response.dart';
-import 'package:myshowfilm/src/repository/serie_repository.dart';
+import 'package:myshowfilm/src/data/models/serie_response.dart';
+import 'package:myshowfilm/src/data/repository/serie_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class NowPlayingListBlocSerie {

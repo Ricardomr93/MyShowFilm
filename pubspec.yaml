@@ -38,9 +38,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   # Add the dependency for the Firebase Core Flutter SDK
-  firebase_core: ^1.2.0
+  uuid: ^3.0.4
   shared_preferences: ^2.0.6
   #firebase
+  firebase_core: ^1.2.0
   firebase_analytics: ^8.1.0
   firebase_auth: ^1.2.0
   cloud_firestore: ^2.2.0
@@ -61,7 +62,9 @@ dev_dependencies:
   page_indicator: ^0.4.1
   font_awesome_flutter: ^9.0.0
   eva_icons_flutter: ^3.0.0
-  cached_network_image: ^3.0.0
+  
+  #digest
+  crypto: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
