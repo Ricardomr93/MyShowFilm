@@ -46,6 +46,7 @@ class Constants {
   static const String ROUTE_O_USR_PROFILE = 'o_usr_profile';
   static const String ROUTE_DETAILS_FILM = 'details_film';
   static const String ROUTE_LIST_FRIENDS = 'lists_friends';
+  static const String ROUTE_SEARCH = 'search';
 
   //botones
   static const String BUTTOM_LOGIN = 'CONECTAR';

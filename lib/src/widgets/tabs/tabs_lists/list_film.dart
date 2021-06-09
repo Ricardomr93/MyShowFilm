@@ -3,6 +3,7 @@ import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
 import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
+import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
 import 'package:myshowfilm/src/widgets/item/card_film.dart';
 import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 
@@ -19,6 +20,7 @@ class ListFilm extends StatefulWidget {
 class _ListFilmState extends State<ListFilm> {
   int page = 1;
   List films;
+  bool nextPage = false;
   ScrollController _controller;
   @override
   void initState() {
@@ -82,11 +84,12 @@ class _ListFilmState extends State<ListFilm> {
     } else {
       return Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
+        child: Stack(
           children: [
             Container(
               height: MediaQuery.of(context).size.height / 1.95,
               child: GridView.builder(
+                shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
                 controller: _controller,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -100,18 +103,31 @@ class _ListFilmState extends State<ListFilm> {
                 },
               ),
             ),
+            nextPage
+                ? Center(
+                    heightFactor: MediaQuery.of(context).size.height / 60,
+                    child: ButtomRound(
+                        size: 55,
+                        iconSize: 35,
+                        icon: Icons.queue_play_next_rounded))
+                : Container(),
           ],
         ),
       );
     }
   }
 
-  void _onScrollUpdate() {
+  _onScrollUpdate() {
     var maxScroll = _controller.position.maxScrollExtent;
     var currentPosition = _controller.position.pixels;
-    if (currentPosition > maxScroll + 100) {
-      //films.add(films[12]);
-      print('llegamos al final');
-    }
+    setState(() {
+      if (currentPosition >= maxScroll) {
+        nextPage = true;
+        print(nextPage);
+      } else {
+        nextPage = false;
+        print(nextPage);
+      }
+    });
   }
 }

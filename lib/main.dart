@@ -9,10 +9,8 @@ import 'package:myshowfilm/src/pages/sing_page.dart';
 import 'package:myshowfilm/src/pages/splash_screen_page.dart';
 import 'package:myshowfilm/src/data/providers/share_prefs.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
-// Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 import 'package:myshowfilm/src/widgets/tabs/friend_tab.dart';
-import 'package:myshowfilm/src/widgets/tabs/tabs_lists/list_friends.dart';
 
 void main() async {
   //importante para iniciar firebase
