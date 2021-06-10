@@ -9,8 +9,8 @@ import 'package:myshowfilm/src/pages/sing_page.dart';
 import 'package:myshowfilm/src/pages/splash_screen_page.dart';
 import 'package:myshowfilm/src/data/providers/share_prefs.dart';
 import 'package:myshowfilm/src/theme/my_theme.dart';
-// Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
+import 'package:myshowfilm/src/widgets/tabs/friend_tab.dart';
 
 void main() async {
   //importante para iniciar firebase
@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
         Constants.ROUTE_PROFILE: (BuildContext context) => MyProfilePage(),
         Constants.ROUTE_EDIT_PROFILE: (BuildContext context) =>
             EditProfilePage(),
+        Constants.ROUTE_LIST_FRIENDS: (BuildContext context) => FriendTab(),
       },
       theme: myTheme,
     );

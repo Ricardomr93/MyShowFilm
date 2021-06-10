@@ -82,11 +82,13 @@ class _OUsrProfilePageState extends State<OUsrProfilePage> {
 
   _pressed(snapshot) {
     //TODO ARREGLAR SETSTATE
-    setState(() {
-      _isFollowed(snapshot, _auth.currentUser.uid)
-          ? userProv.unfollowUser(_auth.currentUser.uid, widget.idUser)
-          : userProv.followUser(_auth.currentUser.uid, widget.idUser);
-    });
+    _isFollowed(snapshot, _auth.currentUser.uid)
+        ? userProv
+            .unfollowUser(_auth.currentUser.uid, widget.idUser)
+            .then((value) => setState(() {}))
+        : userProv
+            .followUser(_auth.currentUser.uid, widget.idUser)
+            .then((value) => setState(() {}));
   }
 
   bool _isFollowed(snapshot, idUser) {

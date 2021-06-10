@@ -66,6 +66,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
           MySeparator(
             text: Constants.LABEL_FRIENDS,
             icon: FontAwesomeIcons.userFriends,
+            onPressed: () =>
+                Navigator.pushNamed(context, Constants.ROUTE_LIST_FRIENDS),
           ),
           MySeparator(
               text: Constants.LABEL_LOGOUT,

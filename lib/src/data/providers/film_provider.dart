@@ -13,7 +13,7 @@ CollectionReference series =
 CollectionReference comments =
     FirebaseFirestore.instance.collection(Constants.COLL_COMMENT);
 
-addComment(film, CommentModel comment, String type) async {
+Future<void> addComment(film, CommentModel comment, String type) async {
   if (type == Constants.LABEL_FILMS) {
     films.doc(film.id.toString()).set({
       Constants.FILM_ID: film.id,

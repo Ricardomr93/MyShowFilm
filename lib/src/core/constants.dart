@@ -22,6 +22,8 @@ class Constants {
   //menu
   static const String LABEL_FILMS = 'Películas';
   static const String LABEL_SERIES = 'Series';
+  static const String LABEL_FOLLOWER = 'Seguidores';
+  static const String LABEL_FOLLOWED = 'Seguidos';
 
   //profile
   static const String LABEL_BACK = 'Atrás';
@@ -43,6 +45,8 @@ class Constants {
   static const String ROUTE_EDIT_PROFILE = 'edit_profile';
   static const String ROUTE_O_USR_PROFILE = 'o_usr_profile';
   static const String ROUTE_DETAILS_FILM = 'details_film';
+  static const String ROUTE_LIST_FRIENDS = 'lists_friends';
+  static const String ROUTE_SEARCH = 'search';
 
   //botones
   static const String BUTTOM_LOGIN = 'CONECTAR';
