@@ -37,26 +37,28 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: widget.type == Constants.LABEL_FILMS
-            ? filmsColl
-                .doc(film.id.toString())
-                .collection(Constants.FILM_COMMENT)
-                .get()
-            : seriesColl
-                .doc(film.id.toString())
-                .collection(Constants.FILM_COMMENT)
-                .get(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return _detailswidget(snapshot);
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('error'));
-          }
+      body: SafeArea(
+        child: FutureBuilder(
+          future: widget.type == Constants.LABEL_FILMS
+              ? filmsColl
+                  .doc(film.id.toString())
+                  .collection(Constants.FILM_COMMENT)
+                  .get()
+              : seriesColl
+                  .doc(film.id.toString())
+                  .collection(Constants.FILM_COMMENT)
+                  .get(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return _detailswidget(snapshot);
+            }
+            if (snapshot.hasError) {
+              return Center(child: Text('error'));
+            }
 
-          return ProgressSimple();
-        },
+            return ProgressSimple();
+          },
+        ),
       ),
     );
   }
@@ -268,9 +270,9 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
     }
     _formKey.currentState.save();
     comment.idUser = _auth.currentUser.uid;
-    filmProv.addComment(film, comment, widget.type);
-    FocusScope.of(context).requestFocus(FocusNode());
-    setState(() {
+    filmProv.addComment(film, comment, widget.type).then((value) {
+      setState(() {});
+      FocusScope.of(context).requestFocus(FocusNode());
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

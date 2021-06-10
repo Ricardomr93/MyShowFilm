@@ -9,4 +9,6 @@ class ApiConstants {
   static const String TRENDING_SERIE = "trending/tv/day";
   static const String DISCOVER_FILM = "discover/movie";
   static const String PLAYING_FILM = "genre/movie/list";
+  static const String SEARCH_FILM = "search/movie";
+  static const String SEARCH_SERIE = "search/tv";
 }

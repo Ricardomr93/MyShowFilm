@@ -18,7 +18,6 @@ class _HomeTabControllerState extends State<HomeTabController>
     Tab(text: Constants.LABEL_FILMS),
     Tab(text: Constants.LABEL_SERIES),
   ];
-
   TabController _tabController;
 
   @override
@@ -35,7 +34,7 @@ class _HomeTabControllerState extends State<HomeTabController>
 
   @override
   Widget build(BuildContext context) {
-    AsyncSnapshot<FilmResponse> snapshotFilm;
+    AsyncSnapshot<SerieResponse> snapshotFilm;
     AsyncSnapshot<SerieResponse> snapshotSerie;
 
     return Container(

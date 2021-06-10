@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
-import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
+import 'package:myshowfilm/src/bloc/now_playing/get_now_playing_bloc_film.dart';
+import 'package:myshowfilm/src/bloc/now_playing/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/api_constants.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/pages/details_film_page.dart';
@@ -21,14 +21,10 @@ class NowPlaying extends StatefulWidget {
 }
 
 class _NowPlayingState extends State<NowPlaying> {
+  List films;
   @override
   void initState() {
     super.initState();
-    if (widget.type == Constants.LABEL_FILMS) {
-      nowPlayingFilmsBloc.getFilms(1);
-    } else {
-      nowPlayingSeriesBloc.getSeries();
-    }
   }
 
   @override
@@ -57,13 +53,14 @@ class _NowPlayingState extends State<NowPlaying> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Error occured: $error"),
+        Text("Ha ocurrido un error"),
       ],
     ));
   }
 
   Widget _buildHomeWidget(data, String type) {
-    List films = data.films;
+    //List films = data.films;
+    films = data.films;
     if (films.length == 0) {
       return Container(
         width: MediaQuery.of(context).size.width,
