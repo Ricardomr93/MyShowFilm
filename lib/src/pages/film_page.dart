@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/models/film_response.dart';
-import 'package:myshowfilm/src/widgets/tabs/list_film.dart';
-import 'package:myshowfilm/src/widgets/tabs/now_playing.dart';
+import 'package:myshowfilm/src/widgets/tabs/tabs_lists/list_film.dart';
+import 'package:myshowfilm/src/widgets/tabs/tabs_lists/now_playing.dart';
 
 class FilmPage extends StatefulWidget {
   final snapshot;
@@ -13,11 +12,9 @@ class FilmPage extends StatefulWidget {
 }
 
 class _FilmPageState extends State<FilmPage> {
-  AsyncSnapshot<FilmResponse> sn;
   @override
   Widget build(BuildContext context) {
     return ListView(
-      //physics: NeverScrollableScrollPhysics(),
       children: [
         NowPlaying(
           snapshot: widget.snapshot,
