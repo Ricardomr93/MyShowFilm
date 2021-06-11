@@ -111,7 +111,9 @@ class SearchPageState extends State<SearchPage> {
             return _buildErrorWidget(snapshot.error);
           } else if (films != null) {
             return ProgressSimple();
-          } else if (!snapshot.hasData) {}
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            ProgressSimple();
+          }
           return Container();
         });
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 
 class CircularProgressWait extends StatelessWidget {
@@ -30,7 +31,7 @@ class CircularProgressWait extends StatelessWidget {
   Widget _getHeading() {
     return Padding(
         child: Text(
-          'Please wait …',
+          Constants.TRY_WAIT,
           style: TextStyle(
               color: MyColors.textP, fontSize: 16, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
