@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
-import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
+import 'package:myshowfilm/src/bloc/now_playing/get_now_playing_bloc_film.dart';
+import 'package:myshowfilm/src/bloc/now_playing/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
-import 'package:myshowfilm/src/widgets/card_film.dart';
+import 'package:myshowfilm/src/widgets/item/card_film.dart';
 import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 
 class ListFilm extends StatefulWidget {
@@ -20,11 +20,16 @@ class ListFilm extends StatefulWidget {
 class _ListFilmState extends State<ListFilm> {
   int page = 1;
   List films;
+  bool nextPage = false;
   ScrollController _controller;
   @override
   void initState() {
     super.initState();
-
+    if (widget.type == Constants.LABEL_FILMS) {
+      nowPlayingFilmsBloc.getFilms(page);
+    } else {
+      nowPlayingSeriesBloc.getSeries(page);
+    }
     _controller = ScrollController();
     _controller.addListener(_onScrollUpdate);
   }
@@ -55,22 +60,22 @@ class _ListFilmState extends State<ListFilm> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Error occured: $error"),
+        Text("Ha ocurrido un error"),
       ],
     ));
   }
 
   Widget _buildPopularWidget(data, String type) {
-    films == null ? films = data.films : null;
+    List films = data.films;
     if (films.length == 0) {
       return Container(
         width: 100,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          children: [
             Column(
-              children: <Widget>[
+              children: [
                 Text(
                   Constants.NO_MORE_FILM,
                   style: TextStyle(color: MyColors.accentColor),
@@ -83,11 +88,13 @@ class _ListFilmState extends State<ListFilm> {
     } else {
       return Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
+        child: Stack(
           children: [
             Container(
-              height: 390,
+              height: MediaQuery.of(context).size.height / 1.95,
               child: GridView.builder(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
                 controller: _controller,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200,
@@ -96,25 +103,43 @@ class _ListFilmState extends State<ListFilm> {
                     mainAxisSpacing: 40),
                 itemCount: films.length,
                 itemBuilder: (context, index) {
-                  if (index >= films.length) {
-                    print('object');
-                  }
                   return CardFilm(type: type, film: films[index]);
                 },
               ),
             ),
+            nextPage
+                ? Center(
+                    heightFactor: MediaQuery.of(context).size.height / 60,
+                    child: ButtomRound(
+                        onPressed: () {
+                          page++;
+                          _controller.jumpTo(0.0);
+                          if (widget.type == Constants.LABEL_FILMS) {
+                            nowPlayingFilmsBloc.getFilms(page);
+                          } else {
+                            nowPlayingSeriesBloc.getSeries(page);
+                          }
+                          setState(() {});
+                        },
+                        size: 55,
+                        iconSize: 35,
+                        icon: Icons.queue_play_next_rounded))
+                : Container(),
           ],
         ),
       );
     }
   }
 
-  void _onScrollUpdate() {
+  _onScrollUpdate() {
     var maxScroll = _controller.position.maxScrollExtent;
     var currentPosition = _controller.position.pixels;
-    if (currentPosition > maxScroll - 100) {
-      films.add(films[12]);
-      print('llegamos al final');
-    }
+    setState(() {
+      if (currentPosition >= maxScroll) {
+        nextPage = true;
+      } else {
+        nextPage = false;
+      }
+    });
   }
 }

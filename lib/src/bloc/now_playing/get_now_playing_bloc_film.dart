@@ -1,5 +1,5 @@
-import 'package:myshowfilm/src/models/film_response.dart';
-import 'package:myshowfilm/src/repository/film_repository.dart';
+import 'package:myshowfilm/src/data/models/film_response.dart';
+import 'package:myshowfilm/src/data/repository/film_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class NowPlayingListBlocFilm {
@@ -8,7 +8,7 @@ class NowPlayingListBlocFilm {
       BehaviorSubject<FilmResponse>();
 
   getFilms(int numPage) async {
-    FilmResponse response = await _repository.getPlayingFilm(numPage);
+    FilmResponse response = await _repository.getFilms(numPage);
     _subject.sink.add(response);
   }
 
