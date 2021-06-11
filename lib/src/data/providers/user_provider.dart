@@ -13,7 +13,6 @@ addUser(UserModel user) {
 Future<UserModel> getUserByID(String id) async {
   UserModel u;
   users.doc(id).get().then((doc) => u = UserModel.fromJson(doc.data()));
-  print(u);
   return u;
 }
 

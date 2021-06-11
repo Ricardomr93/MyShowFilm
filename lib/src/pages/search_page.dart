@@ -19,9 +19,11 @@ class SearchPageState extends State<SearchPage> {
   final _formKey = GlobalKey<FormState>();
   List films;
   bool stateInit = true;
+  ScrollController _controller;
   String query;
   @override
   void initState() {
+    _controller = ScrollController();
     stateInit = true;
     super.initState();
   }
@@ -63,6 +65,7 @@ class SearchPageState extends State<SearchPage> {
     _formKey.currentState.save();
     FocusScope.of(context).requestFocus(FocusNode());
     searchBlocFilm.searchFilms(query);
+    stateInit ? null : _controller.jumpTo(0.0);
     stateInit = false;
     setState(() {});
   }
@@ -93,6 +96,7 @@ class SearchPageState extends State<SearchPage> {
                 : Container(
                     height: MediaQuery.of(context).size.height / 1.316,
                     child: ListView.builder(
+                      controller: _controller,
                       itemCount: films.length,
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),

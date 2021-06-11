@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/data/models/film_response.dart';
 import 'package:myshowfilm/src/data/models/serie_response.dart';
 import 'package:myshowfilm/src/pages/film_page.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
@@ -63,11 +62,11 @@ class _HomeTabControllerState extends State<HomeTabController>
                         'assets/img/logo_v.png',
                         height: 50,
                       ),
-                      IconButton(
+                      /*IconButton(
                         icon: Icon(Icons.filter_list_outlined),
                         iconSize: 40,
                         onPressed: () {},
-                      )
+                      )*/
                     ],
                   ),
                 ),

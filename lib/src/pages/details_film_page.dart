@@ -71,7 +71,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
           delegate: SliverChildListDelegate([
             Padding(
               padding:
-                  EdgeInsets.only(right: 25, top: 30, left: 25, bottom: 10),
+                  EdgeInsets.only(right: 25, top: 20, left: 25, bottom: 10),
               child: Text(film.overview),
             ),
             FutureBuilder(
@@ -154,7 +154,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
 
   _sliveAppBar(film, type) {
     return SliverAppBar(
-      expandedHeight: MediaQuery.of(context).size.height / 5,
+      expandedHeight: MediaQuery.of(context).size.height / 4.1,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
           title: TextBold(
@@ -181,7 +181,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 250,
+                height: 225,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                   colors: [
@@ -192,7 +192,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
                   end: Alignment.topCenter,
                   stops: [
                     0.0,
-                    0.6,
+                    0.4,
                   ],
                 )),
               )

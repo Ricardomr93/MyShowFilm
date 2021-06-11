@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
+import 'package:myshowfilm/src/data/models/user.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 import 'package:myshowfilm/src/widgets/tabs/tabs_lists/list_friends.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FriendTab extends StatefulWidget {
   FriendTab({Key key}) : super(key: key);
@@ -17,6 +21,10 @@ class _FriendTabState extends State<FriendTab> with TickerProviderStateMixin {
   ];
 
   TabController _tabController;
+  CollectionReference usersColl =
+      FirebaseFirestore.instance.collection(Constants.COLL_USER);
+  final _auth = FirebaseAuth.instance;
+  UserModel us;
 
   @override
   void initState() {
@@ -32,11 +40,27 @@ class _FriendTabState extends State<FriendTab> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: usersColl.doc(_auth.currentUser.uid).get(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          us = UserModel.fromJson(snapshot.data.data());
+          return _tabContainer();
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('error'));
+        }
+        return ProgressSimple();
+      },
+    );
+  }
+
+  _tabContainer() {
     return Container(
       height: MediaQuery.of(context).size.height,
       child: DefaultTabController(
-        length: 2,
-        child: Scaffold(
+          length: 2,
+          child: Scaffold(
             backgroundColor: MyColors.background,
             appBar: PreferredSize(
               preferredSize: Size.square(120),
@@ -52,8 +76,6 @@ class _FriendTabState extends State<FriendTab> with TickerProviderStateMixin {
                   ),
                   elevation: 0,
                   title: Row(
-                    //mainAxisAlignment: MainAxisAlignment.center,
-                    //crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(width: 35),
                       Image.asset(
@@ -65,12 +87,25 @@ class _FriendTabState extends State<FriendTab> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            body: TabBarView(
-              controller: _tabController,
-              physics: NeverScrollableScrollPhysics(),
-              children: [ListFriends(), ListFriends()],
-            )),
-      ),
+            body: _tabsbody(),
+          )),
+    );
+  }
+
+  _tabsbody() {
+    return TabBarView(
+      controller: _tabController,
+      physics: NeverScrollableScrollPhysics(),
+      children: [
+        ListFriends(
+          type: Constants.LABEL_FOLLOWER,
+          listIdUsers: us.followers,
+        ),
+        ListFriends(
+          type: Constants.LABEL_FOLLOWED,
+          listIdUsers: us.followed,
+        ),
+      ],
     );
   }
 }

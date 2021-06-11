@@ -119,7 +119,4 @@ class Constants {
   static const String COLL_SERIE = 'series';
   static const String COLL_USER = 'users';
   static const String COLL_COMMENT = 'comments';
-
-  //hero
-  static const String HERO_PROFILE = 'profile';
 }

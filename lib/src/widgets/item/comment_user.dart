@@ -26,8 +26,6 @@ class _CommentUserState extends State<CommentUser> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users =
-        FirebaseFirestore.instance.collection(Constants.COLL_USER);
     return FutureBuilder(
       future: users.doc(widget.idUser).get(),
       builder: (context, snapshot) {
