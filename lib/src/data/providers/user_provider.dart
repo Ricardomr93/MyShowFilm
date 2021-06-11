@@ -13,7 +13,6 @@ addUser(UserModel user) {
 Future<UserModel> getUserByID(String id) async {
   UserModel u;
   users.doc(id).get().then((doc) => u = UserModel.fromJson(doc.data()));
-  print(u);
   return u;
 }
 
@@ -25,7 +24,9 @@ addUserAuth(FirebaseAuth auth) {
               Constants.USER_ID: auth.currentUser.uid,
               Constants.USER_EMAIL: auth.currentUser.email,
               Constants.USER_AVATAR: auth.currentUser.photoURL,
-              Constants.USER_NAME: auth.currentUser.displayName
+              Constants.USER_NAME: auth.currentUser.displayName,
+              Constants.USER_FOLLOWED: [],
+              Constants.USER_FOLLOWER: [],
             }),
           }
       });
@@ -54,7 +55,7 @@ deleteUser(FirebaseAuth auth) {
   });
 }
 
-followUser(String idAuth, String idUser) {
+Future<void> followUser(String idAuth, String idUser) async {
   users.doc(idAuth).set({
     Constants.USER_FOLLOWED: FieldValue.arrayUnion([idUser])
   }, SetOptions(merge: true)).then((value) => users.doc(idUser).set({
@@ -62,7 +63,7 @@ followUser(String idAuth, String idUser) {
       }, SetOptions(merge: true)));
 }
 
-unfollowUser(String idAuth, String idUser) {
+Future<void> unfollowUser(String idAuth, String idUser) async {
   users.doc(idAuth).update({
     Constants.USER_FOLLOWED: FieldValue.arrayRemove([idUser])
   }).then((value) => users.doc(idUser).update({

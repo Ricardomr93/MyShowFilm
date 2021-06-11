@@ -37,26 +37,28 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: widget.type == Constants.LABEL_FILMS
-            ? filmsColl
-                .doc(film.id.toString())
-                .collection(Constants.FILM_COMMENT)
-                .get()
-            : seriesColl
-                .doc(film.id.toString())
-                .collection(Constants.FILM_COMMENT)
-                .get(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return _detailswidget(snapshot);
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('error'));
-          }
+      body: SafeArea(
+        child: FutureBuilder(
+          future: widget.type == Constants.LABEL_FILMS
+              ? filmsColl
+                  .doc(film.id.toString())
+                  .collection(Constants.FILM_COMMENT)
+                  .get()
+              : seriesColl
+                  .doc(film.id.toString())
+                  .collection(Constants.FILM_COMMENT)
+                  .get(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return _detailswidget(snapshot);
+            }
+            if (snapshot.hasError) {
+              return Center(child: Text('error'));
+            }
 
-          return ProgressSimple();
-        },
+            return ProgressSimple();
+          },
+        ),
       ),
     );
   }
@@ -69,7 +71,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
           delegate: SliverChildListDelegate([
             Padding(
               padding:
-                  EdgeInsets.only(right: 25, top: 30, left: 25, bottom: 10),
+                  EdgeInsets.only(right: 25, top: 20, left: 25, bottom: 10),
               child: Text(film.overview),
             ),
             FutureBuilder(
@@ -152,7 +154,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
 
   _sliveAppBar(film, type) {
     return SliverAppBar(
-      expandedHeight: MediaQuery.of(context).size.height / 5,
+      expandedHeight: MediaQuery.of(context).size.height / 4.1,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
           title: TextBold(
@@ -179,7 +181,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 250,
+                height: 225,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                   colors: [
@@ -190,7 +192,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
                   end: Alignment.topCenter,
                   stops: [
                     0.0,
-                    0.6,
+                    0.4,
                   ],
                 )),
               )
@@ -262,23 +264,15 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
         ));
   }
 
-  _sendComment() {
+  _sendComment() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
     comment.idUser = _auth.currentUser.uid;
-    filmProv.addComment(film, comment, widget.type);
+    await filmProv.addComment(film, comment, widget.type);
     FocusScope.of(context).requestFocus(FocusNode());
-    setState(() {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => DetailsFilmPage(
-                  film: film,
-                  type: widget.type,
-                )),
-      );
-    });
+    _formKey.currentState.reset();
+    setState(() {});
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/data/models/film_response.dart';
 import 'package:myshowfilm/src/data/models/serie_response.dart';
 import 'package:myshowfilm/src/pages/film_page.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
@@ -18,7 +17,6 @@ class _HomeTabControllerState extends State<HomeTabController>
     Tab(text: Constants.LABEL_FILMS),
     Tab(text: Constants.LABEL_SERIES),
   ];
-
   TabController _tabController;
 
   @override
@@ -35,7 +33,7 @@ class _HomeTabControllerState extends State<HomeTabController>
 
   @override
   Widget build(BuildContext context) {
-    AsyncSnapshot<FilmResponse> snapshotFilm;
+    AsyncSnapshot<SerieResponse> snapshotFilm;
     AsyncSnapshot<SerieResponse> snapshotSerie;
 
     return Container(
@@ -64,11 +62,11 @@ class _HomeTabControllerState extends State<HomeTabController>
                         'assets/img/logo_v.png',
                         height: 50,
                       ),
-                      IconButton(
+                      /*IconButton(
                         icon: Icon(Icons.filter_list_outlined),
                         iconSize: 40,
                         onPressed: () {},
-                      )
+                      )*/
                     ],
                   ),
                 ),

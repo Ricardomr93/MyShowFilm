@@ -14,28 +14,25 @@ class UserModel {
     this.email,
     this.pass,
     this.avatar,
-    this.delete = false,
+    this.delete,
     this.followers,
     this.followed,
   });
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        idUser: json["idUser"],
-        userName: json["userName"],
-        email: json["email"],
-        pass: json["pass"],
-        avatar: json["avatar"],
-        delete: json["delete"],
-        followers: json["followers"],
-        followed: json["followed"],
-      );
+  UserModel.fromJson(Map<String, dynamic> json) {
+    idUser = json["idUser"];
+    userName = json["userName"];
+    email = json["email"];
+    pass = json["pass"];
+    avatar = json["avatar"];
+    followers = json["followers"].cast<String>();
+    followed = json["followed"].cast<String>();
+  }
   Map<String, dynamic> toJson() => {
         "idUser": idUser,
         "userName": userName,
         "email": email,
-        "pass": pass,
         "avatar": avatar,
-        "delete": delete,
-        "followers": followers,
-        "followed ": followed,
+        "followers": [],
+        "followed": [],
       };
 }

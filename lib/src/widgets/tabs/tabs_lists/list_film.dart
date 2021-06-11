@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myshowfilm/src/bloc/get_now_playing_bloc_film.dart';
-import 'package:myshowfilm/src/bloc/get_now_playing_bloc_serie.dart';
+import 'package:myshowfilm/src/bloc/now_playing/get_now_playing_bloc_film.dart';
+import 'package:myshowfilm/src/bloc/now_playing/get_now_playing_bloc_serie.dart';
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 import 'package:myshowfilm/src/widgets/buttom/buttom_round.dart';
@@ -25,7 +25,11 @@ class _ListFilmState extends State<ListFilm> {
   @override
   void initState() {
     super.initState();
-
+    if (widget.type == Constants.LABEL_FILMS) {
+      nowPlayingFilmsBloc.getFilms(page);
+    } else {
+      nowPlayingSeriesBloc.getSeries(page);
+    }
     _controller = ScrollController();
     _controller.addListener(_onScrollUpdate);
   }
@@ -56,22 +60,22 @@ class _ListFilmState extends State<ListFilm> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Error occured: $error"),
+        Text("Ha ocurrido un error"),
       ],
     ));
   }
 
   Widget _buildPopularWidget(data, String type) {
-    films == null ? films = data.films : null;
+    List films = data.films;
     if (films.length == 0) {
       return Container(
         width: 100,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          children: [
             Column(
-              children: <Widget>[
+              children: [
                 Text(
                   Constants.NO_MORE_FILM,
                   style: TextStyle(color: MyColors.accentColor),
@@ -107,6 +111,16 @@ class _ListFilmState extends State<ListFilm> {
                 ? Center(
                     heightFactor: MediaQuery.of(context).size.height / 60,
                     child: ButtomRound(
+                        onPressed: () {
+                          page++;
+                          _controller.jumpTo(0.0);
+                          if (widget.type == Constants.LABEL_FILMS) {
+                            nowPlayingFilmsBloc.getFilms(page);
+                          } else {
+                            nowPlayingSeriesBloc.getSeries(page);
+                          }
+                          setState(() {});
+                        },
                         size: 55,
                         iconSize: 35,
                         icon: Icons.queue_play_next_rounded))
@@ -123,10 +137,8 @@ class _ListFilmState extends State<ListFilm> {
     setState(() {
       if (currentPosition >= maxScroll) {
         nextPage = true;
-        print(nextPage);
       } else {
         nextPage = false;
-        print(nextPage);
       }
     });
   }

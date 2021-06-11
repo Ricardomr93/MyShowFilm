@@ -7,6 +7,7 @@ class SerieRepository {
   var getPopularUrl = '${ApiConstants.BASE_URL}${ApiConstants.POPULAR_SERIE}';
   var getFilmUrl = '${ApiConstants.BASE_URL}${ApiConstants.DISCOVER_FILM}';
   var getPlayingUrl = '${ApiConstants.BASE_URL}${ApiConstants.POPULAR_SERIE}';
+  var searchFilmUrl = '${ApiConstants.BASE_URL}${ApiConstants.SEARCH_SERIE}';
 
   Future<SerieResponse> getSerie() async {
     var params = {
@@ -23,11 +24,26 @@ class SerieRepository {
     }
   }
 
-  Future<SerieResponse> getPlayingSerie() async {
+  Future<SerieResponse> searchFilms(String query) async {
     var params = {
       "api_key": ApiConstants.API_KEY,
       "language": "es-ES",
-      "page": 1
+      "query": query
+    };
+    try {
+      Response response =
+          await _dio.get(searchFilmUrl, queryParameters: params);
+      return SerieResponse.fromJson(response.data);
+    } catch (error) {
+      return SerieResponse.withError("$error");
+    }
+  }
+
+  Future<SerieResponse> getPlayingSerie(int page) async {
+    var params = {
+      "api_key": ApiConstants.API_KEY,
+      "language": "es-ES",
+      "page": page
     };
     try {
       Response response =

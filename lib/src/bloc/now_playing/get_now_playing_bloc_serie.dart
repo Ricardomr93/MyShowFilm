@@ -7,8 +7,8 @@ class NowPlayingListBlocSerie {
   final BehaviorSubject<SerieResponse> _subject =
       BehaviorSubject<SerieResponse>();
 
-  getSeries() async {
-    SerieResponse response = await _repository.getPlayingSerie();
+  getSeries(int page) async {
+    SerieResponse response = await _repository.getPlayingSerie(page);
     _subject.sink.add(response);
   }
 

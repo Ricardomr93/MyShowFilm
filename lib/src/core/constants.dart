@@ -93,6 +93,7 @@ class Constants {
   static const String TRY_LOGIN_G = 'Logueando con Google';
   static const String TRY_SING = 'Registrando';
   static const String TRY_UPDATE = 'Modificando perfil';
+  static const String TRY_WAIT = 'Por favor espere...';
 
   //user
   static const String USER_ID = 'idUser';
@@ -119,7 +120,4 @@ class Constants {
   static const String COLL_SERIE = 'series';
   static const String COLL_USER = 'users';
   static const String COLL_COMMENT = 'comments';
-
-  //hero
-  static const String HERO_PROFILE = 'profile';
 }
