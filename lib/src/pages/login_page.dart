@@ -33,39 +33,42 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 100.0),
-            child: Form(
-              key: _formKey,
-              child: _ui(),
-            ),
+          child: Form(
+            key: _formKey,
+            child: _ui(),
           ),
         ));
   }
 
   Widget _ui() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        LogoAut(),
-        TextFieldForm(
-          hintText: Constants.TEXT_EMAIL,
-          validator: (val) => util.validateEmail(val),
-          keyboardType: TextInputType.emailAddress,
-          onSaved: (val) => user.email = val,
-        ),
-        TextFieldForm(
-          hintText: Constants.TEXT_PASS,
-          passtext: true,
-          validator: (val) => util.validatePass(val),
-          onSaved: (val) => user.pass = val,
-        ),
-        ButtomAuth(
-          text: Constants.BUTTOM_LOGIN,
-          onPressed: () => _onPressed(),
-        ),
-        _noAccount(),
-      ],
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      padding: EdgeInsets.all(15),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          LogoAut(),
+          TextFieldForm(
+            hintText: Constants.TEXT_EMAIL,
+            validator: (val) => util.validateEmail(val),
+            keyboardType: TextInputType.emailAddress,
+            onSaved: (val) => user.email = val,
+          ),
+          TextFieldForm(
+            hintText: Constants.TEXT_PASS,
+            passtext: true,
+            validator: (val) => util.validatePass(val),
+            onSaved: (val) => user.pass = val,
+          ),
+          ButtomAuth(
+            text: Constants.BUTTOM_LOGIN,
+            onPressed: () => _onPressed(),
+          ),
+          _noAccount(),
+        ],
+      ),
     );
   }
 

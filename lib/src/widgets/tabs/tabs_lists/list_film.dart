@@ -108,22 +108,28 @@ class _ListFilmState extends State<ListFilm> {
               ),
             ),
             nextPage
-                ? Center(
-                    heightFactor: MediaQuery.of(context).size.height / 60,
-                    child: ButtomRound(
-                        onPressed: () {
-                          page++;
-                          _controller.jumpTo(0.0);
-                          if (widget.type == Constants.LABEL_FILMS) {
-                            nowPlayingFilmsBloc.getFilms(page);
-                          } else {
-                            nowPlayingSeriesBloc.getSeries(page);
-                          }
-                          setState(() {});
-                        },
-                        size: 55,
-                        iconSize: 35,
-                        icon: Icons.queue_play_next_rounded))
+                ? Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 1.1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ButtomRound(
+                            onPressed: () {
+                              page++;
+                              _controller.jumpTo(0.0);
+                              if (widget.type == Constants.LABEL_FILMS) {
+                                nowPlayingFilmsBloc.getFilms(page);
+                              } else {
+                                nowPlayingSeriesBloc.getSeries(page);
+                              }
+                              setState(() {});
+                            },
+                            size: 55,
+                            iconSize: 35,
+                            icon: Icons.queue_play_next_rounded),
+                      ],
+                    ))
                 : Container(),
           ],
         ),

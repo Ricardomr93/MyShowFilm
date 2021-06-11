@@ -94,7 +94,7 @@ class SearchPageState extends State<SearchPage> {
                     child: TextBold(text: "No se han encontrado resultados..."),
                   )
                 : Container(
-                    height: MediaQuery.of(context).size.height / 1.316,
+                    height: MediaQuery.of(context).size.height / 1.3,
                     child: ListView.builder(
                       controller: _controller,
                       itemCount: films.length,

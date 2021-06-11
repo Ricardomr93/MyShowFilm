@@ -25,13 +25,13 @@ class _SingUpPageState extends State<SingUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: Stack(children: [
-        SingleChildScrollView(
+      body: SafeArea(
+        child: SingleChildScrollView(
             child: Form(
           key: _formKey,
           child: _ui(),
         )),
-      ]),
+      ),
     );
   }
 
@@ -39,30 +39,40 @@ class _SingUpPageState extends State<SingUpPage> {
     return Column(
       children: [
         ButtomBack(),
-        LogoAut(),
-        TextFieldForm(
-          hintText: Constants.TEXT_NAME,
-          validator: (val) => util.isFieldEmpty(val),
-          onSaved: (val) => user.userName = val,
-          usertext: true,
-        ),
-        TextFieldForm(
-          hintText: Constants.TEXT_EMAIL,
-          validator: (val) => util.validateEmail(val),
-          keyboardType: TextInputType.emailAddress,
-          onSaved: (val) => user.email = val,
-        ),
-        TextFieldForm(
-          hintText: Constants.TEXT_PASS,
-          validator: (val) => util.validatePass(val),
-          passtext: true,
-          onSaved: (val) => user.pass = val,
-        ),
-        ButtomAuth(
-          text: Constants.BUTTOM_SING,
-          onPressed: () => _onPressed(),
-        ),
-        _haveAccount(),
+        Container(
+            padding: EdgeInsets.all(15),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LogoAut(),
+                TextFieldForm(
+                  hintText: Constants.TEXT_NAME,
+                  validator: (val) => util.isFieldEmpty(val),
+                  onSaved: (val) => user.userName = val,
+                  usertext: true,
+                ),
+                TextFieldForm(
+                  hintText: Constants.TEXT_EMAIL,
+                  validator: (val) => util.validateEmail(val),
+                  keyboardType: TextInputType.emailAddress,
+                  onSaved: (val) => user.email = val,
+                ),
+                TextFieldForm(
+                  hintText: Constants.TEXT_PASS,
+                  validator: (val) => util.validatePass(val),
+                  passtext: true,
+                  onSaved: (val) => user.pass = val,
+                ),
+                ButtomAuth(
+                  text: Constants.BUTTOM_SING,
+                  onPressed: () => _onPressed(),
+                ),
+                _haveAccount(),
+              ],
+            ))
       ],
     );
   }
