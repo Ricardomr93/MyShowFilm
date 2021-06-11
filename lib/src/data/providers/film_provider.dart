@@ -15,7 +15,7 @@ CollectionReference comments =
 
 Future<void> addComment(film, CommentModel comment, String type) async {
   if (type == Constants.LABEL_FILMS) {
-    films.doc(film.id.toString()).set({
+    await films.doc(film.id.toString()).set({
       Constants.FILM_ID: film.id,
     }).then(
       (value) => {
@@ -26,7 +26,7 @@ Future<void> addComment(film, CommentModel comment, String type) async {
       },
     );
   } else {
-    series.doc(film.id.toString()).set({
+    await series.doc(film.id.toString()).set({
       Constants.FILM_ID: film.id,
     }).then(
       (value) => {

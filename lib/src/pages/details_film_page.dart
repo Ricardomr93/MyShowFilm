@@ -264,23 +264,15 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
         ));
   }
 
-  _sendComment() {
+  _sendComment() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
     comment.idUser = _auth.currentUser.uid;
-    filmProv.addComment(film, comment, widget.type).then((value) {
-      setState(() {});
-      FocusScope.of(context).requestFocus(FocusNode());
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => DetailsFilmPage(
-                  film: film,
-                  type: widget.type,
-                )),
-      );
-    });
+    await filmProv.addComment(film, comment, widget.type);
+    FocusScope.of(context).requestFocus(FocusNode());
+    _formKey.currentState.reset();
+    setState(() {});
   }
 }
