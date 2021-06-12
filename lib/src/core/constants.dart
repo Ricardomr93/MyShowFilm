@@ -93,6 +93,7 @@ class Constants {
   static const String TRY_LOGIN_G = 'Logueando con Google';
   static const String TRY_SING = 'Registrando';
   static const String TRY_UPDATE = 'Modificando perfil';
+  static const String TRY_WAIT = 'Por favor espere...';
 
   //user
   static const String USER_ID = 'idUser';

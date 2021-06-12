@@ -35,10 +35,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: true,
-        body: SingleChildScrollView(
-          child: Form(
-            child: _ui(),
-            key: _formKey,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Form(
+              child: _ui(),
+              key: _formKey,
+            ),
           ),
         ));
   }
@@ -174,7 +176,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
             context, Constants.INFO, Constants.SOME_CHANGE);
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'requires-recent-login') {}
+      if (e.code == 'requires-recent-login') {
+        utilAlert.hideLoadingIndicator(context);
+        utilAlert.showAlertDialogGeneral(
+            context, Constants.ERROR, Constants.REQUIRE_LOGIN);
+      }
     }
   }
 

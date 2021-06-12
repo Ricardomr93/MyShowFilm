@@ -94,7 +94,7 @@ class SearchPageState extends State<SearchPage> {
                     child: TextBold(text: "No se han encontrado resultados..."),
                   )
                 : Container(
-                    height: MediaQuery.of(context).size.height / 1.316,
+                    height: MediaQuery.of(context).size.height / 1.3,
                     child: ListView.builder(
                       controller: _controller,
                       itemCount: films.length,
@@ -111,7 +111,9 @@ class SearchPageState extends State<SearchPage> {
             return _buildErrorWidget(snapshot.error);
           } else if (films != null) {
             return ProgressSimple();
-          } else if (!snapshot.hasData) {}
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            ProgressSimple();
+          }
           return Container();
         });
   }

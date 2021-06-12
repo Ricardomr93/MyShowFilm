@@ -7,14 +7,17 @@
 Tu aplicación favorita de tematica cinéfila donde podrás puntuar y comentar tus películas y series favoritas.
 
 ## Diseño atractivo
-<a href="https://ibb.co/G5Y1WjT"><img src="https://i.ibb.co/3C68pHz/mianPage.jpg" alt="mianPage" width="250"></a>
-<a href="https://ibb.co/SPp7d2P"><img src="https://i.ibb.co/qdwFWzd/perfil.jpg" alt="perfil" width="250"></a>
+<a href="https://ibb.co/D1NVK9G"><img src="https://i.ibb.co/8mJK8rz/mianPage.jpg" alt="mianPage" width="250"></a>
+<a href="https://ibb.co/mDr8sjM"><img src="https://i.ibb.co/YypzJWs/detalle.jpg" alt="perfil" width="250"></a>
+<a href="https://ibb.co/mDr8sjM"><img src="https://i.ibb.co/ZLRmsjk/perfil.jpg" alt="perfil" width="250"></a>
 <br><br>
-##Registrate con tu email o usa los metodos: <br> 
+##Registrate con tu email o usa los proveedores: 
+
+
 [![](https://img.shields.io/badge/Google-D14836.svg?style=for-the-badge&logo=google&logoColor=white)](https://accounts.google.com)
 [![](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://es-es.facebook.com)
 
-<a href="https://ibb.co/51z4fm1"><img src="https://i.ibb.co/zmLx0pm/login.jpg" alt="login" width="250" ></a>
+<a href="https://ibb.co/DfCQJhN"><img src="https://i.ibb.co/60PFMz2/login.jpg" alt="login" width="250" ></a>
 
-Eterno agradecimiento para [The Movie Database](https://www.themoviedb.org/?language=es-ES) por facilitarnos una API.
+Eterno agradecimiento para [The Movie Database](https://www.themoviedb.org/?language=es-ES) por facilitarnos su API.
 

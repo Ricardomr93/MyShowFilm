@@ -32,6 +32,7 @@ class UserModel {
         "userName": userName,
         "email": email,
         "avatar": avatar,
+        "pass": pass,
         "followers": [],
         "followed": [],
       };

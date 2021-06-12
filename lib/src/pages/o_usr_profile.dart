@@ -54,42 +54,45 @@ class _OUsrProfilePageState extends State<OUsrProfilePage> {
 
   _detailWidget() {
     return Scaffold(
-      body: Column(
-        children: [
-          ButtomBack(),
-          SizedBox(
-            height: 100,
-          ),
-          RoundImageProfile(
-              size: Constants.SIZE_PROFILE,
-              image: userFriend.avatar == null
-                  ? NetworkImage(Constants.IMAGE_PRED)
-                  : NetworkImage(userFriend.avatar)),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            userFriend.userName,
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Column(
+          children: [
+            ButtomBack(),
+            SizedBox(
+              height: 100,
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            userFriend.email,
-            style: TextStyle(
-              fontSize: 20,
+            RoundImageProfile(
+                size: Constants.SIZE_PROFILE,
+                image: userFriend.avatar == null
+                    ? NetworkImage(Constants.IMAGE_PRED)
+                    : NetworkImage(userFriend.avatar)),
+            SizedBox(
+              height: 10,
             ),
-          ),
-          ButtomAuth(
-            text: isFoll ? Constants.BUTTOM_UNFOLLOW : Constants.BUTTOM_FOLLOW,
-            width: 140,
-            onPressed: () => {refresh()},
-          )
-        ],
+            Text(
+              userFriend.userName,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              userFriend.email,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            ButtomAuth(
+              text:
+                  isFoll ? Constants.BUTTOM_UNFOLLOW : Constants.BUTTOM_FOLLOW,
+              width: 140,
+              onPressed: () => {refresh()},
+            )
+          ],
+        ),
       ),
     );
   }

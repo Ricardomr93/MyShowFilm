@@ -24,7 +24,9 @@ addUserAuth(FirebaseAuth auth) {
               Constants.USER_ID: auth.currentUser.uid,
               Constants.USER_EMAIL: auth.currentUser.email,
               Constants.USER_AVATAR: auth.currentUser.photoURL,
-              Constants.USER_NAME: auth.currentUser.displayName
+              Constants.USER_NAME: auth.currentUser.displayName,
+              Constants.USER_FOLLOWED: [],
+              Constants.USER_FOLLOWER: [],
             }),
           }
       });
