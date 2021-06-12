@@ -257,7 +257,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
             ),
             SizedBox(width: 12),
             TextBold(
-              text: '$numVotes Votes',
+              text: '$numVotes Votos',
               fontSize: 16,
             ),
           ],

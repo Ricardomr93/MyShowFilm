@@ -12,10 +12,10 @@ bool _isMailValid(String val) {
       .hasMatch(val);
 }
 
-//comprueba si el campo está vacío
+///comprueba si el campo está vacío
 isFieldEmpty(String val) => val.isEmpty ? Constants.MSJ_TXT_EMPTY : null;
 
-//valida por campo email y devuelve un texto informativo
+///valida por campo email y devuelve un texto informativo
 validateEmail(String val) {
   String msj;
   msj = isFieldEmpty(val);
@@ -27,6 +27,7 @@ validateEmail(String val) {
   return msj;
 }
 
+///valida por campo email y devuelve un texto informativo
 validateName(String val) {
   String msj;
   msj = isFieldEmpty(val);
@@ -46,7 +47,7 @@ validatePassProfile(String val) {
   return msj;
 }
 
-//valida por campo password y devuelve un texto informativo
+///valida por campo password y devuelve un texto informativo
 validatePass(String val) {
   String msj;
   msj = isFieldEmpty(val);
