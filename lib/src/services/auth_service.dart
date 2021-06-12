@@ -109,13 +109,12 @@ createUserWithEmailAndPassword(context, UserModel user) async {
 Future<void> updateProfile(context, UserModel user) async {
   try {
     if (user.pass.isNotEmpty) {
-      _auth.currentUser
-          .updatePassword(util.sha256Password(user.pass))
-          .then((value) => {
-                if (_auth.currentUser.email ==
-                    user.email) //evita salirse si se tiene que modificar el email
-                  {_closeCircAndNav(context, user)}
-              });
+      user.pass = util.sha256Password(user.pass);
+      _auth.currentUser.updatePassword(user.pass).then((value) => {
+            if (_auth.currentUser.email ==
+                user.email) //evita salirse si se tiene que modificar el email
+              {_closeCircAndNav(context, user)}
+          });
     }
     if (_auth.currentUser.email != user.email) {
       _auth.currentUser
