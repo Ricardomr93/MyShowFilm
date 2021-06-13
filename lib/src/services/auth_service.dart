@@ -96,7 +96,7 @@ createUserWithEmailAndPassword(context, UserModel user) async {
   } on FirebaseAuthException catch (e) {
     //error controlado de duplicidad de email
     if (e.code == 'email-already-in-use') {
-      _errorAlert(context, e.message);
+      _errorAlert(context, Constants.EMAIL_USE);
     } else {
       _errorAlert(context, e.message);
     }
@@ -111,30 +111,28 @@ Future<void> updateProfile(context, UserModel user) async {
   try {
     if (user.pass.isNotEmpty) {
       user.pass = util.sha256Password(user.pass);
-      _auth.currentUser.updatePassword(user.pass).then((value) => {
-            if (_auth.currentUser.email ==
-                user.email) //evita salirse si se tiene que modificar el email
-              {_closeCircAndNav(context, user)}
-          });
+      _auth.currentUser.updatePassword(user.pass);
     }
     if (_auth.currentUser.email != user.email) {
-      _auth.currentUser
-          .updateEmail(user.email)
-          .then((value) => _closeCircAndNav(context, user));
+      await _auth.currentUser.updateEmail(user.email);
     }
     if (user.avatar == null) {
-      _auth.currentUser
-          .updateProfile(displayName: user.userName)
-          .then((value) => _closeCircAndNav(context, user));
+      await _auth.currentUser.updateProfile(displayName: user.userName);
     } else {
-      _auth.currentUser
-          .updateProfile(displayName: user.userName, photoURL: user.avatar)
-          .then((value) => _closeCircAndNav(context, user));
+      await _auth.currentUser
+          .updateProfile(displayName: user.userName, photoURL: user.avatar);
     }
+    _closeCircAndNav(context, user);
   } on FirebaseAuthException catch (e) {
     if (e.code == 'requires-recent-login') {
       _errorAlert(context, Constants.REQUIRE_LOGIN);
+    } else if (e.code == 'email-already-in-use') {
+      _errorAlert(context, Constants.EMAIL_USE);
+    } else {
+      _errorAlert(context, e.code);
     }
+  } catch (ex) {
+    _errorAlert(context, ex.code);
   }
 }
 

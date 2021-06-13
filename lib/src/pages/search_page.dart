@@ -15,7 +15,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class SearchPageState extends State<SearchPage> {
-  AsyncSnapshot<FilmResponse> snapshotFilm;
   final _formKey = GlobalKey<FormState>();
   List films;
   bool stateInit = true;
@@ -72,8 +71,17 @@ class SearchPageState extends State<SearchPage> {
 
   Widget _buildErrorWidget(String error) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 250),
-      child: Text("Ha ocurrido un error"),
+      padding: const EdgeInsets.symmetric(vertical: 250),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.error),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0),
+            child: Text("Ha ocurrido un error con el servicio"),
+          ),
+        ],
+      ),
     );
   }
 
@@ -86,7 +94,6 @@ class SearchPageState extends State<SearchPage> {
               return _buildErrorWidget(snapshot.data.error);
             }
             films = snapshot.data.films;
-            print('$films');
             return films.length <= 0
                 ? Padding(
                     padding: const EdgeInsets.symmetric(

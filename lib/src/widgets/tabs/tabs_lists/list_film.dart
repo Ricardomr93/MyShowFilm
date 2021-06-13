@@ -56,13 +56,19 @@ class _ListFilmState extends State<ListFilm> {
   }
 
   Widget _buildErrorWidget(String error) {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Ha ocurrido un error"),
-      ],
-    ));
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 200),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.error),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0),
+            child: Text("Ha ocurrido un error con el servicio"),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildPopularWidget(String type) {
