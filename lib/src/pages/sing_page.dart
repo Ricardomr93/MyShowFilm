@@ -104,7 +104,7 @@ class _SingUpPageState extends State<SingUpPage> {
     );
   }
 
-  //Evento al pulsar el botón de registro
+  ///Evento al pulsar el botón de registro
   _onPressed() async {
     if (!_formKey.currentState.validate()) {
       return;

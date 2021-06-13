@@ -11,6 +11,8 @@ import 'package:myshowfilm/src/utils/util_text.dart' as util;
 
 final _auth = FirebaseAuth.instance;
 final googleSignIn = GoogleSignIn();
+
+///Autentica un usuario con el proveedor de Google
 signInWithGoogle(context) async {
   try {
     utilAlert.showLoadingIndicator(context, Constants.TRY_LOGIN_G);
@@ -21,9 +23,9 @@ signInWithGoogle(context) async {
       idToken: googleAuth.idToken,
     );
     await _auth.signInWithCredential(credential).then((value) {
-      userProv.addUserAuth(_auth);
-      utilAlert.hideLoadingIndicator(context);
+      userProv.addUserAuth(_auth); // lo añade a firebase
       SharePrefs.instance.provider = (Constants.PROVIDER_GOOGLE);
+      utilAlert.hideLoadingIndicator(context);
       Navigator.of(context).pushReplacementNamed(Constants.ROUTE_HOME);
     });
   } catch (e) {
@@ -32,16 +34,13 @@ signInWithGoogle(context) async {
   }
 }
 
+///Autentica un usuario con el proveedor de Facebook
 signInWithFacebook(context) async {
   try {
     utilAlert.showLoadingIndicator(context, Constants.TRY_LOGIN_F);
-    // Trigger the sign-in flow
     final result = await FacebookAuth.instance.login();
-    // Create a credential from the access token
     final facebookAuthCredential =
         FacebookAuthProvider.credential('${result.accessToken.token}');
-    // Once signed in, return the UserCredential
-
     await _auth.signInWithCredential(facebookAuthCredential).then((value) {
       userProv.addUserAuth(_auth);
       utilAlert.hideLoadingIndicator(context);
@@ -55,6 +54,7 @@ signInWithFacebook(context) async {
   }
 }
 
+///autentica un usuario con email y contraseña
 singInWithEmailAndPass(context, UserModel user) async {
   utilAlert.showLoadingIndicator(context, Constants.TRY_LOGIN);
   try {
@@ -78,6 +78,7 @@ singInWithEmailAndPass(context, UserModel user) async {
   }
 }
 
+///registra un usuario con email y contraseña
 createUserWithEmailAndPassword(context, UserModel user) async {
   user.pass = util.sha256Password(user.pass); //resume la constraseña
   //crea un alertDialog para darle feedback al usuario de que está trabajando internamente
@@ -86,13 +87,12 @@ createUserWithEmailAndPassword(context, UserModel user) async {
     UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: user.email, password: user.pass);
     User u = result.user;
-    u.updateProfile(displayName: user.userName).then((value) {
-      utilAlert.hideLoadingIndicator(context);
-      utilAlert.showAlertDialogGeneral(context, 'Registro',
-          'Registrado correctamente', () => Navigator.pop(context));
-    });
-    user.idUser = _auth.currentUser.uid;
-    userProv.addUser(user);
+    await u.updateProfile(displayName: user.userName);
+    user.idUser = _auth.currentUser.uid; //se añade el id del auth al modelo
+    await userProv.addUser(user); //se añade a firestore
+    utilAlert.hideLoadingIndicator(context);
+    utilAlert.showAlertDialogGeneral(context, 'Registro',
+        'Registrado correctamente', () => Navigator.pop(context));
   } on FirebaseAuthException catch (e) {
     //error controlado de duplicidad de email
     if (e.code == 'email-already-in-use') {
@@ -106,6 +106,7 @@ createUserWithEmailAndPassword(context, UserModel user) async {
   }
 }
 
+///modifica un usuario
 Future<void> updateProfile(context, UserModel user) async {
   try {
     if (user.pass.isNotEmpty) {
@@ -137,6 +138,7 @@ Future<void> updateProfile(context, UserModel user) async {
   }
 }
 
+///cierra sesion de auth
 logOut(context) async {
   //solo entra si el provider es google
   if (SharePrefs.instance.provider == Constants.PROVIDER_GOOGLE) {

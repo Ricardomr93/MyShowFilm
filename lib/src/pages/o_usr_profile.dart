@@ -38,6 +38,7 @@ class _OUsrProfilePageState extends State<OUsrProfilePage> {
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
           userFriend = UserModel.fromJson(snapshot.data.data());
+          //evitamos que pase si no es la inicial para no crear conflictos
           if (init) {
             _isFollowed();
             init = false;

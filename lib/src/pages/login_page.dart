@@ -19,11 +19,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   //  _formKey and _autoValidate
   final _formKey = GlobalKey<FormState>();
   UserModel user = UserModel();
@@ -124,6 +119,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  ///widget con un botón de solo texto para
+  ///navegar al login
   Widget _singIN() {
     return Row(
       children: [

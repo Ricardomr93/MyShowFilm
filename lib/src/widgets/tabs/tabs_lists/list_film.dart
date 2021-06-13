@@ -9,9 +9,8 @@ import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
 
 class ListFilm extends StatefulWidget {
   final type;
-  final snapshot;
-  ListFilm({Key key, @required this.snapshot, @required this.type})
-      : super(key: key);
+
+  ListFilm({Key key, @required this.type}) : super(key: key);
 
   @override
   _ListFilmState createState() => _ListFilmState();
@@ -45,7 +44,8 @@ class _ListFilmState extends State<ListFilm> {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
-          return _buildPopularWidget(snapshot.data, widget.type);
+          films = snapshot.data.films;
+          return _buildPopularWidget(widget.type);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
@@ -65,8 +65,7 @@ class _ListFilmState extends State<ListFilm> {
     ));
   }
 
-  Widget _buildPopularWidget(data, String type) {
-    List films = data.films;
+  Widget _buildPopularWidget(String type) {
     if (films.length == 0) {
       return Container(
         width: 100,

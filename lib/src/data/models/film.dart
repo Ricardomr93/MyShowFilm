@@ -1,6 +1,5 @@
-import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/data/models/vote.dart';
 import 'package:myshowfilm/src/data/models/comments.dart';
+import 'package:myshowfilm/src/data/models/vote.dart';
 
 class Film {
   List<int> genreIds;
@@ -18,7 +17,7 @@ class Film {
   String title;
   double popularity;
   String mediaType;
-  List<dynamic> comments;
+  List<CommentModel> comments;
   List<VoteModel> votes;
 
   Film({
@@ -40,11 +39,6 @@ class Film {
     this.comments,
     this.votes,
   });
-  Film.fromMap(Map<dynamic, dynamic> map)
-      : id = map[Constants.FILM_ID],
-        comments = map[Constants.FILM_COMMENT].map((map) {
-          return CommentModel.fromMap(map);
-        }).toList();
 
   Film.fromJson(Map<String, dynamic> json) {
     genreIds = json['genre_ids'].cast<int>();
@@ -65,6 +59,7 @@ class Film {
     //comments = json['comments'].cast<CommentModel>();
     //votes = json['votes'].cast<VoteModel>();
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['adult'] = this.adult;

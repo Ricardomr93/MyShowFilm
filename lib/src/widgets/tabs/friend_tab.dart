@@ -69,6 +69,8 @@ class _FriendTabState extends State<FriendTab> with TickerProviderStateMixin {
                 child: AppBar(
                   backgroundColor: MyColors.background,
                   bottom: TabBar(
+                    labelColor: MyColors.accentColor,
+                    unselectedLabelColor: MyColors.textP,
                     controller: _tabController,
                     indicatorSize: TabBarIndicatorSize.tab,
                     indicatorWeight: 5,

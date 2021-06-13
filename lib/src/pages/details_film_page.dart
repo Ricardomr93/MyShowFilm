@@ -28,6 +28,7 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
   final _auth = FirebaseAuth.instance;
   CommentModel comment = CommentModel();
   final film;
+  List comments;
   final _formKey = GlobalKey<FormState>();
   _DetailsFilmPageState(this.film);
   CollectionReference filmsColl =
@@ -55,7 +56,6 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
             if (snapshot.hasError) {
               return Center(child: Text('error'));
             }
-
             return ProgressSimple();
           },
         ),
@@ -217,7 +217,6 @@ class _DetailsFilmPageState extends State<DetailsFilmPage> {
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
         child: Row(
-          //crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(

@@ -45,14 +45,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ));
   }
 
-  _saveData() async {
-    if (!_formKey.currentState.validate()) {
-      return;
-    }
-    _formKey.currentState.save();
-    uploadFile();
-  }
-
   _ui() {
     return Column(
       children: [
@@ -109,31 +101,32 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
+  ///abre un cuadro de dialogo con dos opciones
   getImage() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
-            title: Text('Select your device'),
+            title: Text('Selecciona un modo'),
             children: [
               SimpleDialogItem(
                 icon: Icons.collections,
                 text: Constants.GALLERY,
-                onPressed: () => _toGallery(),
+                onPressed: () => _toDevice(ImageSource.gallery),
               ),
               SimpleDialogItem(
                 icon: Icons.camera_alt,
                 text: Constants.CAMERA,
-                onPressed: () => _toCamera(),
+                onPressed: () => _toDevice(ImageSource.camera),
               ),
             ],
           );
         });
   }
 
-  _toCamera() async {
-    pickedFile =
-        await picker.getImage(source: ImageSource.camera, imageQuality: 30);
+  ///abre la galería o la cámara segun lo pasado por parámetro
+  _toDevice(ImageSource source) async {
+    pickedFile = await picker.getImage(source: source, imageQuality: 30);
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
@@ -142,19 +135,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
     });
   }
 
-  _toGallery() async {
-    pickedFile =
-        await picker.getImage(source: ImageSource.gallery, imageQuality: 30);
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-        Navigator.pop(context);
-      }
-    });
+  ///guarda los datos del usuario
+  _saveData() async {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
+    uploadFile();
   }
 
+  ///actualiza los datos del usuario
   Future<void> uploadFile() async {
-    utilAlert.showLoadingIndicator(context, 'Update user');
+    utilAlert.showLoadingIndicator(context, Constants.TRY_UPDATE);
     //compreba que no se haya modificado algún campo
     try {
       if (_auth.currentUser.displayName != user.userName ||
@@ -165,7 +157,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           updateImage();
         } else {
           //no se modifica foto pero si campo
-          updateProfile(context, user);
+          await updateProfile(context, user);
         }
         //solo se ha modificado la imagen
       } else if (pickedFile != null) {
@@ -184,6 +176,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
+  ///sube la foto a firebaseStorage
   updateImage() {
     firebase_storage.FirebaseStorage.instance
         .ref('img/usr/${_auth.currentUser.uid}.jpg')
@@ -195,12 +188,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
             });
   }
 
+  ///Se descarga la url de firebaseStorage
   downImage(user) async {
     String url = await firebase_storage.FirebaseStorage.instance
         .ref('img/usr/${_auth.currentUser.uid}.jpg')
         .getDownloadURL();
     user.avatar = url;
-    updateProfile(context, user);
+    await updateProfile(context, user);
   }
 
   _closeCircAndNav() {

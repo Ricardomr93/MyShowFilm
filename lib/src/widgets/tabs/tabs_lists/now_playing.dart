@@ -10,11 +10,9 @@ import 'package:myshowfilm/src/widgets/text/text_bold.dart';
 import 'package:page_indicator/page_indicator.dart';
 
 class NowPlaying extends StatefulWidget {
-  final snapshot;
   final type;
 
-  NowPlaying({Key key, @required this.snapshot, @required this.type})
-      : super(key: key);
+  NowPlaying({Key key, @required this.type}) : super(key: key);
 
   @override
   _NowPlayingState createState() => _NowPlayingState();
@@ -22,10 +20,6 @@ class NowPlaying extends StatefulWidget {
 
 class _NowPlayingState extends State<NowPlaying> {
   List films;
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +32,9 @@ class _NowPlayingState extends State<NowPlaying> {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
-          return _buildHomeWidget(snapshot.data, widget.type);
+          films = snapshot.data
+              .films; // se le asigna la lista de peliculas/series a la variable
+          return _buildHomeWidget(widget.type);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
@@ -58,9 +54,7 @@ class _NowPlayingState extends State<NowPlaying> {
     ));
   }
 
-  Widget _buildHomeWidget(data, String type) {
-    //List films = data.films;
-    films = data.films;
+  Widget _buildHomeWidget(String type) {
     if (films.length == 0) {
       return Container(
         width: MediaQuery.of(context).size.width,
