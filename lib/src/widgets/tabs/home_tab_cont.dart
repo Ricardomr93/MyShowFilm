@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
-import 'package:myshowfilm/src/data/models/serie_response.dart';
 import 'package:myshowfilm/src/pages/film_page.dart';
 import 'package:myshowfilm/src/theme/my_colors.dart';
 
@@ -33,9 +32,6 @@ class _HomeTabControllerState extends State<HomeTabController>
 
   @override
   Widget build(BuildContext context) {
-    AsyncSnapshot<SerieResponse> snapshotFilm;
-    AsyncSnapshot<SerieResponse> snapshotSerie;
-
     return Container(
       height: MediaQuery.of(context).size.height,
       child: DefaultTabController(
@@ -49,9 +45,11 @@ class _HomeTabControllerState extends State<HomeTabController>
                 child: AppBar(
                   backgroundColor: MyColors.background,
                   bottom: TabBar(
+                    labelColor: MyColors.accentColor,
+                    unselectedLabelColor: MyColors.textP,
                     controller: _tabController,
                     indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorWeight: 5,
+                    indicatorWeight: 6,
                     tabs: _myTabs,
                   ),
                   elevation: 0,
@@ -62,11 +60,6 @@ class _HomeTabControllerState extends State<HomeTabController>
                         'assets/img/logo_v.png',
                         height: 50,
                       ),
-                      /*IconButton(
-                        icon: Icon(Icons.filter_list_outlined),
-                        iconSize: 40,
-                        onPressed: () {},
-                      )*/
                     ],
                   ),
                 ),
@@ -77,11 +70,9 @@ class _HomeTabControllerState extends State<HomeTabController>
               physics: NeverScrollableScrollPhysics(),
               children: [
                 FilmPage(
-                  snapshot: snapshotFilm,
                   type: Constants.LABEL_FILMS,
                 ),
                 FilmPage(
-                  snapshot: snapshotSerie,
                   type: Constants.LABEL_SERIES,
                 )
               ],

@@ -63,6 +63,7 @@ class _FriendItemState extends State<FriendItem> {
             TextBold(
               text: user.userName,
               fontSize: 12,
+              maxLines: 1,
             )
           ],
         ),

@@ -1,11 +1,10 @@
-//clase de utilidades para la aplicación
+///clase de utilidades para la aplicación
 
-//comprueba si el email es válido
 import 'dart:convert';
-
 import 'package:myshowfilm/src/core/constants.dart';
 import 'package:crypto/crypto.dart';
 
+///comprueba si el email es válido y devuelve un bool
 bool _isMailValid(String val) {
   return RegExp(
           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
@@ -16,7 +15,7 @@ bool _isMailValid(String val) {
 isFieldEmpty(String val) => val.isEmpty ? Constants.MSJ_TXT_EMPTY : null;
 
 ///valida por campo email y devuelve un texto informativo
-validateEmail(String val) {
+String validateEmail(String val) {
   String msj;
   msj = isFieldEmpty(val);
   if (msj == null) {
@@ -28,7 +27,7 @@ validateEmail(String val) {
 }
 
 ///valida por campo email y devuelve un texto informativo
-validateName(String val) {
+String validateName(String val) {
   String msj;
   msj = isFieldEmpty(val);
   if (msj == null) {
@@ -39,6 +38,7 @@ validateName(String val) {
   return msj;
 }
 
+///valida por campo email y devuelve un texto informativo
 validatePassProfile(String val) {
   String msj;
   if (val.isNotEmpty && val.length < 6) {

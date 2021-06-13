@@ -6,8 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 CollectionReference users =
     FirebaseFirestore.instance.collection(Constants.COLL_USER);
 
-addUser(UserModel user) {
-  return users.doc(user.idUser).set(user.toJson());
+///Añade un usuario a firestore.
+Future<void> addUser(UserModel user) async {
+  users.doc(user.idUser).set(user.toJson());
 }
 
 Future<UserModel> getUserByID(String id) async {
@@ -16,9 +17,10 @@ Future<UserModel> getUserByID(String id) async {
   return u;
 }
 
-addUserAuth(FirebaseAuth auth) {
+///Añade un usuario de proveedor a firestore.
+Future<void> addUserAuth(FirebaseAuth auth) async {
   users.doc(auth.currentUser.uid).get().then((doc) => {
-        if (!doc.exists)
+        if (!doc.exists) // si no existe se añade
           {
             users.doc(auth.currentUser.uid).set({
               Constants.USER_ID: auth.currentUser.uid,
@@ -32,7 +34,10 @@ addUserAuth(FirebaseAuth auth) {
       });
 }
 
-updateUser(FirebaseAuth auth, [String pass]) {
+///Modifica un usuario ya registrado.
+///
+///La contraseña [String pass] es opcional.
+Future<void> updateUser(FirebaseAuth auth, [String pass]) async {
   if (pass == null) {
     users.doc(auth.currentUser.uid).update({
       Constants.USER_EMAIL: auth.currentUser.email,
@@ -49,7 +54,7 @@ updateUser(FirebaseAuth auth, [String pass]) {
   }
 }
 
-deleteUser(FirebaseAuth auth) {
+Future<void> deleteUser(FirebaseAuth auth) async {
   users.doc(auth.currentUser.uid).update({
     Constants.USER_DELETE: true,
   });

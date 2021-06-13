@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:myshowfilm/src/core/constants.dart';
+import 'package:myshowfilm/src/data/models/user.dart';
 import 'package:myshowfilm/src/pages/o_usr_profile.dart';
 import 'package:myshowfilm/src/widgets/image/round_image_profile.dart';
 import 'package:myshowfilm/src/widgets/progress/progress_simple.dart';
@@ -23,13 +24,14 @@ class _CommentUserState extends State<CommentUser> {
   CollectionReference users =
       FirebaseFirestore.instance.collection(Constants.COLL_USER);
   final _auth = FirebaseAuth.instance;
-
+  UserModel user;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: users.doc(widget.idUser).get(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          user = UserModel.fromJson(snapshot.data.data());
           return _comment(snapshot, context);
         }
         if (snapshot.hasError) {
@@ -59,7 +61,7 @@ class _CommentUserState extends State<CommentUser> {
                 : null,
             child: RoundImageProfile(
               size: Constants.SIZE_ICON_COMENT,
-              image: NetworkImage('${snapshot.data.data()['avatar']}'),
+              image: NetworkImage('${user.avatar}'),
             ),
           ),
           Flexible(
@@ -68,7 +70,7 @@ class _CommentUserState extends State<CommentUser> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextBold(text: '${snapshot.data.data()['userName']}'),
+                  TextBold(text: '${user.userName}'),
                   SizedBox(height: 5),
                   Text(widget.msjText),
                 ],
