@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "968149146622",
+    "project_id": "myshowfilm",
+    "storage_bucket": "myshowfilm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968149146622:android:667ec0071be6e5b9b37eaf",
+        "android_client_info": {
+          "package_name": "com.rimart.myshowfilm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968149146622-g0imecide22j5poadvrj9gda9behabof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXLtiwSygKnZvAMa-nVuwQ2zX_CWI1ojs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968149146622-g0imecide22j5poadvrj9gda9behabof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
