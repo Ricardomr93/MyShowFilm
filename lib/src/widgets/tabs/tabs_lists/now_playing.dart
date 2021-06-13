@@ -45,13 +45,19 @@ class _NowPlayingState extends State<NowPlaying> {
   }
 
   Widget _buildErrorWidget(String error) {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Ha ocurrido un error"),
-      ],
-    ));
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 50),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.error),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0),
+            child: Text("Ha ocurrido un error con el servicio"),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildHomeWidget(String type) {

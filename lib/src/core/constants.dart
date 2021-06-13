@@ -8,7 +8,7 @@ class Constants {
   static const String ERROR = 'Error';
   static const String INFO = 'Info';
   static const String EM_OR_PAS_NO = 'Email o contraseña erroneos';
-  static const String EMAIL_USE = 'Email ya está registrado';
+  static const String EMAIL_USE = 'Este email ya está en uso';
   static const String MSJ_TXT_EMPTY = 'El campo no debe estar vacío';
   static const String REQUIRE_LOGIN = 'Requiere volver a loguearse';
   static const String NAME_SPACE = 'Nombre de usuario contiene espacios';

@@ -15,9 +15,10 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
-    final _auth = FirebaseAuth.instance;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Column(
